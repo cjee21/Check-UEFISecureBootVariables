@@ -9,44 +9,9 @@ PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables.
 
 Right-click `Check UEFI KEK, DB and DBX.cmd` and *Run as administrator*.
 
-Example output (without text formatting/colour):
+Example output:
 
-```console
-Checking for Administrator permission...
-Running as administrator — continuing execution...
-
-14 February 2024
-Manufacturer: System manufacturer
-Model: System model
-BIOS: American Megatrends International, LLC., 2.0, 2.0, ALASKA - 1
-Windows version: 23H2 (Build 22631.3155)
-
-Current UEFI KEK
-√ Microsoft Corporation KEK CA 2011
-X Microsoft Corporation KEK 2K CA 2023
-
-Default UEFI KEK
-√ Microsoft Corporation KEK CA 2011
-X Microsoft Corporation KEK 2K CA 2023
-
-Current UEFI DB
-√ Microsoft Windows Production PCA 2011
-√ Microsoft Corporation UEFI CA 2011
-√ Windows UEFI CA 2023
-X Microsoft UEFI CA 2023
-
-Default UEFI DB
-√ Microsoft Windows Production PCA 2011
-√ Microsoft Corporation UEFI CA 2011
-X Windows UEFI CA 2023
-X Microsoft UEFI CA 2023
-
-Current UEFI DBX (only the latest one is needed to be secure)
-2023-03-14: SUCCESS: 220 successes detected
-2023-05-09: FAIL: 151 failures, 220 successes detected
-
-Press any key to continue . . .
-```
+![Screenshot](https://github.com/user-attachments/assets/e62bb3a0-6dd9-420d-947d-44a6e88388d1)
 
 > [!NOTE]
 > This script only checks for known Microsoft certificates in the KEK and DB and will not show any other certificates even if they are present. To view all certificates that are present, see [Viewing all the UEFI Secure Boot variables](#viewing-all-the-uefi-secure-boot-variables) below.
