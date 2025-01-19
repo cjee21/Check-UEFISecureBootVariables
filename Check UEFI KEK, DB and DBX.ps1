@@ -34,9 +34,10 @@ function Show-UEFICertIsPresent {
         [string]$CertName
     )
     if([System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI $SecureBootUEFIVar).bytes) -match $CertName) {
-	    Write-Host "$check $CertName"
+        $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx).bytes) -match $CertName
+        Write-Host "$check $CertName (revoked: $revoked)"
     } else {
-	    Write-Host "$cross $CertName"
+        Write-Host "$cross $CertName"
     }
 }
 
@@ -69,3 +70,5 @@ Write-Host "2023-03-14: " -NoNewline
 & $PSScriptRoot'\Check-Dbx-Simplified.ps1' $PSScriptRoot'\x64_DBXUpdate_03142023.bin'
 Write-Host "2023-05-09: " -NoNewline
 & $PSScriptRoot'\Check-Dbx-Simplified.ps1' $PSScriptRoot'\x64_DBXUpdate_05092023.bin'
+Write-Host "2025-01-14: " -NoNewline
+& $PSScriptRoot'\Check-Dbx-Simplified.ps1' $PSScriptRoot'\x64_DBXUpdate_01142025.bin'
