@@ -66,9 +66,11 @@ Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName 'Microsoft UEFI CA
 
 Write-Host ""
 Write-Host $bold'Current UEFI DBX (only the latest one is needed to be secure)'$reset
-Write-Host "2023-03-14: " -NoNewline
+Write-Host "2023-03-14          : " -NoNewline
 & $PSScriptRoot'\Check-Dbx-Simplified.ps1' $PSScriptRoot'\x64_DBXUpdate_03142023.bin'
-Write-Host "2023-05-09: " -NoNewline
+Write-Host "2023-05-09          : " -NoNewline
 & $PSScriptRoot'\Check-Dbx-Simplified.ps1' $PSScriptRoot'\x64_DBXUpdate_05092023.bin'
-Write-Host "2025-01-14: " -NoNewline
+Write-Host "2025-01-14 (v1.3.1) : " -NoNewline
 & $PSScriptRoot'\Check-Dbx-Simplified.ps1' $PSScriptRoot'\x64_DBXUpdate_01142025.bin'
+Write-Host "2025-06-11 (v1.5.0) : " -NoNewline
+& $PSScriptRoot'\Check-Dbx-Simplified.ps1' $PSScriptRoot'\x64_DBXUpdate_06112025.bin'

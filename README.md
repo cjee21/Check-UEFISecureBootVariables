@@ -3,7 +3,7 @@
 PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables.
 
 > [!IMPORTANT]
-> The DBX checking in this script is made for x64 systems. If you are using an x86, arm or arm64 system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [uefi.org/revocationlistfile](https://uefi.org/revocationlistfile).
+> The DBX checking in this script is made for x64 systems. If you are using an x86, arm or arm64 system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [github.com/microsoft/secureboot_objects](https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX).
 
 ## Checking the KEK, DB and DBX variables
 
@@ -11,7 +11,7 @@ Right-click `Check UEFI KEK, DB and DBX.cmd` and *Run as administrator*.
 
 Example output:
 
-![Screenshot](https://github.com/user-attachments/assets/fb7e2d12-f9bf-48a5-b64b-b84c8eca6c3a)
+![Screenshot](https://github.com/user-attachments/assets/9035677f-faea-4a73-8f3c-fd462544841a)
 
 > [!NOTE]
 > This script only checks for known Microsoft certificates in the KEK and DB and will not show any other certificates even if they are present. To view all certificates that are present, see [Viewing all the UEFI Secure Boot variables](#viewing-all-the-uefi-secure-boot-variables) below.
