@@ -3,7 +3,7 @@
 PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables.
 
 > [!IMPORTANT]
-> The DBX checking in this script is made for x64 systems. If you are using an x86, arm or arm64 system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [github.com/microsoft/secureboot_objects](https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX).
+> The DBX checking in this script is made for x64 and arm64 systems. If you are using an x86 or arm system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [github.com/microsoft/secureboot_objects](https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX).
 
 ## Checking the KEK, DB and DBX variables
 
@@ -44,5 +44,6 @@ To display all the UEFI Secure Boot variables in readable format, right-click `S
 - [Only the latest DBX update is needed (1)](https://gist.github.com/out0xb2/f8e0bae94214889a89ac67fceb37f8c0?permalink_comment_id=4661159#gistcomment-4661159)
 - [Only the latest DBX update is needed (2)](https://gist.github.com/out0xb2/f8e0bae94214889a89ac67fceb37f8c0?permalink_comment_id=4661596#gistcomment-4661596)
 - [UEFI Revocation List File](https://uefi.org/revocationlistfile)
+- [Microsoft - Secure Boot Objects](https://github.com/microsoft/secureboot_objects)
 - [Evolving the Secure Boot Ecosystem](https://uefi.org/sites/default/files/resources/Evolving%20the%20Secure%20Boot%20Ecosystem_Flick%20and%20Sutherland.pdf)
 - [Update the dbx database to add back the same dbx entries as the cumulative update applied](https://support.hp.com/my-en/document/ish_9642671-9641393-16#GUID-49C8C19D-32CC-4FF9-A635-4A87C0BB0046)

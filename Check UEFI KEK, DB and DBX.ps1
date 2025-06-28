@@ -7,19 +7,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Write-Warning "Insufficient permissions to run this script. Please run as administrator."
     Break
 } else {
-    Write-Host "Running as administrator - continuing execution..."
-}
-
-# Check for Secure Boot status
-Write-Host "Checking Secure Boot status..."
-$SecureBootStatus = Confirm-SecureBootUEFI
-if ($SecureBootStatus -eq $true) {
-    Write-Host "Secure Boot status: Enabled - continuing execution...`n"
-} elseif ($SecureBootStatus -eq $false) {
-    Write-Warning "Secure Boot status: Disable - continuing execution...`n"
-} else {
-    Write-Warning "Secure Boot status: Not supported. The computer does not support Secure Boot or is a BIOS (non-UEFI) computer."
-    Break
+    Write-Host "Running as administrator - continuing execution...`n"
 }
 
 # Print computer info
@@ -31,7 +19,27 @@ $bios = Get-WmiObject Win32_BIOS
 $biosinfo = $bios.Manufacturer , $bios.Name , $bios.SMBIOSBIOSVersion , $bios.Version -join ", "
 "BIOS: " + $biosinfo
 $v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
-"Windows version: {0} (Build {1}.{2}) `n" -f $v.DisplayVersion, $v.CurrentBuildNumber, $v.UBR
+"Windows version: {0} (Build {1}.{2})`n" -f $v.DisplayVersion, $v.CurrentBuildNumber, $v.UBR
+
+# Check for Secure Boot status
+Write-Host "Secure Boot status: " -NoNewLine
+try {
+    $status = Confirm-SecureBootUEFI -ErrorAction Stop
+    if ($status -eq $True) {
+        Write-Host "$([char]0x1b)[92mEnabled$([char]0x1b)[0m`n"
+    }
+    elseif ($status -eq $False) {
+        Write-Host "$([char]0x1b)[91mDisabled$([char]0x1b)[0m`n"
+    }
+}
+catch [System.PlatformNotSupportedException] {
+    Write-Host "$([char]0x1b)[91mNot available$([char]0x1b)[0m`n"
+    Break
+}
+catch {
+    Write-Host "$([char]0x1b)[91mUnknown$([char]0x1b)[0m`n"
+    Break
+}
 
 $bold = "$([char]0x1b)[1m"
 $reset = "$([char]0x1b)[0m"
@@ -131,5 +139,5 @@ if ($IsArm) {
     Show-CheckDBX "2023-03-14         " "$PSScriptRoot\x64_DBXUpdate_03142023.bin"
     Show-CheckDBX "2023-05-09         " "$PSScriptRoot\x64_DBXUpdate_05092023.bin"
     Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\x64_DBXUpdate_01142025.bin"
-    Show-CheckDBX "2025-06-11 (v1.5.0)" "$PSScriptRoot\x64_DBXUpdate_06112025.bin"
+    Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\x64_DBXUpdate_06112025.bin"
 }
