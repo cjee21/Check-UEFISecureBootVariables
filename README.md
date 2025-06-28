@@ -11,7 +11,7 @@ Right-click `Check UEFI KEK, DB and DBX.cmd` and *Run as administrator*.
 
 Example output:
 
-![Screenshot](https://github.com/user-attachments/assets/9035677f-faea-4a73-8f3c-fd462544841a)
+![Screenshot](https://github.com/user-attachments/assets/efa6fcfb-c505-43aa-8c19-c30d10bc6f60)
 
 > [!NOTE]
 > This script only checks for known Microsoft certificates in the KEK and DB and will not show any other certificates even if they are present. To view all certificates that are present, see [Viewing all the UEFI Secure Boot variables](#viewing-all-the-uefi-secure-boot-variables) below.
