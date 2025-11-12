@@ -43,6 +43,7 @@ The following are the possible bit values that are currently known.
 | 0x0040 | Apply the Windows UEFI CA 2023 to the DB. |
 | 0x0080 | Apply the Windows Production PCA 2011 to the DBX. |
 | 0x0100 | Apply the boot manager, signed by the Windows UEFI CA 2023, to the boot partition. |
+| 0x0200 | Apply Secure Version Number (SVN) update to the firmware. |
 | 0x0800 | Apply the Microsoft Option ROM UEFI CA 2023 to the DB. |
 | 0x1000 | Apply the Microsoft UEFI CA 2023 to the DB. |
 | 0x4000 | This bit modifies the behavior of the 0x0800 and 0x1000 bits to only apply the Microsoft UEFI CA 2023 and Microsoft Option ROM UEFI CA 2023 if the DB already has the Microsoft Corporation UEFI CA 2011. |
@@ -77,4 +78,5 @@ To display all the UEFI Secure Boot variables in readable format, right-click `S
 - [Microsoft - Secure Boot Objects](https://github.com/microsoft/secureboot_objects)
 - [Evolving the Secure Boot Ecosystem](https://uefi.org/sites/default/files/resources/Evolving%20the%20Secure%20Boot%20Ecosystem_Flick%20and%20Sutherland.pdf)
 - [Update the dbx database to add back the same dbx entries as the cumulative update applied](https://support.hp.com/my-en/document/ish_9642671-9641393-16#GUID-49C8C19D-32CC-4FF9-A635-4A87C0BB0046)
+
 
