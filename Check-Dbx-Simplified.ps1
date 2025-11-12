@@ -9,7 +9,7 @@
  }
  $patchfile = (gci -literalpath $patchfile).FullName
 
- Import-Module -Force .\Get-UEFIDatabaseSignatures.ps1
+ Import-Module -Force "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1"
 
  $DbxRaw = Get-SecureBootUEFI dbx
  $DbxFound = $DbxRaw | Get-UEFIDatabaseSignatures
