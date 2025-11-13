@@ -59,6 +59,34 @@ try {
     Write-Warning "Unable to determine CPU architecture, proceeding with defaults (x64).`n"
 }
 
+Import-Module "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1"
+
+Write-Host $bold'Current UEFI PK'$reset
+try {
+    $pk = Get-SecureBootUEFI -Name pk | Get-UEFIDatabaseSignatures
+    $pk.SignatureList.SignatureData.Subject | ForEach-Object {
+        $pk_name = [regex]::Match($_, 'CN=([^,]+)').Groups[1].Value
+        Write-Host "$check $pk_name"
+    }
+} catch {
+    Write-Warning "Failed to query UEFI variable PK"
+}
+
+Write-Host ""
+Write-Host $bold'Default UEFI PK'$reset
+if ($IsArm) {
+    Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
+}
+try {
+    $pk_default = Get-SecureBootUEFI -Name PKDefault | Get-UEFIDatabaseSignatures
+    $pk_default.SignatureList.SignatureData.Subject | ForEach-Object {
+        $pk_name = [regex]::Match($_, 'CN=([^,]+)').Groups[1].Value
+        Write-Host "$check $pk_name"
+    }
+} catch {
+    Write-Warning "Failed to query UEFI variable PKDefault"
+}
+
 function Show-UEFICertIsPresent {
     param (
         [Parameter(Mandatory)]
@@ -83,36 +111,81 @@ function Show-UEFICertIsPresent {
     }
 }
 
+function Show-UEFICertOthers {
+    param (
+        [Parameter(Mandatory)]
+        [string]$SecureBootUEFIVar,
+        [Parameter(Mandatory)]
+        [Array]$KnownCerts
+    )
+    try {
+        $certs = Get-SecureBootUEFI -Name $SecureBootUEFIVar | Get-UEFIDatabaseSignatures
+        $cert_names = @()
+        $certs.SignatureList.SignatureData.Subject | ForEach-Object {
+            $cert_names += [regex]::Match($_, 'CN=([^,]+)').Groups[1].Value
+        }
+        $cert_names | ForEach-Object {
+            if ($KnownCerts -notcontains $_) {
+                $revoked = $false
+                try {
+                    $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx -ErrorAction Stop).bytes) -match $_
+                } catch {
+                    $revoked = $false
+                }
+                Write-Host "$check $_ (revoked: $revoked)"
+            }
+        }
+    } catch {
+        Write-Warning "Failed to query UEFI variable '$SecureBootUEFIVar'"
+    }
+}
+
+$KEKCerts = @(
+    'Microsoft Corporation KEK CA 2011'
+    'Microsoft Corporation KEK 2K CA 2023'
+)
+
+Write-Host ""
 Write-Host $bold'Current UEFI KEK'$reset
-Show-UEFICertIsPresent -SecureBootUEFIVar KEK -CertName 'Microsoft Corporation KEK CA 2011'
-Show-UEFICertIsPresent -SecureBootUEFIVar KEK -CertName 'Microsoft Corporation KEK 2K CA 2023'
+$KEKCerts | ForEach-Object {
+    Show-UEFICertIsPresent -SecureBootUEFIVar kek -CertName $_
+}
+Show-UEFICertOthers -SecureBootUEFIVar kek -KnownCerts $KEKCerts
 
 Write-Host ""
 Write-Host $bold'Default UEFI KEK'$reset
 if ($IsArm) {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
-Show-UEFICertIsPresent -SecureBootUEFIVar KEKDefault -CertName 'Microsoft Corporation KEK CA 2011'
-Show-UEFICertIsPresent -SecureBootUEFIVar KEKDefault -CertName 'Microsoft Corporation KEK 2K CA 2023'
+$KEKCerts | ForEach-Object {
+    Show-UEFICertIsPresent -SecureBootUEFIVar KEKDefault -CertName $_
+}
+Show-UEFICertOthers -SecureBootUEFIVar KEKDefault -KnownCerts $KEKCerts
+
+$DBCerts = @(
+    'Microsoft Windows Production PCA 2011'
+    'Microsoft Corporation UEFI CA 2011'
+    'Windows UEFI CA 2023'
+    'Microsoft UEFI CA 2023'
+    'Microsoft Option ROM UEFI CA 2023'
+)
 
 Write-Host ""
 Write-Host $bold'Current UEFI DB'$reset
-Show-UEFICertIsPresent -SecureBootUEFIVar db -CertName 'Microsoft Windows Production PCA 2011'
-Show-UEFICertIsPresent -SecureBootUEFIVar db -CertName 'Microsoft Corporation UEFI CA 2011'
-Show-UEFICertIsPresent -SecureBootUEFIVar db -CertName 'Windows UEFI CA 2023'
-Show-UEFICertIsPresent -SecureBootUEFIVar db -CertName 'Microsoft UEFI CA 2023'
-Show-UEFICertIsPresent -SecureBootUEFIVar db -CertName 'Microsoft Option ROM UEFI CA 2023'
+$DBCerts  | ForEach-Object {
+    Show-UEFICertIsPresent -SecureBootUEFIVar db -CertName $_
+}
+Show-UEFICertOthers -SecureBootUEFIVar db -KnownCerts $DBCerts
 
 Write-Host ""
 Write-Host $bold'Default UEFI DB'$reset
 if ($IsArm) {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
-Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName 'Microsoft Windows Production PCA 2011'
-Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName 'Microsoft Corporation UEFI CA 2011'
-Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName 'Windows UEFI CA 2023'
-Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName 'Microsoft UEFI CA 2023'
-Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName 'Microsoft Option ROM UEFI CA 2023'
+$DBCerts  | ForEach-Object {
+    Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName $_
+}
+Show-UEFICertOthers -SecureBootUEFIVar DBDefault -KnownCerts $DBCerts
 
 Write-Host ""
 Write-Host $bold'Current UEFI DBX (only the latest one is needed to be secure)'$reset

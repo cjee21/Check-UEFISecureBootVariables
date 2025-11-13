@@ -39,7 +39,7 @@ Outputs an array of custom powershell objects describing a UEFI Signature Databa
     [CmdletBinding()]
     param (
         [Parameter(Mandatory, ValueFromPipeline, ParameterSetName = 'UEFIVariable')]
-        [ValidateScript({ ($_.GetType().Fullname -eq 'Microsoft.SecureBoot.Commands.UEFIEnvironmentVariable') -and ($_.Name -in "kek","pk","db","dbx") })]
+        [ValidateScript({ ($_.GetType().Fullname -eq 'Microsoft.SecureBoot.Commands.UEFIEnvironmentVariable') -and ($_.Name -in "kek","pk","db","dbx","kekdefault","pkdefault","dbdefault","dbxdefault") })]
         $Variable,
 
         [Parameter(Mandatory, ParameterSetName = 'ByteArray')]
