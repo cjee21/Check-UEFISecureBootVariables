@@ -52,6 +52,25 @@ The following are the possible bit values that are currently known.
 
 Double-click `Show Secure Boot update events.cmd` to display all the Secure Boot DB and DBX variable update events. Refer to [KB5016061](https://support.microsoft.com/en-gb/topic/kb5016061-secure-boot-db-and-dbx-variable-update-events-37e47cf8-608b-4a87-8175-bdead630eb69) for details on interpreting the events.
 
+## Viewing Windows Secure Boot state
+
+To view the current Windows Secure Boot state, right-click `Check Windows state.cmd` and *Run as administrator*. The output will be similar to the following:
+
+```
+Checking for Administrator permission...
+Running as administrator - continuing execution...
+
+Windows version: 25H2 (Build 26200.7171)
+
+UEFISecureBootEnabled : 1
+AvailableUpdates      : 0x0000
+UEFICA2023Status      : NotStarted
+
+bootmgfw signature CA : Microsoft Windows Production PCA 2011
+
+Press any key to continue . . .
+```
+
 ## Viewing all the UEFI Secure Boot variables
 
 To display all the UEFI Secure Boot variables in readable format, right-click `Show UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*. All certificates in the PK, KEK and DB variables as well as all hashes in the DBX variable will be displayed.
