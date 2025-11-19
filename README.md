@@ -62,11 +62,12 @@ Running as administrator - continuing execution...
 
 Windows version: 25H2 (Build 26200.7171)
 
-UEFISecureBootEnabled : 1
-AvailableUpdates      : 0x0000
-UEFICA2023Status      : NotStarted
+UEFISecureBootEnabled    : 1
+AvailableUpdates         : 0x0000
+UEFICA2023Status         : NotStarted
+WindowsUEFICA2023Capable : Windows UEFI CA 2023 cert is in DB, system is starting from 2023 signed boot manager
 
-bootmgfw signature CA : Microsoft Windows Production PCA 2011
+bootmgfw signature CA : Windows UEFI CA 2023
 
 Press any key to continue . . .
 ```

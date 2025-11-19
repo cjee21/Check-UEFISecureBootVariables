@@ -14,9 +14,15 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 $v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
 "Windows version: {0} (Build {1}.{2})`n" -f $v.DisplayVersion, $v.CurrentBuildNumber, $v.UBR
 
-Write-Host "UEFISecureBootEnabled :" (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State).UEFISecureBootEnabled
-"AvailableUpdates      : 0x{0:X4}" -f (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot).AvailableUpdates
-Write-Host "UEFICA2023Status      :" (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing).UEFICA2023Status
+Write-Host "UEFISecureBootEnabled    :" (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State).UEFISecureBootEnabled
+"AvailableUpdates         : 0x{0:X4}" -f (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot).AvailableUpdates
+Write-Host "UEFICA2023Status         :" (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing).UEFICA2023Status
+Write-Host "WindowsUEFICA2023Capable : " -NoNewline
+switch ((Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing).WindowsUEFICA2023Capable) {
+    1 { "Windows UEFI CA 2023 cert is in DB" }
+    2 { "Windows UEFI CA 2023 cert is in DB, system is starting from 2023 signed boot manager" }
+    Default { "Windows UEFI CA 2023 cert is not in DB" }
+}
 
 Write-Host ""
 
