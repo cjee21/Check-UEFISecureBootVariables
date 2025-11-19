@@ -21,7 +21,13 @@ Write-Host "UEFICA2023Status      :" (Get-ItemProperty -Path HKLM:\SYSTEM\Curren
 Write-Host ""
 
 mountvol s: /s
-$bootmgfw_sigCA = (Get-AuthenticodeSignature -FilePath S:\EFI\Microsoft\Boot\bootmgfw.efi).SignerCertificate.Issuer
+
+# $bootmgfw_sigCA = (Get-AuthenticodeSignature -FilePath S:\EFI\Microsoft\Boot\bootmgfw.efi).SignerCertificate.Issuer
+# Workaround to get actual signature of bootmgfw.efi as it is also catalogue signed and Get-AuthenticodeSignature returns the catalogue signature
+# https://github.com/PowerShell/PowerShell/issues/23820
+$bootmgfw_cert = [System.Security.Cryptography.X509Certificates.X509Certificate]::CreateFromSignedFile('S:\EFI\Microsoft\Boot\bootmgfw.efi')
+$bootmgfw_sigCA = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new($bootmgfw_cert).Issuer
+
 mountvol s: /d
 
 $bootmgfw_sigCA_name = [regex]::Match($bootmgfw_sigCA, 'CN=([^,]+)').Groups[1].Value
