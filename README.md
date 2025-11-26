@@ -47,10 +47,12 @@ The following are the possible bit values that are currently known.
 | - | - |
 | 0x0002 | Apply DBX updates. |
 | 0x0004 | Apply the Microsoft Corporation KEK 2K CA 2023 to the KEK. |
+| 0x0020 | Apply Microsoft-signed revocation policy (SkuSiPolicy.p7b) |
 | 0x0040 | Apply the Windows UEFI CA 2023 to the DB. |
 | 0x0080 | Apply the Windows Production PCA 2011 to the DBX. |
 | 0x0100 | Apply the boot manager, signed by the Windows UEFI CA 2023, to the boot partition. |
 | 0x0200 | Apply Secure Version Number (SVN) update to the firmware. |
+| 0x0400 | Apply Secure Boot Advanced Targeting ([SBAT](https://github.com/rhboot/shim/blob/main/SBAT.md)) update to the firmware. |
 | 0x0800 | Apply the Microsoft Option ROM UEFI CA 2023 to the DB. |
 | 0x1000 | Apply the Microsoft UEFI CA 2023 to the DB. |
 | 0x4000 | This bit modifies the behavior of the 0x0800 and 0x1000 bits to only apply the Microsoft UEFI CA 2023 and Microsoft Option ROM UEFI CA 2023 if the DB already has the Microsoft Corporation UEFI CA 2011. |
@@ -97,6 +99,8 @@ To display all the UEFI Secure Boot variables in readable format, right-click `S
 - [Windows Secure Boot certificate expiration and CA updates](https://support.microsoft.com/en-us/topic/windows-secure-boot-certificate-expiration-and-ca-updates-7ff40d33-95dc-4c3c-8725-a9b95457578e)
 - [Secure Boot Certificate updates: Guidance for IT professionals and organizations](https://support.microsoft.com/en-us/topic/secure-boot-certificate-updates-guidance-for-it-professionals-and-organizations-e2b43f9f-b424-42df-bc6a-8476db65ab2f)
 - [Registry key updates for Secure Boot: Windows devices with IT-managed updates](https://support.microsoft.com/en-us/topic/registry-key-updates-for-secure-boot-windows-devices-with-it-managed-updates-a7be69c9-4634-42e1-9ca1-df06f43f360d)
+- [Guidance for blocking rollback of Virtualization-based Security (VBS) related security updates](https://support.microsoft.com/en-us/topic/guidance-for-blocking-rollback-of-virtualization-based-security-vbs-related-security-updates-b2e7ebf4-f64d-4884-a390-38d63171b8d3)
+- [Windows will apply a Secure Boot Advanced Targeting (SBAT) update to block vulnerable Linux boot loaders](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-40547)
 - [Check-Dbx.ps1](https://gist.github.com/out0xb2/f8e0bae94214889a89ac67fceb37f8c0#file-check-dbx-ps1)
 - [Get-UEFIDatabaseSignatures.ps1](https://gist.github.com/out0xb2/f8e0bae94214889a89ac67fceb37f8c0?permalink_comment_id=4572467#gistcomment-4572467)
 - [Only the latest DBX update is needed (1)](https://gist.github.com/out0xb2/f8e0bae94214889a89ac67fceb37f8c0?permalink_comment_id=4661159#gistcomment-4661159)
