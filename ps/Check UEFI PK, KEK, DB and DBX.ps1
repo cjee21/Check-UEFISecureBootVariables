@@ -1,5 +1,6 @@
-# Created by github.com/cjee21 
+# Created by github.com/cjee21
 # License: MIT
+# Repository: https://github.com/cjee21/Check-UEFISecureBootVariables
 
 # Check for admin
 Write-Host "Checking for Administrator permission..."
@@ -8,6 +9,14 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Break
 } else {
     Write-Host "Running as administrator - continuing execution...`n"
+}
+
+# Check files
+if (-not ((Test-Path -Path "$PSScriptRoot\Check-Dbx-Simplified.ps1" -PathType Leaf) -and `
+    (Test-Path -Path "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1" -PathType Leaf) -and `
+    (Test-Path -Path "$PSScriptRoot\..\dbx_bin\*.bin"))) {
+    Write-Warning "Some required files are missing. Please re-obtain a copy from https://github.com/cjee21/Check-UEFISecureBootVariables."
+    Break
 }
 
 # Print computer info
@@ -202,7 +211,7 @@ function Show-CheckDBX {
         & "$PSScriptRoot\Check-Dbx-Simplified.ps1" "$File"
         $ErrorActionPreference = $oldPreference
     } catch {
-        Write-Host "FAIL: Check DBX failed" -ForegroundColor Red
+        Write-Host "ERROR: An exception has occurred while checking DBX" -ForegroundColor Red
     }
 }
 
