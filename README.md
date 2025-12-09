@@ -83,7 +83,8 @@ AvailableUpdates         : 0x0000
 UEFICA2023Status         : NotStarted
 WindowsUEFICA2023Capable : Windows UEFI CA 2023 cert is in DB, system is starting from 2023 signed boot manager
 
-bootmgfw signature CA : Windows UEFI CA 2023
+bootmgfw signature CA    : Windows UEFI CA 2023
+bootmgfw SVN             : 7.0
 
 Press any key to continue . . .
 ```

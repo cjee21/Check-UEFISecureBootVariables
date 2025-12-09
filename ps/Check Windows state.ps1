@@ -26,6 +26,8 @@ switch ((Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoo
 
 Write-Host ""
 
+Import-Module "$PSScriptRoot\Get-BootMgrSecurityVersion.ps1"
+
 mountvol s: /s
 
 # $bootmgfw_sigCA = (Get-AuthenticodeSignature -FilePath S:\EFI\Microsoft\Boot\bootmgfw.efi).SignerCertificate.Issuer
@@ -33,8 +35,16 @@ mountvol s: /s
 # https://github.com/PowerShell/PowerShell/issues/23820
 $bootmgfw_cert = [System.Security.Cryptography.X509Certificates.X509Certificate]::CreateFromSignedFile('S:\EFI\Microsoft\Boot\bootmgfw.efi')
 $bootmgfw_sigCA = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new($bootmgfw_cert).Issuer
+$SVN_bytes = Get-BootMgrSecurityVersionBytes -Path S:\EFI\Microsoft\Boot\bootmgfw.efi
 
 mountvol s: /d
 
 $bootmgfw_sigCA_name = [regex]::Match($bootmgfw_sigCA, 'CN=([^,]+)').Groups[1].Value
-Write-Host "bootmgfw signature CA : $bootmgfw_sigCA_name"
+Write-Host "bootmgfw signature CA    : $bootmgfw_sigCA_name"
+
+$MinorBytes = $SVN_bytes[0..1]
+$svn_ver_minor = [System.BitConverter]::ToInt16($MinorBytes, 0)
+$MajorBytes = $SVN_bytes[2..3]
+$svn_ver_major = [System.BitConverter]::ToInt16($MajorBytes, 0)
+$bootmgfw_svn_ver = [version]::new($svn_ver_major, $svn_ver_minor)
+Write-Host "bootmgfw SVN             : $bootmgfw_svn_ver"
