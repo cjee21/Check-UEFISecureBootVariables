@@ -228,14 +228,15 @@ if ($IsArm) {
 
 $latest_svn = "10_14_25"
 $svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$latest_svn.json" -Raw | ConvertFrom-Json
-$svn_bootmgr_latest = [double]($svn_json.svns | Where-Object { $_.guid -eq "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID" }).version
-$svn_cdboot_latest = [double]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
-$svn_wdsmgfw_latest = [double]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version
+$svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID" }).version
+$svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
+$svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version
 $dbx_bytes = (Get-SecureBootUEFI dbx).Bytes
 $dbx_hex = ($dbx_bytes | ForEach-Object {'{0:x2}' -f $_}) -join ''
 
 function Get-VersionFromHexString {
-    # SVN_DATA value. Byte[0] is the UINT8 version of the SVN_DATA structure.
+    # SVN_DATA value:
+    # Byte[0] is the UINT8 version of the SVN_DATA structure.
     # Bytes[1...16] are the GUID of the application being revoked. Little endian.
     # Bytes[17...18] are the Minor SVN number. Litte endian UINT16.
     # Bytes[19...20] are the Major SVN number. Litte endian UINT16.
@@ -253,8 +254,7 @@ function Get-VersionFromHexString {
     $svn_ver_minor = [System.BitConverter]::ToInt16($MinorBytes, 0)
     $MajorBytes = $byteArray[19..20]
     $svn_ver_major = [System.BitConverter]::ToInt16($MajorBytes, 0)
-    $svn_ver = [double]("$svn_ver_major" + "." + "$svn_ver_minor")
-    return $svn_ver
+    return [version]::new($svn_ver_major, $svn_ver_minor)
 }
 
 Write-Host "Windows Bootmgr SVN : " -NoNewline
@@ -266,9 +266,9 @@ if ($svn_bootmgr.Count) {
     }
     $svn_bootmgr_ver = ($svn_bootmgr_vers | Measure-Object -Maximum).Maximum
     if ($svn_bootmgr_ver -ge $svn_bootmgr_latest) {
-        Write-Host ("{0:F1}" -f $svn_bootmgr_ver) -ForegroundColor Green
+        Write-Host $svn_bootmgr_ver -ForegroundColor Green
     } else {
-        Write-Host ("{0:F1}" -f $svn_bootmgr_ver) -ForegroundColor Red
+        Write-Host $svn_bootmgr_ver -ForegroundColor Red
     }
 } else {
     Write-Host 'None' -ForegroundColor Red
@@ -281,9 +281,9 @@ if ($svn_cdboot.Count) {
     }
     $svn_cdboot_ver = ($svn_cdboot_vers | Measure-Object -Maximum).Maximum
     if ($svn_cdboot_ver -ge $svn_cdboot_latest) {
-        Write-Host ("{0:F1}" -f $svn_cdboot_ver) -ForegroundColor Green
+        Write-Host $svn_cdboot_ver -ForegroundColor Green
     } else {
-        Write-Host ("{0:F1}" -f $svn_cdboot_ver) -ForegroundColor Red
+        Write-Host $svn_cdboot_ver -ForegroundColor Red
     }
 } else {
     Write-Host 'None' -ForegroundColor Red
@@ -296,9 +296,9 @@ if ($svn_wdsmgfw.Count) {
     }
     $svn_wdsmgfw_ver = ($svn_wdsmgfw_vers | Measure-Object -Maximum).Maximum
     if ($svn_wdsmgfw_ver -ge $svn_wdsmgfw_latest) {
-        Write-Host ("{0:F1}" -f $svn_wdsmgfw_ver) -ForegroundColor Green
+        Write-Host $svn_wdsmgfw_ver -ForegroundColor Green
     } else {
-        Write-Host ("{0:F1}" -f $svn_wdsmgfw_ver) -ForegroundColor Red
+        Write-Host $svn_wdsmgfw_ver -ForegroundColor Red
     }
 } else {
     Write-Host 'None' -ForegroundColor Red
