@@ -21,21 +21,25 @@ Right-click `Check UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*.
 
 Example output:
 
-![Screenshot](https://github.com/user-attachments/assets/4f8082e2-d337-4598-8583-892bb0d9d958)
+<img width="979" height="771" alt="Screenshot" src="https://github.com/user-attachments/assets/0b5ce4e9-42d7-4f10-8cbf-19f0e664b9c5" />
 
 ## Re-applying the Secure Boot DBX updates
 
-If the Secure Boot variables were accidentally reset to default in the UEFI/BIOS settings for example, it is possible to make Windows re-apply the DBX updates that Windows had previously applied. Double-click `Apply DBX update (restart required).reg` and add the changes to the registry then restart Windows and wait for awhile. The DBX updates should be applied after that.
+If the Secure Boot variables were accidentally reset to default in the UEFI/BIOS settings for example, it is possible to make Windows re-apply the DBX updates that Windows had previously applied. Right-click `Apply DBX update.cmd` and *Run as administrator*. Wait for awhile. The DBX updates should be applied after that.
 
 > [!NOTE]
-> Using the `.reg` file will reset all other changes made to the registry bits. See [Registry bits for applying Secure Boot updates](#registry-bits-for-applying-secure-boot-updates) below.
+> Using the `Apply***.cmd` files will reset all other changes made to the registry bits. See [Registry bits for applying Secure Boot updates](#registry-bits-for-applying-secure-boot-updates) below.
 
-## Deploying Windows UEFI CA 2023 certificate to Secure Boot Allowed Signature Database (DB)
+## Deploying Windows UEFI CA 2023 and Microsoft Corporation KEK 2K CA 2023 certificates 
 
-Windows February 13, 2024 cumulative update includes the ability to apply the Windows UEFI CA 2023 certificate to UEFI Secure Boot Allowed Signature Database (DB). To do so, double-click `Apply DB update (restart required).reg` and add the changes to the registry then restart Windows and wait for awhile. The DB updates should be applied after that. For more information, refer to [KB5036210](https://support.microsoft.com/en-gb/topic/kb5036210-deploying-windows-uefi-ca-2023-certificate-to-secure-boot-allowed-signature-database-db-a68a3eae-292b-4224-9490-299e303b450b) and [Evolving the Secure Boot Ecosystem](https://uefi.org/sites/default/files/resources/Evolving%20the%20Secure%20Boot%20Ecosystem_Flick%20and%20Sutherland.pdf).
+Refer to **Re-applying the Secure Boot DBX updates** above but use `Apply KEK & DB update.cmd` instead.
 
-> [!NOTE]
-> Using the `.reg` file will reset all other changes made to the registry bits. See [Registry bits for applying Secure Boot updates](#registry-bits-for-applying-secure-boot-updates) below.
+## Revoking Windows Production PCA 2011 as well as updating the DBX, SVN and SBAT
+
+Refer to **Re-applying the Secure Boot DBX updates** above but use `Apply revocations.cmd` instead.
+
+> [!IMPORTANT]
+> Make sure you know what you are doing before attempting this. Depending on the current state of your system, it may cause your system to be unbootable.
 
 ## Registry bits for applying Secure Boot updates
 

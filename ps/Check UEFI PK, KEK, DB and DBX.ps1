@@ -14,7 +14,8 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 # Check files
 if (-not ((Test-Path -Path "$PSScriptRoot\Check-Dbx-Simplified.ps1" -PathType Leaf) -and `
     (Test-Path -Path "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1" -PathType Leaf) -and `
-    (Test-Path -Path "$PSScriptRoot\..\dbx_bin\*.bin"))) {
+    (Test-Path -Path "$PSScriptRoot\..\dbx_bin\*.bin") -and `
+    (Test-Path -Path "$PSScriptRoot\..\dbx_info\*.json"))) {
     Write-Warning "Some required files are missing. Please re-obtain a copy from https://github.com/cjee21/Check-UEFISecureBootVariables."
     Break
 }
@@ -197,7 +198,7 @@ $DBCerts  | ForEach-Object {
 Show-UEFICertOthers -SecureBootUEFIVar DBDefault -KnownCerts $DBCerts
 
 Write-Host ""
-Write-Host $bold'Current UEFI DBX (only the latest one is needed to be secure)'$reset
+Write-Host $bold'Current UEFI DBX'$reset
 
 function Show-CheckDBX {
     param(
@@ -221,6 +222,84 @@ if ($IsArm) {
   # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
   # Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-01-14.bin"
-    Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
+  # Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
     Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
+}
+
+$latest_svn = "10_14_25"
+$svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$latest_svn.json" -Raw | ConvertFrom-Json
+$svn_bootmgr_latest = [double]($svn_json.svns | Where-Object { $_.guid -eq "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID" }).version
+$svn_cdboot_latest = [double]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
+$svn_wdsmgfw_latest = [double]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version
+$dbx_bytes = (Get-SecureBootUEFI dbx).Bytes
+$dbx_hex = ($dbx_bytes | ForEach-Object {'{0:x2}' -f $_}) -join ''
+
+function Get-VersionFromHexString {
+    # SVN_DATA value. Byte[0] is the UINT8 version of the SVN_DATA structure.
+    # Bytes[1...16] are the GUID of the application being revoked. Little endian.
+    # Bytes[17...18] are the Minor SVN number. Litte endian UINT16.
+    # Bytes[19...20] are the Major SVN number. Litte endian UINT16.
+    # Bytes[21...31] are 11 zero bytes padding.
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$HexString
+    )
+    $byteArray = -split ($HexString -replace '..', '$& ') | ForEach-Object { 
+        [System.Convert]::ToByte($_, 16) 
+    }
+    $MinorBytes = $byteArray[17..18]
+    $svn_ver_minor = [System.BitConverter]::ToInt16($MinorBytes, 0)
+    $MajorBytes = $byteArray[19..20]
+    $svn_ver_major = [System.BitConverter]::ToInt16($MajorBytes, 0)
+    $svn_ver = [double]("$svn_ver_major" + "." + "$svn_ver_minor")
+    return $svn_ver
+}
+
+Write-Host "Windows Bootmgr SVN : " -NoNewline
+$svn_bootmgr = [Regex]::Matches($dbx_hex,'01612B139DD5598843AB1C185C3CB2EB92........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
+
+if ($svn_bootmgr.Count) {
+    $svn_bootmgr_vers = $svn_bootmgr | ForEach-Object {
+        Get-VersionFromHexString($_)
+    }
+    $svn_bootmgr_ver = ($svn_bootmgr_vers | Measure-Object -Maximum).Maximum
+    if ($svn_bootmgr_ver -ge $svn_bootmgr_latest) {
+        Write-Host ("{0:F1}" -f $svn_bootmgr_ver) -ForegroundColor Green
+    } else {
+        Write-Host ("{0:F1}" -f $svn_bootmgr_ver) -ForegroundColor Red
+    }
+} else {
+    Write-Host 'None' -ForegroundColor Red
+}
+Write-Host "Windows cdboot SVN  : " -NoNewline
+$svn_cdboot = [Regex]::Matches($dbx_hex,'019D2EF8E827E15841A4884C18ABE2F284........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
+if ($svn_cdboot.Count) {
+    $svn_cdboot_vers = $svn_cdboot | ForEach-Object {
+        Get-VersionFromHexString($_)
+    }
+    $svn_cdboot_ver = ($svn_cdboot_vers | Measure-Object -Maximum).Maximum
+    if ($svn_cdboot_ver -ge $svn_cdboot_latest) {
+        Write-Host ("{0:F1}" -f $svn_cdboot_ver) -ForegroundColor Green
+    } else {
+        Write-Host ("{0:F1}" -f $svn_cdboot_ver) -ForegroundColor Red
+    }
+} else {
+    Write-Host 'None' -ForegroundColor Red
+}
+Write-Host "Windows wdsmgfw SVN : " -NoNewline
+$svn_wdsmgfw = [Regex]::Matches($dbx_hex,'01C2CA99C9FE7F6F4981279E2A8A535976........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
+if ($svn_wdsmgfw.Count) {
+    $svn_wdsmgfw_vers = $svn_wdsmgfw | ForEach-Object {
+        Get-VersionFromHexString($_)
+    }
+    $svn_wdsmgfw_ver = ($svn_wdsmgfw_vers | Measure-Object -Maximum).Maximum
+    if ($svn_wdsmgfw_ver -ge $svn_wdsmgfw_latest) {
+        Write-Host ("{0:F1}" -f $svn_wdsmgfw_ver) -ForegroundColor Green
+    } else {
+        Write-Host ("{0:F1}" -f $svn_wdsmgfw_ver) -ForegroundColor Red
+    }
+} else {
+    Write-Host 'None' -ForegroundColor Red
 }
