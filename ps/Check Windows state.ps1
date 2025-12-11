@@ -30,6 +30,7 @@ Import-Module "$PSScriptRoot\Get-BootMgrSecurityVersion.ps1"
 
 mountvol s: /s
 
+$bootmgfw_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\bootmgfw.efi).VersionInfo
 # $bootmgfw_sigCA = (Get-AuthenticodeSignature -FilePath S:\EFI\Microsoft\Boot\bootmgfw.efi).SignerCertificate.Issuer
 # Workaround to get actual signature of bootmgfw.efi as it is also catalogue signed and Get-AuthenticodeSignature returns the catalogue signature
 # https://github.com/PowerShell/PowerShell/issues/23820
@@ -38,6 +39,9 @@ $bootmgfw_sigCA = [System.Security.Cryptography.X509Certificates.X509Certificate
 $SVN_bytes = Get-BootMgrSecurityVersionBytes -Path S:\EFI\Microsoft\Boot\bootmgfw.efi
 
 mountvol s: /d
+
+$bootmgfw_ver = $bootmgfw_verinfo.FileVersion
+Write-Host "bootmgfw version         : $bootmgfw_ver"
 
 $bootmgfw_sigCA_name = [regex]::Match($bootmgfw_sigCA, 'CN=([^,]+)').Groups[1].Value
 Write-Host "bootmgfw signature CA    : $bootmgfw_sigCA_name"

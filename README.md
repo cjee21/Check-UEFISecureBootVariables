@@ -76,13 +76,14 @@ To view the current Windows Secure Boot state, right-click `Check Windows state.
 Checking for Administrator permission...
 Running as administrator - continuing execution...
 
-Windows version: 25H2 (Build 26200.7171)
+Windows version: 25H2 (Build 26200.7462)
 
 UEFISecureBootEnabled    : 1
 AvailableUpdates         : 0x0000
 UEFICA2023Status         : NotStarted
 WindowsUEFICA2023Capable : Windows UEFI CA 2023 cert is in DB, system is starting from 2023 signed boot manager
 
+bootmgfw version         : 10.0.26100.30227 (WinBuild.160101.0800)
 bootmgfw signature CA    : Windows UEFI CA 2023
 bootmgfw SVN             : 7.0
 
