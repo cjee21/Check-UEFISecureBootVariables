@@ -94,6 +94,68 @@ Press any key to continue . . .
 
 To display all the UEFI Secure Boot variables in readable format, right-click `Show UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*. All certificates in the PK, KEK and DB variables as well as all hashes in the DBX variable will be displayed.
 
+## Checking EFI files
+
+`Check EFI file info.cmd` can be used to check and display various information of EFI and EXE files. A file path can be passed to it via CLI, a file can be dropped on it or a path may be provided to it when prompted. It can be used to check bootable media for example. Various information will be displayed as in the example below:
+
+```
+Path to EFI file: D:\efi\boot\bootx64.efi
+
+
+FilePath         : D:\efi\boot\bootx64.efi
+Machine          : x64
+Subsystem        : EFI Application
+SubsystemVersion : 1.0
+
+
+
+File Information:
+
+
+OriginalFilename  : bootmgr.exe
+FileDescription   : Boot Manager
+ProductName       : Microsoft® Windows® Operating System
+Comments          :
+CompanyName       : Microsoft Corporation
+FileName          : D:\efi\boot\bootx64.efi
+FileVersion       : 10.0.26100.30227 (WinBuild.160101.0800)
+ProductVersion    : 10.0.26100.30227
+IsDebug           : False
+IsPatched         : False
+IsPreRelease      : False
+IsPrivateBuild    : False
+IsSpecialBuild    : False
+Language          : English (United States)
+LegalCopyright    : © Microsoft Corporation. All rights reserved.
+LegalTrademarks   :
+PrivateBuild      :
+SpecialBuild      :
+FileVersionRaw    : 10.0.26100.30227
+ProductVersionRaw : 10.0.26100.30227
+
+
+
+Signature Certificate:
+
+
+Subject      : CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+Issuer       : CN=Microsoft Windows Production PCA 2011, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+Thumbprint   : FACDE3D80E99AFCC15E08AC5A69BD22785287F79
+FriendlyName :
+NotBefore    : 20/6/2025 2:11:43 AM
+NotAfter     : 18/6/2026 2:11:43 AM
+Extensions   : {System.Security.Cryptography.Oid, System.Security.Cryptography.Oid, System.Security.Cryptography.Oid,
+               System.Security.Cryptography.Oid...}
+
+
+
+BOOTMGRSECURITYVERSIONNUMBER: 7.0
+
+
+
+Press any key to continue . . .
+``` 
+
 ## References
 
 - [Windows Secure Boot Key Creation and Management Guidance](https://learn.microsoft.com/en-my/windows-hardware/manufacture/desktop/windows-secure-boot-key-creation-and-management-guidance?view=windows-11)
