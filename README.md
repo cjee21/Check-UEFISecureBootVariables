@@ -87,6 +87,13 @@ bootmgfw version         : 10.0.26100.30227 (WinBuild.160101.0800)
 bootmgfw signature CA    : Windows UEFI CA 2023
 bootmgfw SVN             : 7.0
 
+bootmgr version          : 10.0.26100.30227 (WinBuild.160101.0800)
+bootmgr signature CA     : Microsoft Windows Production PCA 2011
+bootmgr SVN              : 7.0
+
+memtest version          : 10.0.26100.1 (WinBuild.160101.0800)
+memtest signature CA     : Microsoft Windows Production PCA 2011
+
 Press any key to continue . . .
 ```
 
