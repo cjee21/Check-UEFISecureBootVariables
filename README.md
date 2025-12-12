@@ -1,9 +1,9 @@
 # Check-UEFISecureBootVariables
 
-PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables.
+PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables as well as scripts for other Secure Boot related items.
 
 > [!IMPORTANT]
-> The DBX checking in this script is made for x64 and arm64 systems. If you are using an x86 or arm system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI PK, KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [github.com/microsoft/secureboot_objects](https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX).
+> The DBX checking in `Check UEFI PK, KEK, DB and DBX` is made for x64 and arm64 systems. If you are using an x86 or arm system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI PK, KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [github.com/microsoft/secureboot_objects](https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX).
 
 ## Before using
 
@@ -13,6 +13,13 @@ Alternatively, using Git, clone this repository with the following command:
 
 ```
 git clone https://github.com/cjee21/Check-UEFISecureBootVariables.git
+```
+
+If using Git, the cloned copy can be updated by running the following commands while in `Check-UEFISecureBootVariables` folder.
+
+```
+git fetch
+git reset --hard origin/main
 ```
 
 ## Checking the KEK, DB and DBX variables
@@ -27,23 +34,20 @@ Example output:
 
 If the Secure Boot variables were accidentally reset to default in the UEFI/BIOS settings for example, it is possible to make Windows re-apply the DBX updates that Windows had previously applied. Right-click `Apply DBX update.cmd` and *Run as administrator*. Wait for awhile. The DBX updates should be applied after that.
 
-> [!NOTE]
-> Using the `Apply***.cmd` files will reset all other changes made to the registry bits. See [Registry bits for applying Secure Boot updates](#registry-bits-for-applying-secure-boot-updates) below.
+## Deploying all the 2023 certificates as well updating to the 2023 CA signed Boot Manager
 
-## Deploying Windows UEFI CA 2023 and Microsoft Corporation KEK 2K CA 2023 certificates 
-
-Refer to **Re-applying the Secure Boot DBX updates** above but use `Apply KEK & DB update.cmd` instead.
+Right-click `Apply DBX update.cmd` and *Run as administrator*. Wait for a while. The Windows UEFI CA 2023 cert and Microsoft Corporation KEK 2K CA 2023 cert will be applied to DB and KEK respectively. The Microsoft Option ROM UEFI CA 2023 and Microsoft UEFI CA 2023 certs will also be applied to the DB if the Microsoft Corporation UEFI CA 2011 cert is present there. It may be needed to restart Windows and run `Start-ScheduledTask -TaskName "\Microsoft\Windows\PI\Secure-Boot-Update"` to complete the Boot Manager update.
 
 ## Revoking Windows Production PCA 2011 as well as updating the DBX, SVN and SBAT
 
-Refer to **Re-applying the Secure Boot DBX updates** above but use `Apply revocations.cmd` instead.
+Right-click `Apply revocations.cmd` and *Run as administrator*. Wait for awhile. The DBX should be updated and the Windows Production PCA 2011 cert added to it. The latest SVN will be written to the DBX as well.
 
 > [!IMPORTANT]
-> Make sure you know what you are doing before attempting this. Depending on the current state of your system, it may cause your system to be unbootable.
+> Make sure you know what you are doing before attempting this. It may cause some things to be no longer bootable on your system.
 
 ## Registry bits for applying Secure Boot updates
 
-The bits in `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecureBoot\AvailableUpdates` DWORD control what updates are to be applied by Windows. The updates are applied usually upon restart or with `Start-ScheduledTask -TaskName "\Microsoft\Windows\PI\Secure-Boot-Update"` which also automatically runs every 12 hours.
+The bits in `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecureBoot\AvailableUpdates` DWORD control what updates are to be applied by Windows. The updates are applied with `Start-ScheduledTask -TaskName "\Microsoft\Windows\PI\Secure-Boot-Update"` which normally also automatically runs every 12 hours.
 
 The following are the possible bit values that are currently known.
 
