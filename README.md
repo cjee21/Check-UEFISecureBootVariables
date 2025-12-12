@@ -40,7 +40,7 @@ Right-click `Apply DBX update.cmd` and *Run as administrator*. Wait for a while.
 
 ## Revoking Windows Production PCA 2011 as well as updating the DBX, SVN and SBAT
 
-Right-click `Apply revocations.cmd` and *Run as administrator*. Wait for awhile. The DBX should be updated and the Windows Production PCA 2011 cert added to it. The latest SVN will be written to the DBX as well.
+Right-click `Apply revocations.cmd` and *Run as administrator*. Wait for awhile. The DBX should be updated and the Windows Production PCA 2011 cert added to it. The latest SVN will be written to the DBX as well. The SBAT will be written to the 605DAB50-E046-4300-ABB6-3DD810DD8B23:SbatLevel UEFI variable when Windows is restarted. SbatLevel is a Boot Services variable that cannot be checked from within Windows.
 
 > [!IMPORTANT]
 > Make sure you know what you are doing before attempting this. It may cause some things to be no longer bootable on your system.
