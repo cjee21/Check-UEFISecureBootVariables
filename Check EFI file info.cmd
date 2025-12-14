@@ -18,6 +18,8 @@ powershell -Command "try { [System.Security.Cryptography.X509Certificates.X509Ce
 
 powershell -ExecutionPolicy Bypass -Command "Import-Module '%~dp0\ps\Get-BootMgrSecurityVersion.ps1'; try { $ErrorActionPreference = 'Stop'; $SVN_bytes = Get-BootMgrSecurityVersionBytes -Path %filepath% } catch {}; if ($SVN_bytes) { $svn_ver_minor = [System.BitConverter]::ToInt16($SVN_bytes[0..1], 0); $svn_ver_major = [System.BitConverter]::ToInt16($SVN_bytes[2..3], 0); \""BOOTMGRSECURITYVERSIONNUMBER: $([version]::new($svn_ver_major, $svn_ver_minor))\"" } "
 
+powershell -ExecutionPolicy Bypass -Command "Import-Module '%~dp0\ps\Get-SBAT.ps1'; try { $ErrorActionPreference = 'Stop'; $SBAT = Get-SBAT -FilePath %filepath% } catch {}; if ($SBAT) { Write-Host \""SBAT:\""; Write-Host \""$SBAT\"" } "
+
 echo.
 echo.
 echo.
