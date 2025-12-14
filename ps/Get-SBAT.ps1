@@ -36,6 +36,14 @@ function Get-SBAT {
         $BinaryReader.ReadUInt32()
     }
 
+    function Get_L8 {
+        param(
+            [Parameter(Mandatory=$true)]
+            [System.IO.BinaryReader]$BinaryReader
+        )
+        $BinaryReader.ReadUInt64()
+    }
+
     try {
         # Open the file stream for reading
         $fs = [System.IO.FileStream]::new($FilePath, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read)
@@ -59,45 +67,47 @@ function Get-SBAT {
             throw "Not a PE"
         }
 
-        # Get first 1KB of file
-        $BufferSize = 1KB
-        $Buffer = New-Object byte[] $BufferSize
-        Goto $fs 0x0
-        $BytesRead = $fs.Read($Buffer, 0, $BufferSize)
-        $FileBytes = $Buffer[0..($BytesRead - 1)]
+        # Get Optional Header magic
+        Goto $fs ($PeOffset + 24)
+        $OptMagic = Get_L2 $br
+        if ($OptMagic -ne 0x10B -and $OptMagic -ne 0x20B) {
+            throw "Unsupported Optional Header"
+        }
+
+        # Get offset of section headers
+        if ($OptMagic -eq 0x10B) {
+            $NumRVAandSizesOffset = $PeOffset + 24 + 72 + 16 + 4
+        }
+        if ($OptMagic -eq 0x20B) {
+            $NumRVAandSizesOffset = $PeOffset + 24 + 72 + 32 + 4
+        }
+        Goto $fs $NumRVAandSizesOffset
+        $NumRVAandSizes = Get_L4 $br
+        $SectHeadOffset = $NumRVAandSizesOffset + 4 + ($NumRVAandSizes * 8)
 
         # Find .sbat
-        [byte[]]$Search = 0x2E, 0x73, 0x62, 0x61, 0x74, 0x00, 0x00, 0x00
-        $BytesLength = $FileBytes.Length
-        $SearchLength = $Search.Length
-        $sbat_section_offset = 0
-
-        # Loop through the source array up to the point where a full match is possible
-        for ($Index = 0; $Index -le ($BytesLength - $SearchLength); $Index++) {
-            $Match = $true
-            # Compare the segment of the source array with the search pattern
-            for ($i = 0; $i -lt $SearchLength; $i++) {
-                if ($FileBytes[$Index + $i] -ne $Search[$i]) {
-                    $Match = $false
-                    break # Sequence mismatch, move to the next starting position
-                }
-            }
-
-            # If $Match is still $true, we found the sequence
-            if ($Match) {
-                $sbat_section_offset = $Index
+        Goto $fs ($PeOffset + 4 + 2)
+        $NumSections = Get_L2 $br
+        Goto $fs $SectHeadOffset
+        $sbat_sectionhead_offset = 0
+        for ($Index = 0; $Index -lt $NumSections; $Index++) {
+            $SectName = Get_L8 $br
+            if ($SectName -eq 0x000000746162732E) {
+                $sbat_sectionhead_offset = $SectHeadOffset + ($Index * 40)
+            } else {
+                Goto $fs ($SectHeadOffset + (($Index + 1) * 40))
             }
         }
 
         # If no .sbat section
-        if ($sbat_section_offset -eq 0) {
+        if ($sbat_sectionhead_offset -eq 0) {
             throw ".sbat section not found"
         }
 
-        # Get SBAT offset
-        Goto $fs ($sbat_section_offset + 8)
+        # Get SBAT offset and length
+        Goto $fs ($sbat_sectionhead_offset + 8)
         $SBAT_length = Get_L4 $br
-        Goto $fs ($sbat_section_offset + 8 + 4 + 4 + 4)
+        Goto $fs ($sbat_sectionhead_offset + 8 + 4 + 4 + 4)
         $SBAT_offset = Get_L4 $br
 
         # Get SBAT string
