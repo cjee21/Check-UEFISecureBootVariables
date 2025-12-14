@@ -5,6 +5,9 @@ PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables as we
 > [!IMPORTANT]
 > The DBX checking in `Check UEFI PK, KEK, DB and DBX` is made for x64 and arm64 systems. If you are using an x86 or arm system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI PK, KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [github.com/microsoft/secureboot_objects](https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX).
 
+> [!WARNING]
+> Disabling Secure Boot should be avoided. If Windows is booted when Secure Boot is turned off, all the Secure Boot and UEFI-related configurations are reset. This may include the deletion of UEFI variables for LSA protection, SkuSiPolicy.p7b and SBAT, requiring them to be set/updated again.
+
 ## Before using
 
 Obtain a copy of the contents of this repository from https://github.com/cjee21/Check-UEFISecureBootVariables/archive/refs/heads/main.zip and extract all contents from the ZIP file.
