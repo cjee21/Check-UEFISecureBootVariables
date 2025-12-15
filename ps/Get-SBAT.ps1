@@ -94,6 +94,7 @@ function Get-SBAT {
             $SectName = Get_L8 $br
             if ($SectName -eq 0x000000746162732E) {
                 $sbat_sectionhead_offset = $SectHeadOffset + ($Index * 40)
+                Break
             } else {
                 Goto $fs ($SectHeadOffset + (($Index + 1) * 40))
             }
