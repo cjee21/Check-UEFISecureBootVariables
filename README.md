@@ -39,7 +39,10 @@ If the Secure Boot variables were accidentally reset to default in the UEFI/BIOS
 
 ## Deploying all the 2023 certificates as well updating to the 2023 CA signed Boot Manager
 
-Right-click `Apply DBX update.cmd` and *Run as administrator*. Wait for a while. The Windows UEFI CA 2023 cert and Microsoft Corporation KEK 2K CA 2023 cert will be applied to DB and KEK respectively. The Microsoft Option ROM UEFI CA 2023 and Microsoft UEFI CA 2023 certs will also be applied to the DB if the Microsoft Corporation UEFI CA 2011 cert is present there. It may be needed to restart Windows and run `Start-ScheduledTask -TaskName "\Microsoft\Windows\PI\Secure-Boot-Update"` to complete the Boot Manager update.
+> [!NOTE]
+> There should be no need to do this manually as Windows Update will automatically do it from January 2026 onwards. Many manufacturers have also included 2023 certs in the latest UEFI updates and Windows will install 2023 CA signed Boot Manager if 2023 cert is present in the DB.
+
+Right-click `Apply 2023 KEK, DB and bootmgfw update.cmd` and *Run as administrator*. Wait for a while. The Windows UEFI CA 2023 cert and Microsoft Corporation KEK 2K CA 2023 cert will be applied to DB and KEK respectively. The Microsoft Option ROM UEFI CA 2023 and Microsoft UEFI CA 2023 certs will also be applied to the DB if the Microsoft Corporation UEFI CA 2011 cert is present there. It may be needed to restart Windows and run `Start-ScheduledTask -TaskName "\Microsoft\Windows\PI\Secure-Boot-Update"` to complete the Boot Manager update.
 
 ## Revoking Windows Production PCA 2011 as well as updating the DBX, SVN and SBAT
 
@@ -191,3 +194,4 @@ Press any key to continue . . .
 - [Microsoft - Secure Boot Objects](https://github.com/microsoft/secureboot_objects)
 - [Evolving the Secure Boot Ecosystem](https://uefi.org/sites/default/files/resources/Evolving%20the%20Secure%20Boot%20Ecosystem_Flick%20and%20Sutherland.pdf)
 - [Update the dbx database to add back the same dbx entries as the cumulative update applied](https://support.hp.com/my-en/document/ish_9642671-9641393-16#GUID-49C8C19D-32CC-4FF9-A635-4A87C0BB0046)
+
