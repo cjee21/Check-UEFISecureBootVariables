@@ -25,7 +25,7 @@
          $RequiredSignatureData.SignatureData
      }
  }
- Write-Information "Required `n" $RequiredArray
+ Write-Information "Required `n $RequiredArray"
 
  # Flatten into an array of EfiSignatureData data objects (read from dbx)
  $FoundArray = foreach ($EfiSignatureList in $DbxFound) {
@@ -35,7 +35,7 @@
          $FoundSignatureData.SignatureData
      }
  }
- Write-Information "Found `n" $FoundArray
+ Write-Information "Found `n $FoundArray"
 
  $successes = 0
  $failures = 0

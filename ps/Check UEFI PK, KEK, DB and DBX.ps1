@@ -106,13 +106,17 @@ function Show-UEFICertIsPresent {
     )
     try {
         if ([System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI $SecureBootUEFIVar -ErrorAction Stop).bytes) -match $CertName) {
-            $revoked = $false
-            try {
-                $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx -ErrorAction Stop).bytes) -match $CertName
-            } catch {
+            if ($CertName) {
                 $revoked = $false
+                try {
+                    $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx -ErrorAction Stop).bytes) -match $CertName
+                } catch {
+                    $revoked = $false
+                }
+                Write-Host "$check $CertName (revoked: $revoked)"
+            } else {
+                Write-Host "$check $CertName (revoked: Unknown)"
             }
-            Write-Host "$check $CertName (revoked: $revoked)"
         } else {
             Write-Host "$cross $CertName"
         }
@@ -136,13 +140,17 @@ function Show-UEFICertOthers {
         }
         $cert_names | ForEach-Object {
             if ($KnownCerts -notcontains $_) {
-                $revoked = $false
-                try {
-                    $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx -ErrorAction Stop).bytes) -match $_
-                } catch {
+                if ($_) {
                     $revoked = $false
+                    try {
+                        $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx -ErrorAction Stop).bytes) -match $_
+                    } catch {
+                        $revoked = $false
+                    }
+                    Write-Host "$check $_ (revoked: $revoked)"
+                } else {
+                    Write-Host "$check $_ (revoked: Unknown)"
                 }
-                Write-Host "$check $_ (revoked: $revoked)"
             }
         }
     } catch {
