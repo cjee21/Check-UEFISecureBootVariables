@@ -243,13 +243,13 @@ if ($arch -eq "x64") {
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
   # Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-01-14.bin"
   # Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
-    Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
+    Show-CheckDBX "2025-10-14 (v1.6.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
 } elseif ($arch -eq "arm64") {
-    Show-CheckDBX "2025-02-25 (v1.4.0)" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
+    Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
 } elseif ($arch -eq "x86") {
-    Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
+    Show-CheckDBX "2025-10-14 (v1.6.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
 } else {
-    Show-CheckDBX "2025-02-25 (v1.4.0)" "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
+    Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
 }
 
 $svn_latest_dbx = "10_14_25"
@@ -283,7 +283,7 @@ function Get-VersionFromHexString {
     return [version]::new($svn_ver_major, $svn_ver_minor)
 }
 
-Write-Host "Windows Bootmgr SVN : " -NoNewline
+Write-Host "Windows Bootmgr SVN         : " -NoNewline
 $svn_bootmgr = [Regex]::Matches($dbx_hex,'01612B139DD5598843AB1C185C3CB2EB92........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
 
 if ($svn_bootmgr.Count) {
@@ -299,7 +299,7 @@ if ($svn_bootmgr.Count) {
 } else {
     Write-Host 'None' -ForegroundColor Red
 }
-Write-Host "Windows cdboot SVN  : " -NoNewline
+Write-Host "Windows cdboot SVN          : " -NoNewline
 $svn_cdboot = [Regex]::Matches($dbx_hex,'019D2EF8E827E15841A4884C18ABE2F284........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
 if ($svn_cdboot.Count) {
     $svn_cdboot_vers = $svn_cdboot | ForEach-Object {
@@ -314,7 +314,7 @@ if ($svn_cdboot.Count) {
 } else {
     Write-Host 'None' -ForegroundColor Red
 }
-Write-Host "Windows wdsmgfw SVN : " -NoNewline
+Write-Host "Windows wdsmgfw SVN         : " -NoNewline
 $svn_wdsmgfw = [Regex]::Matches($dbx_hex,'01C2CA99C9FE7F6F4981279E2A8A535976........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
 if ($svn_wdsmgfw.Count) {
     $svn_wdsmgfw_vers = $svn_wdsmgfw | ForEach-Object {

@@ -3,10 +3,10 @@
 PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables as well as scripts for other Secure Boot related items.
 
 > [!IMPORTANT]
-> The DBX checking in `Check UEFI PK, KEK, DB and DBX` is UEFI architecture dependent. The script attampts to detect the UEFI architecture by assuming the installed Windows architecture matches. If this is not the case or detection fails, the DBX check results will be invalid.
+> The DBX checking in `Check UEFI PK, KEK, DB and DBX` is UEFI architecture dependent. The script attempts to detect the installed Windows architecture and assumes that the UEFI architecture matches (this should be the case on officially supported systems[[*]](https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools)). If this is not the case or the detection fails, the DBX check results will be invalid.
 
 > [!WARNING]
-> Disabling Secure Boot should be avoided. If Windows is booted when Secure Boot is turned off, all the Secure Boot and UEFI-related configurations are reset. This may include the deletion of UEFI variables for LSA protection, SkuSiPolicy.p7b and SBAT, requiring them to be set/updated again.
+> Disabling Secure Boot should be avoided. If Windows is booted when Secure Boot is turned off, all the Secure Boot and UEFI-related configurations are reset[[*]](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection#remove-the-lsa-protection-uefi-variable). This may include the deletion of UEFI variables for LSA protection[[*]](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection#remove-the-lsa-protection-uefi-variable), SkuSiPolicy.p7b[[*]](https://support.microsoft.com/en-gb/topic/guidance-for-blocking-rollback-of-virtualization-based-security-vbs-related-security-updates-b2e7ebf4-f64d-4884-a390-38d63171b8d3#bkmk_policy_removal_and_recovery_procedure) and SBAT[[*]](https://github.com/canonical/sbat-reset-media), requiring them to be set/updated again.
 
 ## Before using
 
@@ -31,7 +31,7 @@ Right-click `Check UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*.
 
 Example output:
 
-<img width="979" height="800" alt="Screenshot" src="https://github.com/user-attachments/assets/a0df9335-81cb-4cdd-ab0e-1e94f4ae4303" />
+<img width="979" height="800" alt="Screenshot" src="https://github.com/user-attachments/assets/c76b17b6-dad2-4e27-8157-6096e1f4d078" />
 
 ## Re-applying the Secure Boot DBX updates
 
