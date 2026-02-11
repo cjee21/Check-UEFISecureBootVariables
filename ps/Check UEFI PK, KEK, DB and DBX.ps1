@@ -56,6 +56,9 @@ $reset = "$([char]0x1b)[0m"
 $check = "$([char]0x1b)[92m$([char]8730)$reset"
 $cross =  "$([char]0x1b)[91mX$reset"
 
+# check if 64 bits System. Can be with (Get-WmiObject -Class Win32_OperatingSystem | Select-Object    OSArchitecture -ErrorAction Stop).OSArchitecture or simply 
+$Is64BitOS = [Environment]::Is64BitOperatingSystem
+
 # Check whether it is ARM architecture
 $IsArm = $false
 $IsX86 = $false
@@ -230,15 +233,15 @@ function Show-CheckDBX {
 }
 
 if ($IsArm) {
-    Show-CheckDBX "2025-02-25 (v1.4.0)" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
-} elseif ($IsX86) {
-    Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
+    Show-CheckDBX "2025-02-25 (v1.4.0) for ARM64" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
+} elseif ($IsX86 -or -not $Is64BitOS) {
+    Show-CheckDBX "2025-10-14 (v1.6.0) for x86" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
 } else {
   # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
   # Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-01-14.bin"
   # Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
-    Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
+    Show-CheckDBX "2025-10-14 (v1.6.0) for x64" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
 }
 
 $latest_svn = "10_14_25"
