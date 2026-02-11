@@ -58,12 +58,17 @@ $cross =  "$([char]0x1b)[91mX$reset"
 
 # Check whether it is ARM architecture
 $IsArm = $false
+$IsX86 = $false
 try {
     $arch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
     # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
     if ($arch -eq 5 -or $arch -eq 12) {
         $IsArm = $true
         Write-Host "Detected Windows on ARM architecture!`n"
+    }
+    if ($arch -eq 0) {
+        $IsX86 = $true
+        Write-Host "Detected Windows on x86 architecture!`n"
     }
 } catch {
     Write-Warning "Unable to determine CPU architecture, proceeding with defaults (x64).`n"
@@ -226,6 +231,8 @@ function Show-CheckDBX {
 
 if ($IsArm) {
     Show-CheckDBX "2025-02-25 (v1.4.0)" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
+} elseif ($IsX86) {
+    Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
 } else {
   # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
