@@ -31,6 +31,33 @@ $biosinfo = $bios.Manufacturer , $bios.Name , $bios.SMBIOSBIOSVersion , $bios.Ve
 $v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
 "Windows version: {0} (Build {1}.{2})`n" -f $v.DisplayVersion, $v.CurrentBuildNumber, $v.UBR
 
+# Check architecture
+$IsArm = $false
+$Is64bit = $true
+try {
+    $arch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
+    # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
+    if ($arch -eq 5 -or $arch -eq 12) {
+        $IsArm = $true
+    }
+    # Windows and UEFI bit-ness should always match on officially supported installs
+    $Is64bit = [Environment]::Is64BitOperatingSystem
+} catch {
+    $IsArm = $false
+    $Is64bit = $true
+    Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
+}
+$arch = if (-not $IsArm -and $Is64bit) {
+        "x64"
+    } elseif ($IsArm -and $Is64bit) {
+        "arm64"
+    } elseif (-not $IsArm -and -not $Is64bit) {
+        "x86"
+    } else {
+        "arm"
+    }
+Write-Host "Detected $arch UEFI architecture. Ensure that this is correct for valid DBX results.`n"
+
 # Check for Secure Boot status
 Write-Host "Secure Boot status: " -NoNewLine
 try {
@@ -55,19 +82,6 @@ $bold = "$([char]0x1b)[1m"
 $reset = "$([char]0x1b)[0m"
 $check = "$([char]0x1b)[92m$([char]8730)$reset"
 $cross =  "$([char]0x1b)[91mX$reset"
-
-# Check whether it is ARM architecture
-$IsArm = $false
-try {
-    $arch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
-    # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
-    if ($arch -eq 5 -or $arch -eq 12) {
-        $IsArm = $true
-        Write-Host "Detected Windows on ARM architecture!`n"
-    }
-} catch {
-    Write-Warning "Unable to determine CPU architecture, proceeding with defaults (x64).`n"
-}
 
 Import-Module "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1"
 
@@ -224,18 +238,22 @@ function Show-CheckDBX {
     }
 }
 
-if ($IsArm) {
-    Show-CheckDBX "2025-02-25 (v1.4.0)" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
-} else {
+if ($arch -eq "x64") {
   # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
   # Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-01-14.bin"
   # Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
     Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
+} elseif ($arch -eq "arm64") {
+    Show-CheckDBX "2025-02-25 (v1.4.0)" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
+} elseif ($arch -eq "x86") {
+    Show-CheckDBX "2025-10-14 (v1.6.0)" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
+} else {
+    Show-CheckDBX "2025-02-25 (v1.4.0)" "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
 }
 
-$latest_svn = "10_14_25"
-$svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$latest_svn.json" -Raw | ConvertFrom-Json
+$svn_latest_dbx = "10_14_25"
+$svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$svn_latest_dbx.json" -Raw | ConvertFrom-Json
 $svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID" }).version
 $svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
 $svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version

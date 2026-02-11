@@ -3,24 +3,24 @@
 PowerShell scripts to check the UEFI KEK, DB and DBX Secure Boot variables as well as scripts for other Secure Boot related items.
 
 > [!IMPORTANT]
-> The DBX checking in `Check UEFI PK, KEK, DB and DBX` is made for x64 and arm64 systems. If you are using an x86 or arm system, it is necessary to replace the `*.bin` files with ones for your system architecture and edit their filenames in the PowerShell script (`Check UEFI PK, KEK, DB and DBX.ps1`) accordingly. The `*.bin` files for various architectures can be obtained from [github.com/microsoft/secureboot_objects](https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX).
+> The DBX checking in `Check UEFI PK, KEK, DB and DBX` is UEFI architecture dependent. The script attampts to detect the UEFI architecture by assuming the installed Windows architecture matches. If this is not the case or detection fails, the DBX check results will be invalid.
 
 > [!WARNING]
 > Disabling Secure Boot should be avoided. If Windows is booted when Secure Boot is turned off, all the Secure Boot and UEFI-related configurations are reset. This may include the deletion of UEFI variables for LSA protection, SkuSiPolicy.p7b and SBAT, requiring them to be set/updated again.
 
 ## Before using
 
-Obtain a copy of the contents of this repository from https://github.com/cjee21/Check-UEFISecureBootVariables/archive/refs/heads/main.zip and extract all contents from the ZIP file.
+Obtain a copy of the contents of this repository from <https://github.com/cjee21/Check-UEFISecureBootVariables/archive/refs/heads/main.zip> and extract all contents from the ZIP file.
 
 Alternatively, using Git, clone this repository with the following command:
 
-```
+```cmd
 git clone https://github.com/cjee21/Check-UEFISecureBootVariables.git
 ```
 
 If using Git, the cloned copy can be updated by running the following commands while in `Check-UEFISecureBootVariables` folder.
 
-```
+```cmd
 git fetch
 git reset --hard origin/main
 ```
@@ -31,7 +31,7 @@ Right-click `Check UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*.
 
 Example output:
 
-<img width="979" height="771" alt="Screenshot" src="https://github.com/user-attachments/assets/0b5ce4e9-42d7-4f10-8cbf-19f0e664b9c5" />
+<img width="979" height="800" alt="Screenshot" src="https://github.com/user-attachments/assets/a0df9335-81cb-4cdd-ab0e-1e94f4ae4303" />
 
 ## Re-applying the Secure Boot DBX updates
 
@@ -171,7 +171,7 @@ BOOTMGRSECURITYVERSIONNUMBER: 7.0
 
 
 Press any key to continue . . .
-``` 
+```
 
 ## References
 
