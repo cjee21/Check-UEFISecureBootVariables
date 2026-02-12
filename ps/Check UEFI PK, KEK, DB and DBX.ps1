@@ -52,7 +52,7 @@ $arch = if (-not $IsArm -and $Is64bit -and $cpuArch -eq 9) {
         "x64" # CPU arch x64 just to confirm
     } elseif ($IsArm -and $Is64bit -and $cpuArch -eq 12) {
         "arm64" # CPU arch ARM64 just to confirm
-    } elseif (-not $IsArm -and -not $Is64bit) {
+    } elseif (-not $IsArm -and -not $Is64bit -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
         "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we set here.
     } elseif ($cpuArch -eq 5) {
         "arm"
@@ -252,8 +252,10 @@ if ($arch -eq "x64") {
     Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
 } elseif ($arch -eq "x86") {
     Show-CheckDBX "2025-10-14 (v1.6.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
-} else {
+} elseif ($arch -eq "arm") {
     Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
+} else {
+     Write-Host "[$arch] not supported."
 }
 
 $svn_latest_dbx = "10_14_25"
