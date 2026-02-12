@@ -242,6 +242,8 @@ function Show-CheckDBX {
     }
 }
 
+# select the proper bin file for the DBX Update.
+# files are copied from https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX
 if ($arch -eq "x64") {
   # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
