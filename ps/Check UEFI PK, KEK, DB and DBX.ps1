@@ -45,8 +45,9 @@ try {
     $Is64bit = [Environment]::Is64BitOperatingSystem
 } catch {
     $IsArm = $false
-    $Is64bit = $true
+    $Is64bit = $true    
     Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
+    $cpuArch = 9 # default x64
 }
 $arch = if ($Is64bit -and -not $IsArm -and $cpuArch -eq 9) { # CPU arch x64
         "x64"
@@ -57,7 +58,7 @@ $arch = if ($Is64bit -and -not $IsArm -and $cpuArch -eq 9) { # CPU arch x64
     } elseif (-not $Is64bit -and $IsArm) { # cpu arch checked with $IsArm
         "arm"
     } else { # any other unsupported CPU architecture
-        "None: Error"
+        "unsupported"
     }
 
 Write-Host "Detected $arch UEFI architecture. Ensure that this is correct for valid DBX results.`n"
@@ -257,7 +258,7 @@ if ($arch -eq "x64") {
 } elseif ($arch -eq "arm") {
     Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
 } else {
-     Write-Host "[$arch] not supported."
+     Write-Warning "[$arch] architecture."
 }
 
 $svn_latest_dbx = "10_14_25"
