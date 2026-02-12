@@ -35,27 +35,31 @@ $v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
 $IsArm = $false
 $Is64bit = $true
 try {
-    $arch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
+    $cpuArch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
     # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
-    if ($arch -eq 5 -or $arch -eq 12) {
+    if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
         $IsArm = $true
     }
-    # Windows and UEFI bit-ness should always match on officially supported installs
+    # Windows and UEFI bit-ness should always match on officially supported installs 
+    # since UEFI doesn't support cross-platform boot as of https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools#windows-support-for-uefi
     $Is64bit = [Environment]::Is64BitOperatingSystem
 } catch {
     $IsArm = $false
     $Is64bit = $true
     Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
 }
-$arch = if (-not $IsArm -and $Is64bit) {
-        "x64"
-    } elseif ($IsArm -and $Is64bit) {
-        "arm64"
+$arch = if (-not $IsArm -and $Is64bit -and $cpuArch -eq 9) {
+        "x64" # CPU arch x64 just to confirm
+    } elseif ($IsArm -and $Is64bit -and $cpuArch -eq 12) {
+        "arm64" # CPU arch ARM64 just to confirm
     } elseif (-not $IsArm -and -not $Is64bit) {
-        "x86"
-    } else {
+        "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we set here.
+    } elseif ($cpuArch -eq 5) {
         "arm"
+    } else {
+        "None: Error"
     }
+
 Write-Host "Detected $arch UEFI architecture. Ensure that this is correct for valid DBX results.`n"
 
 # Check for Secure Boot status
