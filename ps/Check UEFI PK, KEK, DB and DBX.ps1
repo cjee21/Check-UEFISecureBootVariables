@@ -35,27 +35,32 @@ $v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
 $IsArm = $false
 $Is64bit = $true
 try {
-    $arch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
+    $cpuArch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
     # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
-    if ($arch -eq 5 -or $arch -eq 12) {
+    if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
         $IsArm = $true
     }
     # Windows and UEFI bit-ness should always match on officially supported installs
+    # since UEFI doesn't support cross-platform boot as of https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools#windows-support-for-uefi
     $Is64bit = [Environment]::Is64BitOperatingSystem
 } catch {
     $IsArm = $false
     $Is64bit = $true
     Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
+    $cpuArch = 9 # default x64
 }
-$arch = if (-not $IsArm -and $Is64bit) {
+$arch = if ($Is64bit -and $cpuArch -eq 9) { # CPU arch x64
         "x64"
-    } elseif ($IsArm -and $Is64bit) {
+    } elseif ($Is64bit -and $cpuArch -eq 12) { # CPU arch ARM64
         "arm64"
-    } elseif (-not $IsArm -and -not $Is64bit) {
-        "x86"
-    } else {
+    } elseif (-not $Is64bit -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
+        "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we need.
+    } elseif (-not $Is64bit -and $IsArm) { # cpu arch check with $IsArm above
         "arm"
+    } else { # any other unsupported CPU architecture
+        "unsupported"
     }
+
 Write-Host "Detected $arch UEFI architecture. Ensure that this is correct for valid DBX results.`n"
 
 # Check for Secure Boot status
@@ -238,6 +243,8 @@ function Show-CheckDBX {
     }
 }
 
+# select the proper bin file for the DBX Update.
+# files are copied from https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX
 if ($arch -eq "x64") {
   # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
@@ -248,8 +255,10 @@ if ($arch -eq "x64") {
     Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
 } elseif ($arch -eq "x86") {
     Show-CheckDBX "2025-10-14 (v1.6.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
-} else {
+} elseif ($arch -eq "arm") {
     Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]  " "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
+} else {
+     Write-Warning "[$arch] architecture."
 }
 
 $svn_latest_dbx = "10_14_25"
