@@ -40,7 +40,7 @@ try {
     if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
         $IsArm = $true
     }
-    # Windows and UEFI bit-ness should always match on officially supported installs 
+    # Windows and UEFI bit-ness should always match on officially supported installs
     # since UEFI doesn't support cross-platform boot as of https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools#windows-support-for-uefi
     $Is64bit = [Environment]::Is64BitOperatingSystem
 } catch {
