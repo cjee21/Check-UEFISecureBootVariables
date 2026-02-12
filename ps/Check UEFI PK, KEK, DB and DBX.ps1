@@ -48,15 +48,15 @@ try {
     $Is64bit = $true
     Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
 }
-$arch = if (-not $IsArm -and $Is64bit -and $cpuArch -eq 9) {
-        "x64" # CPU arch x64 just to confirm
-    } elseif ($IsArm -and $Is64bit -and $cpuArch -eq 12) {
-        "arm64" # CPU arch ARM64 just to confirm
-    } elseif (-not $IsArm -and -not $Is64bit -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
-        "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we set here.
-    } elseif ($cpuArch -eq 5) {
+$arch = if ($Is64bit -and -not $IsArm -and $cpuArch -eq 9) { # CPU arch x64
+        "x64"
+    } elseif ($Is64bit -and $IsArm -and $cpuArch -eq 12) {   # CPU arch ARM64
+        "arm64"
+    } elseif (-not $Is64bit -and -not $IsArm -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
+        "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we need.
+    } elseif (-not $Is64bit -and $IsArm) { # cpu arch checked with $IsArm
         "arm"
-    } else {
+    } else { # any other unsupported CPU architecture
         "None: Error"
     }
 
