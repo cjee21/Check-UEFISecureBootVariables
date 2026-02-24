@@ -61,7 +61,7 @@ The following are the possible bit values that are currently known.
 | - | - |
 | 0x0002 | Apply DBX updates. |
 | 0x0004 | Apply the Microsoft Corporation KEK 2K CA 2023 to the KEK. |
-| 0x0020 | Apply Microsoft-signed revocation policy (SkuSiPolicy.p7b) |
+| 0x0020 | Apply Microsoft-signed revocation policy (SkuSiPolicy.p7b) ([Not working as at 2025-12-17](https://support.microsoft.com/en-gb/topic/guidance-for-blocking-rollback-of-virtualization-based-security-vbs-related-security-updates-b2e7ebf4-f64d-4884-a390-38d63171b8d3)) |
 | 0x0040 | Apply the Windows UEFI CA 2023 to the DB. |
 | 0x0080 | Apply the Windows Production PCA 2011 to the DBX. |
 | 0x0100 | Apply the boot manager, signed by the Windows UEFI CA 2023, to the boot partition. |
