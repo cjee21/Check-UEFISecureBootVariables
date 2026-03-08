@@ -27,17 +27,22 @@ switch ((Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoo
 Write-Host ""
 
 Import-Module "$PSScriptRoot\Get-BootMgrSecurityVersion.ps1"
+Import-Module "$PSScriptRoot\Get-EfiSignatures.ps1"
 
-function Get-AuthenticodeSignatureSignerCertificateIssuer {
+function Get-AuthenticodeSignatureSignerCertificateIssuerCN {
     param(
         [Parameter(Mandatory=$true)]
         [String]$FilePath
     )
-    # $bootmgfw_sigCA = (Get-AuthenticodeSignature -FilePath $FilePath).SignerCertificate.Issuer
-    # Workaround to get actual signature of bootmgfw.efi as it is also catalogue signed and Get-AuthenticodeSignature returns the catalogue signature
-    # https://github.com/PowerShell/PowerShell/issues/23820
-    $cert = [System.Security.Cryptography.X509Certificates.X509Certificate]::CreateFromSignedFile($FilePath)
-    [System.Security.Cryptography.X509Certificates.X509Certificate2]::new($cert).Issuer
+    $Issuers = ""
+    $sigs = Get-EfiSignatures -FilePath $FilePath
+    foreach ($sig in $sigs) {
+        if ($Issuers) { 
+            $Issuers += ", " 
+        }
+        $Issuers += [regex]::Match($sig.Signer.Issuer, 'CN=([^,]+)').Groups[1].Value
+    }
+    $Issuers
 }
 
 function Get-SVNfromBytes {
@@ -55,21 +60,20 @@ function Get-SVNfromBytes {
 mountvol s: /s
 
 $bootmgfw_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\bootmgfw.efi).VersionInfo
-$bootmgfw_sigCA = Get-AuthenticodeSignatureSignerCertificateIssuer 'S:\EFI\Microsoft\Boot\bootmgfw.efi'
+$bootmgfw_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\bootmgfw.efi'
 $bootmgfw_SVN_bytes = Get-BootMgrSecurityVersionBytes -Path S:\EFI\Microsoft\Boot\bootmgfw.efi
 
 $bootmgr_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\bootmgr.efi).VersionInfo
-$bootmgr_sigCA = Get-AuthenticodeSignatureSignerCertificateIssuer 'S:\EFI\Microsoft\Boot\bootmgr.efi'
+$bootmgr_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\bootmgr.efi'
 $bootmgr_SVN_bytes = Get-BootMgrSecurityVersionBytes -Path S:\EFI\Microsoft\Boot\bootmgr.efi
 
 $memtest_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\memtest.efi).VersionInfo
-$memtest_sigCA = Get-AuthenticodeSignatureSignerCertificateIssuer 'S:\EFI\Microsoft\Boot\memtest.efi'
+$memtest_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\memtest.efi'
 
 mountvol s: /d
 
 $bootmgfw_ver = $bootmgfw_verinfo.FileVersion
 Write-Host "bootmgfw version         : $bootmgfw_ver"
-$bootmgfw_sigCA_name = [regex]::Match($bootmgfw_sigCA, 'CN=([^,]+)').Groups[1].Value
 Write-Host "bootmgfw signature CA    : $bootmgfw_sigCA_name"
 $bootmgfw_svn_ver = Get-SVNfromBytes $bootmgfw_SVN_bytes
 Write-Host "bootmgfw SVN             : $bootmgfw_svn_ver"
@@ -78,7 +82,6 @@ Write-Host ""
 
 $bootmgr_ver = $bootmgr_verinfo.FileVersion
 Write-Host "bootmgr version          : $bootmgr_ver"
-$bootmgr_sigCA_name = [regex]::Match($bootmgr_sigCA, 'CN=([^,]+)').Groups[1].Value
 Write-Host "bootmgr signature CA     : $bootmgr_sigCA_name"
 $bootmgr_svn_ver = Get-SVNfromBytes $bootmgr_SVN_bytes
 Write-Host "bootmgr SVN              : $bootmgr_svn_ver"
@@ -87,5 +90,4 @@ Write-Host ""
 
 $memtest_ver = $memtest_verinfo.FileVersion
 Write-Host "memtest version          : $memtest_ver"
-$memtest_sigCA_name = [regex]::Match($memtest_sigCA, 'CN=([^,]+)').Groups[1].Value
 Write-Host "memtest signature CA     : $memtest_sigCA_name"
