@@ -159,17 +159,9 @@ function Show-UEFICertOthers {
         }
         $cert_names | ForEach-Object {
             if ($KnownCerts -notcontains $_) {
-                if ($_) {
-                    $revoked = $false
-                    try {
-                        $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx -ErrorAction Stop).bytes) -match $_
-                    } catch {
-                        $revoked = $false
-                    }
-                    Write-Host "$check $_ (revoked: $revoked)"
-                } else {
-                    Write-Host "$check $_ (revoked: Unknown)"
-                }
+                # List out all other certs found other than those in known list
+                # No check for revocation since not all certs have unique CNs and we do not check by thumbprint
+                Write-Host "$check $_"
             }
         }
     } catch {
