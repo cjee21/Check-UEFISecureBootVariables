@@ -97,9 +97,6 @@ function Get-DbxSetsFromMsftJson {
         $archName = $archProp.Name
         $items = $archProp.Value
         foreach ($img in $items) {
-            if ($img.flatHash -and $img.flatHash.Trim()) {
-                [void]$sha256Set.Add($img.flatHash.Trim().ToUpperInvariant())
-            }
             if ($img.authenticodeHash -and $img.authenticodeHash.Trim()) {
                 # We put it in same set for now; the caller will label which “kind” matched.
                 # Without computing authenticode hashes locally, only flatHash matches are actionable.
@@ -190,13 +187,13 @@ foreach ($file in $efiFiles) {
     Write-Progress -Activity "Checking EFI files" -Status $file -PercentComplete (($idx / [Math]::Max(1, $efiFiles.Count)) * 100)
 
     $fileSha = $null
-    try { $fileSha = Get-FileSha256Hex -FilePath $file } catch {}
 
     # Signer cert DER hexes (may be empty)
     $signerDerHexes = @()
     $signerThumbprints = @()
     try {
         $sigs = Get-EfiSignatures -FilePath $file
+    	$fileSha =  $sigs.Authentihash
         foreach ($sig in $sigs) {
             if ($sig.Signer -and $sig.Signer.RawData) {
                 $signerDerHexes += (Get-CertDerHex -Cert $sig.Signer)
