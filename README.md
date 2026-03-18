@@ -33,6 +33,21 @@ Example output:
 
 <img width="979" height="800" alt="Screenshot" src="https://github.com/user-attachments/assets/c76b17b6-dad2-4e27-8157-6096e1f4d078" />
 
+## Audit ESP for revoked EFI binaries (DBX)
+
+Just right click `Scan ESP for revoked files.cmd` and choose `Run as administrator`
+
+The script downloads the latest Microsoft DBX JSON (`dbx_info_msft_latest.json`) from the Microsoft Secure Boot Objects repository, scans binary files in the first ESP volume, and reports any matches (it does not currently consider architecture). This can be used to audit current DBX status before applying a DBX update.
+
+In order to scan a CD drive mounted in D: with a locally downloaded JSON file 
+
+powershell -ExecutionPolicy Bypass -Command "& '%~dp0ps\Find-EfiFilesRevokedByDbx.ps1' -Paths D:\ -MatchMode Both  C:\Users\sei-vsarvepalli\Downloads\dbx_info_msft_latest.json
+
+The default URL for download of the JSON file is at https://raw.githubusercontent.com/microsoft/secureboot_objects/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
+
+Example output:
+<img style="width: 979px" alt="DBX audit scan output" src="docs/screenshot-audit.png" />
+
 ## Re-applying the Secure Boot DBX updates
 
 If the Secure Boot variables were accidentally reset to default in the UEFI/BIOS settings for example, it is possible to make Windows re-apply the DBX updates that Windows had previously applied. Right-click `Apply DBX update.cmd` and *Run as administrator*. Wait for awhile. The DBX updates should be applied after that.
