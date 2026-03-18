@@ -17,61 +17,156 @@ function Get-EfiSignatures {
         return 
     }
 
-    $bytes = [System.IO.File]::ReadAllBytes($FilePath)
-    $peOffset = [BitConverter]::ToUInt32($bytes, 0x3C)
-    
-    # Check Magic Number (starts 24 bytes after PE signature)
-    $magic = [BitConverter]::ToUInt16($bytes, $peOffset + 24)
-    
-    if ($magic -eq 0x20B) {
-        # 64-bit (PE32+)
-        $secDirOffset = $peOffset + 0xA8
-    } elseif ($magic -eq 0x10B) {
-        # 32-bit (PE32)
-        $secDirOffset = $peOffset + 0x98
-    } else {
-        Write-Error "Unknown PE format or ROM image."
-        return @()
-    }
+    $fs = [System.IO.File]::OpenRead($FilePath)
+    $reader = New-Object System.IO.BinaryReader($fs)
+    $signatures = New-Object System.Collections.Generic.List[PSObject]
 
-    $certTableAddr = [BitConverter]::ToUInt32($bytes, $secDirOffset)
-    $certTableSize = [BitConverter]::ToUInt32($bytes, $secDirOffset + 4)
+    try {
+        # --- 1. PE Header Navigation ---
+        $fs.Position = 0x3C
+        $peOffset = $reader.ReadUInt32()
 
-    if ($certTableAddr -eq 0) { return @() }
+        # Verify PE Signature
+        $fs.Position = $peOffset
+        if ($reader.ReadUInt32() -ne 0x00004550) { # "PE\0\0"
+            Write-Error "Invalid PE Signature."
+            return
+        }
+        
+        $fs.Position = $peOffset + 4 + 2 # Skip Machine, read NumberOfSections
+        $numSections = $reader.ReadUInt16()
+        
+        $fs.Position = $peOffset + 20
+        $sizeOfOptionalHeader = $reader.ReadUInt16()
+        
+        $fs.Position = $peOffset + 24
+        $magic = $reader.ReadUInt16()
+        
+        # SizeOfHeaders is at OptionalHeader + 60
+        $fs.Position = $peOffset + 84
+        $sizeOfHeaders = $reader.ReadUInt32()
 
-    $currentOffset = $certTableAddr
-    $endOffset = $certTableAddr + $certTableSize
-    $signatureResults = New-Object System.Collections.Generic.List[PSObject]
+        # Checksum is at OptionalHeader + 64
+        $checksumOffset = $peOffset + 88
 
-    $sigIndex = 0
-    while ($currentOffset -lt $endOffset) {
-        $dwLength = [BitConverter]::ToUInt32($bytes, $currentOffset)
-        $wCertType = [BitConverter]::ToUInt16($bytes, $currentOffset + 6)
+        # Checksum and Header Size offsets
+        $checksumOffset = $peOffset + 88 
+        if ($magic -eq 0x20B) { # PE32+ (64-bit)
+            $secDirOffset = $peOffset + 168 # 24 + 112 + (4 * 8)
+        } elseif ($magic -eq 0x10B) { # PE32 (32-bit)
+            $secDirOffset = $peOffset + 152 # 24 + 96 + (4 * 8)
+        } else {
+            Write-Error "Unknown PE format."
+            return
+        }
 
-        if ($wCertType -eq 2) { # WIN_CERT_TYPE_PKCS_SIGNED_DATA
-            $certDataSize = $dwLength - 8
-            $certBlob = New-Object byte[] $certDataSize
-            [Buffer]::BlockCopy($bytes, $currentOffset + 8, $certBlob, 0, $certDataSize)
+        # Locate Certificate Table
+        $fs.Position = $secDirOffset
+        $certTableAddr = $reader.ReadUInt32()
+        $certTableSize = $reader.ReadUInt32()
 
-            try {
-                $cms = New-Object System.Security.Cryptography.Pkcs.SignedCms
-                $cms.Decode($certBlob)
+        # --- 2. Authenticode Hashing ---
+        $sha256 = [System.Security.Cryptography.SHA256]::Create()
+        $buffer = New-Object byte[] 8192
 
-                # Build the custom object for this specific signature block
-                $signatureResults.Add([PSCustomObject]@{
-                    SignatureIndex = $sigIndex
-                    Signer         = $cms.SignerInfos[0].Certificate # Primary signer for this block
-                    Certificates   = $cms.Certificates               # All certs in this block
-                    RawData        = $certBlob                       # Raw PKCS7 bytes
-                })
-                $sigIndex++
-            } catch {
-                Write-Warning "Failed to decode signature block at offset $currentOffset"
+        $hashRange = {
+            param($start, $length)
+            if ($length -le 0) { return }
+            $fs.Position = $start
+            $rem = $length
+            while ($rem -gt 0) {
+                $read = $fs.Read($buffer, 0, [Math]::Min($buffer.Length, $rem))
+                if ($read -le 0) { break }
+                $sha256.TransformBlock($buffer, 0, $read, $null, 0)
+                $rem -= $read
             }
         }
-        # Step to next signature (8-byte alignment)
-        $currentOffset += ($dwLength + 7) -band -bnot 7
-    }
 
-    return $signatureResults
+        # Step A: Headers
+        $hashRange.Invoke(0, $checksumOffset)
+        $hashRange.Invoke($checksumOffset + 4, ($secDirOffset - ($checksumOffset + 4)))
+        $hashRange.Invoke($secDirOffset + 8, ($sizeOfHeaders - ($secDirOffset + 8)))
+
+        # Step B: Sections (Sorted)
+        $sectionHeaderStart = $peOffset + 24 + $sizeOfOptionalHeader
+        $sections = New-Object System.Collections.Generic.List[PSObject]
+        for ($i = 0; $i -lt $numSections; $i++) {
+            $fs.Position = $sectionHeaderStart + ($i * 40) + 16
+            $sSize = $reader.ReadUInt32()
+            $sPtr  = $reader.ReadUInt32()
+            if ($sSize -gt 0) {
+                $sections.Add([PSCustomObject]@{ Ptr = $sPtr; Size = $sSize })
+            }
+        }
+
+        $sortedSections = $sections | Sort-Object Ptr
+        $processedUpTo = $sizeOfHeaders
+
+        foreach ($sec in $sortedSections) {
+            $hashRange.Invoke($sec.Ptr, $sec.Size)
+            $processedUpTo = $sec.Ptr + $sec.Size
+        }
+
+        # Step C: The Final Gap
+        # Hash only up to the start of the Certificate Table.
+        # If there's no signature, hash to the end of the file.
+        if ($certTableAddr -gt 0) {
+            if ($certTableAddr -gt $processedUpTo) {
+                $hashRange.Invoke($processedUpTo, ($certTableAddr - $processedUpTo))
+            }
+        } else {
+            $hashRange.Invoke($processedUpTo, ($fs.Length - $processedUpTo))
+        }
+
+        $sha256.TransformFinalBlock($buffer, 0, 0) | Out-Null
+        $authHash = [BitConverter]::ToString($sha256.Hash).Replace("-", "")
+
+        # --- 3. Extract Signatures ---
+        if ($certTableAddr -gt 0) {
+            $currentOffset = $certTableAddr
+            $endOffset = $certTableAddr + $certTableSize
+            $sigIndex = 0
+
+            while ($currentOffset -lt $endOffset) {
+                $fs.Position = $currentOffset
+                $dwLength = $reader.ReadUInt32()
+                $fs.Position = $currentOffset + 6
+                $wCertType = $reader.ReadUInt16()
+
+                if ($wCertType -eq 2) { # WIN_CERT_TYPE_PKCS_SIGNED_DATA
+                    $fs.Position = $currentOffset + 8
+                    $certBlob = $reader.ReadBytes($dwLength - 8)
+
+                    try {
+                        $cms = New-Object System.Security.Cryptography.Pkcs.SignedCms
+                        $cms.Decode($certBlob)
+
+                        # Build the custom object for this specific signature block
+                        $signatures.Add([PSCustomObject]@{
+                            SignatureIndex = $sigIndex
+                            Signer         = $cms.SignerInfos[0].Certificate # Primary signer for this block
+                            Certificates   = $cms.Certificates               # All certs in this block
+                            RawData        = $certBlob                       # Raw PKCS7 bytes
+                        })
+                        $sigIndex++
+                    } catch {
+                        Write-Warning "Failed to decode signature block at $currentOffset"
+                    }
+                }
+                # Step to next signature (8-byte alignment)
+                $currentOffset += ($dwLength + 7) -band -bnot 7
+            }
+        }
+
+        # Return Master Object
+        return [PSCustomObject]@{
+            FilePath     = (Resolve-Path $FilePath).Path
+            Authentihash = $authHash
+            Signatures   = $signatures
+        }
+
+    } finally {
+        $reader.Close()
+        $fs.Dispose()
+    }
 }

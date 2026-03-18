@@ -13,8 +13,7 @@ powershell -ExecutionPolicy Bypass -Command "Import-Module '%~dp0\ps\Get-PEInfo.
 echo File Information:
 powershell -Command "(Get-Item -Path '%filepath%').VersionInfo | Format-List"
 
-echo Signature Certificate(s):
-powershell -ExecutionPolicy Bypass -Command "Import-Module '%~dp0\ps\Get-EfiSignatures.ps1'; try { $sigs = Get-EfiSignatures -FilePath '%filepath%'; if ($sigs) { foreach ($sig in $sigs) { $sig.Signer | Format-List } } else { ""No signatures found`n\"" } } catch { \""No signatures found`n\"" }"
+powershell -ExecutionPolicy Bypass -Command "Import-Module '%~dp0\ps\Get-EfiSignatures.ps1'; $hashnsigs = Get-EfiSignatures -FilePath '%filepath%'; Write-Host \""Authenticode SHA256: $($hashnsigs.Authentihash)`n\""; Write-Host 'Signature Certificate(s):'; if ($hashnsigs.Signatures) { foreach ($sig in $hashnsigs.Signatures) { $sig.Signer | Format-List } } else { \""No signatures found`n\"" }"
 
 powershell -ExecutionPolicy Bypass -Command "Import-Module '%~dp0\ps\Get-BootMgrSecurityVersion.ps1'; try { $ErrorActionPreference = 'Stop'; $SVN_bytes = Get-BootMgrSecurityVersionBytes -Path '%filepath%' } catch {}; if ($SVN_bytes) { $svn_ver_minor = [System.BitConverter]::ToInt16($SVN_bytes[0..1], 0); $svn_ver_major = [System.BitConverter]::ToInt16($SVN_bytes[2..3], 0); \""BOOTMGRSECURITYVERSIONNUMBER: $([version]::new($svn_ver_major, $svn_ver_minor))\"" } "
 
