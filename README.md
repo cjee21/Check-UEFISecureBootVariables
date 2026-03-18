@@ -35,7 +35,7 @@ Example output:
 
 ## Audit ESP for revoked EFI binaries (DBX)
 
-Just right click `Scan ESP for revoked files.cmd` and choose `Run as administrator`
+Just right click `Scan ESP for revoked files.cmd` and choose *Run as administrator*
 
 The script downloads the latest Microsoft DBX JSON (`dbx_info_msft_latest.json`) from the Microsoft Secure Boot Objects repository, scans binary files in the first ESP volume, and reports any matches (it does not currently consider architecture). This can be used to audit current DBX status before applying a DBX update.
 
@@ -44,6 +44,9 @@ In order to scan a CD drive mounted in D: with a locally downloaded JSON file
 powershell -ExecutionPolicy Bypass -Command "& '%~dp0ps\Find-EfiFilesRevokedByDbx.ps1' -Paths D:\ -MatchMode Both  C:\Users\sei-vsarvepalli\Downloads\dbx_info_msft_latest.json
 
 The default URL for download of the JSON file is at https://raw.githubusercontent.com/microsoft/secureboot_objects/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
+
+[!WARNING]
+This has been tested mostly using Authenticode hash comparison to find revoked UEFI binaries that could be used in Bring Your Own Vulnerable Driver (BYOVD) attacks against UEFI. The newer revoked binaries that were part of Microsoft's new SVN mechanism in DBX and some of the certificates that were batch revoked as part of [BlackLotus UEFI Bootkit response](https://support.microsoft.com/en-us/topic/enterprise-deployment-guidance-for-cve-2023-24932-88b8f034-20b7-4a45-80cb-c6049b0f9967#ID0EDF). A feature to introduce this capability is welcome.
 
 Example output:
 <img style="width: 979px" alt="DBX audit scan output" src="docs/screenshot-audit.png" />
