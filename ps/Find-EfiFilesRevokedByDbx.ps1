@@ -1,6 +1,6 @@
 # Created for cjee21/Check-UEFISecureBootVariables
 # Purpose: Walk EFI binaries and warn if they match revocations via:
-#   - file hash (flat SHA-256, and optionally Authenticode hash if you wire it in later)
+#   - file hash (Authenticode hash if you wire it in later)
 #   - signer certificate match (X509 DER match) against current DBX (EFI_CERT_X509_GUID)
 # Also supports checking against microsoft/secureboot_objects dbx_info_msft_latest.json.
 
@@ -98,8 +98,7 @@ function Get-DbxSetsFromMsftJson {
         $items = $archProp.Value
         foreach ($img in $items) {
             if ($img.authenticodeHash -and $img.authenticodeHash.Trim()) {
-                # We put it in same set for now; the caller will label which “kind” matched.
-                # Without computing authenticode hashes locally, only flatHash matches are actionable.
+	        #Focus on authenticodeHash for matches as most reliable
                 [void]$sha256Set.Add($img.authenticodeHash.Trim().ToUpperInvariant())
             }
         }
@@ -207,7 +206,7 @@ foreach ($file in $efiFiles) {
     foreach ($set in $revocationSets) {
         # Hash match
         if ($fileSha -and $set.Sha256Set.Contains($fileSha)) {
-            $matches += [PSCustomObject]@{ Source=$set.Name; Type='Hash'; Detail='SHA256(flat) matches revocation list' }
+            $matches += [PSCustomObject]@{ Source=$set.Name; Type='Hash'; Detail='SHA256(Authenticode) matches revocation list' }
         }
 
         # Cert match (only meaningful for CurrentDbx unless you add cert data to MsftJson mode)
@@ -226,7 +225,7 @@ foreach ($file in $efiFiles) {
         Write-Host ""
         Write-Host "WARNING: EFI file matches revocation list(s)" -ForegroundColor Yellow
         Write-Host ("  Path: {0}" -f $file)
-        if ($fileSha) { Write-Host ("  SHA256 (flat): {0}" -f $fileSha) }
+        if ($fileSha) { Write-Host ("  SHA256 (Authenticode): {0}" -f $fileSha) }
         if ($signerThumbprints.Count -gt 0) {
             Write-Host ("  Signer thumbprint(s): {0}" -f ($signerThumbprints -join ', '))
         }
