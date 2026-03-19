@@ -193,10 +193,11 @@ foreach ($file in $efiFiles) {
     try {
         $sigs = Get-EfiSignatures -FilePath $file
     	$fileSha =  $sigs.Authentihash
-        foreach ($sig in $sigs) {
+	foreach ($sig in $sigs.Signatures) {
             if ($sig.Signer -and $sig.Signer.RawData) {
                 $signerDerHexes += (Get-CertDerHex -Cert $sig.Signer)
                 $signerThumbprints += $sig.Signer.Thumbprint
+		$thumb = (Get-FileHash -Algorithm SHA1 -InputStream ([IO.MemoryStream]::new($sig.Signer.RawData))).Hash.ToLowerInvariant()
             }
         }
     } catch {}
