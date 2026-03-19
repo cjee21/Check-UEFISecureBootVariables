@@ -116,10 +116,10 @@ To display all the UEFI Secure Boot variables in readable format, right-click `S
 `Check EFI file info.cmd` can be used to check and display various information of EFI and EXE files. A file path can be passed to it via CLI, a file can be dropped on it or a path may be provided to it when prompted. It can be used to check bootable media for example. Various information will be displayed as in the example below:
 
 ```
-Path to EFI file: D:\efi\boot\bootx64.efi
+Path to EFI file: C:\Windows\Boot\EFI\bootmgfw.efi
 
 
-FilePath         : D:\efi\boot\bootx64.efi
+FilePath         : C:\Windows\Boot\EFI\bootmgfw.efi
 Machine          : x64
 Subsystem        : EFI Application
 SubsystemVersion : 1.0
@@ -129,12 +129,12 @@ SubsystemVersion : 1.0
 File Information:
 
 
-OriginalFilename  : bootmgr.exe
+OriginalFilename  : bootmgr.exe.mui
 FileDescription   : Boot Manager
 ProductName       : Microsoft® Windows® Operating System
 Comments          :
 CompanyName       : Microsoft Corporation
-FileName          : D:\efi\boot\bootx64.efi
+FileName          : C:\Windows\Boot\EFI\bootmgfw.efi
 FileVersion       : 10.0.26100.30227 (WinBuild.160101.0800)
 ProductVersion    : 10.0.26100.30227
 IsDebug           : False
@@ -142,17 +142,19 @@ IsPatched         : False
 IsPreRelease      : False
 IsPrivateBuild    : False
 IsSpecialBuild    : False
-Language          : English (United States)
+Language          : English (United Kingdom)
 LegalCopyright    : © Microsoft Corporation. All rights reserved.
 LegalTrademarks   :
 PrivateBuild      :
 SpecialBuild      :
-FileVersionRaw    : 10.0.26100.30227
-ProductVersionRaw : 10.0.26100.30227
+FileVersionRaw    : 10.0.28000.317
+ProductVersionRaw : 10.0.28000.317
 
 
 
-Signature Certificate:
+Authenticode SHA256: 2A5E50EB6A232538E895A32D3DC77BBF08059F952A6FA045BBBBC203CCBD2FA6
+
+Signature Certificate(s):
 
 
 Subject      : CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US

@@ -35,8 +35,8 @@ function Get-AuthenticodeSignatureSignerCertificateIssuerCN {
         [String]$FilePath
     )
     $Issuers = ""
-    $sigs = Get-EfiSignatures -FilePath $FilePath
-    foreach ($sig in $sigs) {
+    $hash_sigs = Get-EfiSignatures -FilePath $FilePath
+    foreach ($sig in $hash_sigs.Signatures) {
         if ($Issuers) { 
             $Issuers += ", " 
         }
