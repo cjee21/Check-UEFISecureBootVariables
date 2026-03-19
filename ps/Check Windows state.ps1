@@ -73,7 +73,9 @@ $memtest_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI
 mountvol s: /d
 
 $bootmgfw_ver = $bootmgfw_verinfo.FileVersion
+$bootmgfw_ver_raw = $bootmgfw_verinfo.FileVersionRaw
 Write-Host "bootmgfw version         : $bootmgfw_ver"
+Write-Host "bootmgfw raw version     : $bootmgfw_ver_raw"
 Write-Host "bootmgfw signature CA    : $bootmgfw_sigCA_name"
 $bootmgfw_svn_ver = Get-SVNfromBytes $bootmgfw_SVN_bytes
 Write-Host "bootmgfw SVN             : $bootmgfw_svn_ver"
@@ -81,7 +83,9 @@ Write-Host "bootmgfw SVN             : $bootmgfw_svn_ver"
 Write-Host ""
 
 $bootmgr_ver = $bootmgr_verinfo.FileVersion
+$bootmgr_ver_raw = $bootmgr_verinfo.FileVersionRaw
 Write-Host "bootmgr version          : $bootmgr_ver"
+Write-Host "bootmgr raw version      : $bootmgr_ver_raw"
 Write-Host "bootmgr signature CA     : $bootmgr_sigCA_name"
 $bootmgr_svn_ver = Get-SVNfromBytes $bootmgr_SVN_bytes
 Write-Host "bootmgr SVN              : $bootmgr_svn_ver"
@@ -89,5 +93,7 @@ Write-Host "bootmgr SVN              : $bootmgr_svn_ver"
 Write-Host ""
 
 $memtest_ver = $memtest_verinfo.FileVersion
+$memtest_ver_raw = $memtest_verinfo.FileVersionRaw
 Write-Host "memtest version          : $memtest_ver"
+Write-Host "memtest raw version      : $memtest_ver_raw"
 Write-Host "memtest signature CA     : $memtest_sigCA_name"
