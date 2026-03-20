@@ -202,7 +202,6 @@ foreach ($file in $efiFiles) {
     $fileSha = $null
 
     # Signer cert DER hexes (may be empty)
-    $signerDerHexes = @()
     $signerThumbprints = @()
     try {
         $sigs = Get-EfiSignatures -FilePath $file
@@ -225,8 +224,8 @@ foreach ($file in $efiFiles) {
         }
 
         # Cert match (only meaningful for CurrentDbx unless you add cert data to MsftJson mode)
-        if ($signerDerHexes.Count -gt 0 -and $set.X509DerSet.Count -gt 0) {
-            foreach ($derHex in $signerDerHexes) {
+        if ($signerThumbprints.Count -gt 0 -$set.X509DerSet.Count -gt 0) {
+            foreach ($derHex in $signerThumbprints) {
                 if ($set.X509DerSet.Contains($derHex)) {
                     $matches += [PSCustomObject]@{ Source=$set.Name; Type='SignerCert'; Detail='Signer certificate DER matches DBX X509 revocation' }
                     break
