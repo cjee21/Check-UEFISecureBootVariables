@@ -107,6 +107,20 @@ function Get-DbxSetsFromMsftJson {
     # MSFT JSON does not directly provide DER blobs for revoked cert entries (at least in the snippet provided),
     # so in MsftJson mode we can only do hash-based checks unless you add a mapping of signer certs separately.
     $x509DerSet = New-Object 'System.Collections.Generic.HashSet[string]'
+if ($j.PSObject.Properties.Name -contains 'certificates' -and $j.certificates) {
+    foreach ($cert in $j.certificates) {
+        $tp = $cert.thumbprint
+        if ($tp -and $tp.Trim()) {
+            # normalize: remove separators/spaces just in case, and normalize case
+            $norm = ($tp.Trim() -replace '[^0-9a-fA-F]', '').ToUpperInvariant()
+
+            # optional sanity check: SHA1 thumbprints are 20 bytes => 40 hex chars
+            if ($norm.Length -eq 40) {
+                [void]$x509DerSet.Add($norm)
+            }
+        }
+    }
+}
 
     [PSCustomObject]@{
         Name = 'MsftJson'
@@ -195,7 +209,7 @@ foreach ($file in $efiFiles) {
     	$fileSha =  $sigs.Authentihash
 	foreach ($sig in $sigs.Signatures) {
 	    foreach ($c in $sig.Certificates) {
-            	    if ($c -and $c.RawData) {
+                   if ($c -and $c.Thumbprint) {
             	       $signerThumbprints += $c.Thumbprint.ToLowerInvariant()
         	    }
     	    }
