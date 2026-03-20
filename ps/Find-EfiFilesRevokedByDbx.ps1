@@ -209,7 +209,7 @@ foreach ($file in $efiFiles) {
 	foreach ($sig in $sigs.Signatures) {
 	    foreach ($c in $sig.Certificates) {
                    if ($c -and $c.Thumbprint) {
-            	       $signerThumbprints += $c.Thumbprint.ToLowerInvariant()
+                      $signerThumbprints += $c.Thumbprint.ToUpperInvariant()
         	    }
     	    }
         }
