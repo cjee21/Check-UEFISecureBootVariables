@@ -33,25 +33,29 @@ Example output:
 
 <img width="979" height="800" alt="Screenshot" src="https://github.com/user-attachments/assets/c76b17b6-dad2-4e27-8157-6096e1f4d078" />
 
-## Audit ESP for revoked EFI binaries (DBX)
+## Audit ESP or an attached drive for revoked EFI binaries (DBX)
 
-Just right click `Scan ESP for revoked files.cmd` and choose *Run as administrator*
+Right-click `Scan ESP for revoked files.cmd` and select *Run as administrator*.
 
-The script downloads the latest Microsoft DBX JSON (`dbx_info_msft_latest.json`) from the Microsoft Secure Boot Objects repository, scans binary files in the first ESP volume, and reports any matches (it does not currently consider architecture). This can be used to audit current DBX status before applying a DBX update.
+This script:
+- Downloads the latest Microsoft DBX JSON
+- Scans EFI binaries in the ESP
+- Matches them against revoked hashes and certificates
 
-In order to scan a CD drive oran USB Drive mounted in D: with a locally downloaded JSON file: 
+You can also scan other drives (e.g., USB, CD-ROM):
 
-powershell -ExecutionPolicy Bypass -Command "& 'ps\Find-EfiFilesRevokedByDbx.ps1' -Paths D:\ -MatchMode Both -MsftJsonPath C:\Users\sei-vsarvepalli\Downloads\dbx_info_msft_latest.json -ScanESP:$false
+`powershell -ExecutionPolicy Bypass -Command "& 'ps\Find-EfiFilesRevokedByDbx.ps1' -Paths D:\ -MatchMode Both -MsftJsonPath C:\path\dbx_info_msft_latest.json -ScanESP:$false`
 
-The default URL for download of the JSON file is at https://raw.githubusercontent.com/microsoft/secureboot_objects/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
-
-[!WARNING]
-This has been tested mostly using Authenticode hash comparison and certificate revocation by SHA1 signature of the certificate's DER format. The purpose is to find revoked UEFI binaries that could be used in Bring Your Own Vulnerable Driver (BYOVD) attacks against UEFI.
-
-The newer revoked binaries that were part of Microsoft's new SVN mechanism are not done by this script at this time. However the `Check EFI file info.cmd` script just displays the SVN or SBAT if present in the EFI file being checked but does not do any comparisons. An improvement to compare this against the SVN NVRAM variable would be a welcome feature to add.
+Default JSON:
+https://raw.githubusercontent.com/microsoft/secureboot_objects/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
 
 Example output:
 <img style="width: 979px" alt="DBX audit scan output" src="docs/screenshot-audit.png" />
+
+[!WARNING]
+Detection is based on hash and certificate matching only.
+Newer revocations using **SVN (version-based enforcement)** are **not currently checked**. However `Check EFI file info.cmd` will display SVN/SBAT data if present, but this tool does not compare it against UEFI NVRAM policy. Support for SVN comparison is welcome as a feature request. The `Check EFI file info.cmd` also  provides SBAT information. The SBAT enforcement is handled by shim, this tool will likely catch revoked shim binaries.
+
 
 ## Re-applying the Secure Boot DBX updates
 
