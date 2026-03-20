@@ -46,7 +46,9 @@ powershell -ExecutionPolicy Bypass -Command "& 'ps\Find-EfiFilesRevokedByDbx.ps1
 The default URL for download of the JSON file is at https://raw.githubusercontent.com/microsoft/secureboot_objects/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
 
 [!WARNING]
-This has been tested mostly using Authenticode hash comparison to find revoked UEFI binaries that could be used in Bring Your Own Vulnerable Driver (BYOVD) attacks against UEFI. The newer revoked binaries that were part of Microsoft's new SVN mechanism in DBX and some of the certificates that were batch revoked as part of [BlackLotus UEFI Bootkit response](https://support.microsoft.com/en-us/topic/enterprise-deployment-guidance-for-cve-2023-24932-88b8f034-20b7-4a45-80cb-c6049b0f9967#ID0EDF). A feature to introduce this capability is welcome.
+This has been tested mostly using Authenticode hash comparison and certificate revocation by SHA1 signature of the certificate's DER format. The purpose is to find revoked UEFI binaries that could be used in Bring Your Own Vulnerable Driver (BYOVD) attacks against UEFI.
+
+The newer revoked binaries that were part of Microsoft's new SVN mechanism are not done by this script at this time. However the `Check EFI file info.cmd` script just displays the SVN or SBAT if present in the EFI file being checked but does not do any comparisons. An improvement to compare this against the SVN NVRAM variable would be a welcome feature to add.
 
 Example output:
 <img style="width: 979px" alt="DBX audit scan output" src="docs/screenshot-audit.png" />
