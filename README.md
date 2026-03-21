@@ -54,7 +54,7 @@ Example output:
 
 [!WARNING]
 Detection is based on hash and certificate matching only.
-Newer revocations using **SVN (version-based enforcement)** are **not currently checked**. However `Check EFI file info.cmd` will display SVN/SBAT data if present, but this tool does not compare it against UEFI NVRAM policy. Support for SVN comparison is welcome as a feature request. The `Check EFI file info.cmd` also  provides SBAT information. The SBAT enforcement is handled by shim, this tool will likely catch revoked shim binaries.
+Newer revocations using **SVN (version-based enforcement)** and **SBAT** are **not currently checked**. However `Check EFI file info.cmd` will display SVN/SBAT data if present, but this tool currently does not compare it against UEFI NVRAM policy. Support for SVN and SBAT comparison is welcome as a feature request. 
 
 
 ## Re-applying the Secure Boot DBX updates
