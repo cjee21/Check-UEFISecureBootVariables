@@ -1,6 +1,6 @@
 # Created for cjee21/Check-UEFISecureBootVariables
 # Purpose: Walk EFI binaries and warn if they match revocations via:
-#   - file hash (Authenticode hash if you wire it in later)
+#   - file hash (Authenticode hash)
 #   - signer certificate match (X509 DER match) against current DBX (EFI_CERT_X509_GUID)
 # Also supports checking against microsoft/secureboot_objects dbx_info_msft_latest.json.
 
@@ -98,29 +98,27 @@ function Get-DbxSetsFromMsftJson {
         $items = $archProp.Value
         foreach ($img in $items) {
             if ($img.authenticodeHash -and $img.authenticodeHash.Trim()) {
-	        #Focus on authenticodeHash for matches as most reliable
+                #Focus on authenticodeHash for matches as most reliable
                 [void]$sha256Set.Add($img.authenticodeHash.Trim().ToUpperInvariant())
             }
         }
     }
 
-    # MSFT JSON does not directly provide DER blobs for revoked cert entries (at least in the snippet provided),
-    # so in MsftJson mode we can only do hash-based checks unless you add a mapping of signer certs separately.
     $x509DerSet = New-Object 'System.Collections.Generic.HashSet[string]'
-if ($j.PSObject.Properties.Name -contains 'certificates' -and $j.certificates) {
-    foreach ($cert in $j.certificates) {
-        $tp = $cert.thumbprint
-        if ($tp -and $tp.Trim()) {
-            # normalize: remove separators/spaces just in case, and normalize case
-            $norm = ($tp.Trim() -replace '[^0-9a-fA-F]', '').ToUpperInvariant()
+    if ($j.PSObject.Properties.Name -contains 'certificates' -and $j.certificates) {
+        foreach ($cert in $j.certificates) {
+            $tp = $cert.thumbprint
+            if ($tp -and $tp.Trim()) {
+                # normalize: remove separators/spaces just in case, and normalize case
+                $norm = ($tp.Trim() -replace '[^0-9a-fA-F]', '').ToUpperInvariant()
 
-            # optional sanity check: SHA1 thumbprints are 20 bytes => 40 hex chars
-            if ($norm.Length -eq 40) {
-                [void]$x509DerSet.Add($norm)
+                # optional sanity check: SHA1 thumbprints are 20 bytes => 40 hex chars
+                if ($norm.Length -eq 40) {
+                    [void]$x509DerSet.Add($norm)
+                }
             }
         }
     }
-}
 
     [PSCustomObject]@{
         Name = 'MsftJson'
@@ -205,13 +203,13 @@ foreach ($file in $efiFiles) {
     $signerThumbprints = @()
     try {
         $sigs = Get-EfiSignatures -FilePath $file
-    	$fileSha =  $sigs.Authentihash
-	foreach ($sig in $sigs.Signatures) {
-	    foreach ($c in $sig.Certificates) {
-                   if ($c -and $c.Thumbprint) {
-                      $signerThumbprints += $c.Thumbprint.ToUpperInvariant()
-        	    }
-    	    }
+        $fileSha =  $sigs.Authentihash
+        foreach ($sig in $sigs.Signatures) {
+            foreach ($c in $sig.Certificates) {
+                if ($c -and $c.Thumbprint) {
+                    $signerThumbprints += $c.Thumbprint.ToUpperInvariant()
+                }
+            }
         }
     } catch {}
 
@@ -223,7 +221,7 @@ foreach ($file in $efiFiles) {
             $matches += [PSCustomObject]@{ Source=$set.Name; Type='Hash'; Detail='SHA256(Authenticode) matches revocation list' }
         }
 
-        # Cert match (only meaningful for CurrentDbx unless you add cert data to MsftJson mode)
+        # Cert match
         if ($signerThumbprints.Count -gt 0 -$set.X509DerSet.Count -gt 0) {
             foreach ($derHex in $signerThumbprints) {
                 if ($set.X509DerSet.Contains($derHex)) {
