@@ -45,27 +45,15 @@ function Get-AuthenticodeSignatureSignerCertificateIssuerCN {
     $Issuers
 }
 
-function Get-SVNfromBytes {
-    param(
-        [Parameter(Mandatory=$true)]
-        [System.Array]$SVN_bytes
-    )
-    $MinorBytes = $SVN_bytes[0..1]
-    $svn_ver_minor = [System.BitConverter]::ToInt16($MinorBytes, 0)
-    $MajorBytes = $SVN_bytes[2..3]
-    $svn_ver_major = [System.BitConverter]::ToInt16($MajorBytes, 0)
-    [version]::new($svn_ver_major, $svn_ver_minor)
-}
-
 mountvol s: /s
 
 $bootmgfw_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\bootmgfw.efi).VersionInfo
 $bootmgfw_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\bootmgfw.efi'
-$bootmgfw_SVN_bytes = Get-BootMgrSecurityVersionBytes -Path S:\EFI\Microsoft\Boot\bootmgfw.efi
+$bootmgfw_svn_ver = Get-BootMgrSecurityVersion -Path 'S:\EFI\Microsoft\Boot\bootmgfw.efi'
 
 $bootmgr_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\bootmgr.efi).VersionInfo
 $bootmgr_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\bootmgr.efi'
-$bootmgr_SVN_bytes = Get-BootMgrSecurityVersionBytes -Path S:\EFI\Microsoft\Boot\bootmgr.efi
+$bootmgr_svn_ver = Get-BootMgrSecurityVersion -Path 'S:\EFI\Microsoft\Boot\bootmgr.efi'
 
 $memtest_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\memtest.efi).VersionInfo
 $memtest_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\memtest.efi'
@@ -77,7 +65,6 @@ $bootmgfw_ver_raw = $bootmgfw_verinfo.FileVersionRaw
 Write-Host "bootmgfw version         : $bootmgfw_ver"
 Write-Host "bootmgfw raw version     : $bootmgfw_ver_raw"
 Write-Host "bootmgfw signature CA    : $bootmgfw_sigCA_name"
-$bootmgfw_svn_ver = Get-SVNfromBytes $bootmgfw_SVN_bytes
 Write-Host "bootmgfw SVN             : $bootmgfw_svn_ver"
 
 Write-Host ""
@@ -87,7 +74,6 @@ $bootmgr_ver_raw = $bootmgr_verinfo.FileVersionRaw
 Write-Host "bootmgr version          : $bootmgr_ver"
 Write-Host "bootmgr raw version      : $bootmgr_ver_raw"
 Write-Host "bootmgr signature CA     : $bootmgr_sigCA_name"
-$bootmgr_svn_ver = Get-SVNfromBytes $bootmgr_SVN_bytes
 Write-Host "bootmgr SVN              : $bootmgr_svn_ver"
 
 Write-Host ""
