@@ -33,6 +33,30 @@ Example output:
 
 <img width="979" height="800" alt="Screenshot" src="https://github.com/user-attachments/assets/c76b17b6-dad2-4e27-8157-6096e1f4d078" />
 
+## Audit ESP or an attached drive for revoked EFI binaries (DBX)
+
+Right-click `Scan ESP for revoked files.cmd` and select *Run as administrator*.
+
+This script:
+- Downloads the latest Microsoft DBX JSON
+- Scans EFI binaries in the ESP
+- Matches them against revoked hashes and certificates
+
+You can also scan other drives (e.g., USB, CD-ROM):
+
+`powershell -ExecutionPolicy Bypass -Command "& 'ps\Find-EfiFilesRevokedByDbx.ps1' -Paths D:\ -MatchMode Both -MsftJsonPath C:\path\dbx_info_msft_latest.json -ScanESP:$false`
+
+Default JSON:
+https://raw.githubusercontent.com/microsoft/secureboot_objects/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
+
+Example output:
+<img style="width: 979px" alt="DBX audit scan output" src="docs/screenshot-audit.png" />
+
+[!WARNING]
+Detection is based on hash and certificate matching only.
+Newer revocations using **SVN (version-based enforcement)** and **SBAT** are **not currently checked**. However `Check EFI file info.cmd` will display SVN/SBAT data if present, but this tool currently does not compare it against UEFI NVRAM policy. Support for SVN and SBAT comparison is welcome as a feature request. 
+
+
 ## Re-applying the Secure Boot DBX updates
 
 If the Secure Boot variables were accidentally reset to default in the UEFI/BIOS settings for example, it is possible to make Windows re-apply the DBX updates that Windows had previously applied. Right-click `Apply DBX update.cmd` and *Run as administrator*. Wait for awhile. The DBX updates should be applied after that.
