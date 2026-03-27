@@ -22,8 +22,8 @@ if (-not ((Test-Path -Path "$PSScriptRoot\Check-Dbx-Simplified.ps1" -PathType Le
 
 # Print computer info
 Get-Date -Format 'dd MMMM yyyy'
-$computer = Get-WmiObject Win32_ComputerSystem
-$bios = Get-WmiObject Win32_BIOS
+$computer = Get-CimInstance -ClassName Win32_ComputerSystem
+$bios = Get-CimInstance -ClassName Win32_BIOS
 "Manufacturer: " + $computer.Manufacturer
 "Model: " + $computer.Model
 $biosinfo = $bios.Manufacturer , $bios.Name , $bios.SMBIOSBIOSVersion , $bios.Version -join ", "
@@ -35,7 +35,7 @@ $v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
 $IsArm = $false
 $Is64bit = $true
 try {
-    $cpuArch = (Get-WmiObject Win32_Processor -ErrorAction Stop).Architecture
+    $cpuArch = (Get-CimInstance -ClassName Win32_Processor -ErrorAction Stop).Architecture
     # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
     if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
         $IsArm = $true
