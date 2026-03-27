@@ -99,3 +99,5 @@ function Get-BootMgrSecurityVersionBytes {
         }
     }
 }
+
+Export-ModuleMember -Function Get-BootMgrSecurityVersion

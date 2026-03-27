@@ -13,7 +13,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 # Check files
 if (-not ((Test-Path -Path "$PSScriptRoot\Check-Dbx-Simplified.ps1" -PathType Leaf) -and `
-    (Test-Path -Path "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1" -PathType Leaf) -and `
+    (Test-Path -Path "$PSScriptRoot\Get-UEFIDatabaseSignatures.psm1" -PathType Leaf) -and `
     (Test-Path -Path "$PSScriptRoot\..\dbx_bin\*.bin") -and `
     (Test-Path -Path "$PSScriptRoot\..\dbx_info\*.json"))) {
     Write-Warning "Some required files are missing. Please re-obtain a copy from https://github.com/cjee21/Check-UEFISecureBootVariables."
@@ -88,7 +88,7 @@ $reset = "$([char]0x1b)[0m"
 $check = "$([char]0x1b)[92m$([char]8730)$reset"
 $cross =  "$([char]0x1b)[91mX$reset"
 
-Import-Module "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1"
+Import-Module -Force "$PSScriptRoot\Get-UEFIDatabaseSignatures.psm1"
 
 Write-Host $bold'Current UEFI PK'$reset
 try {

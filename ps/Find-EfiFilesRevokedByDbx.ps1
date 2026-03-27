@@ -28,8 +28,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-Import-Module "$PSScriptRoot\Get-UEFIDatabaseSignatures.ps1" -Force
-Import-Module "$PSScriptRoot\Get-EfiSignatures.ps1" -Force
+Import-Module "$PSScriptRoot\Get-UEFIDatabaseSignatures.psm1" -Force
+Import-Module "$PSScriptRoot\Get-EfiSignatures.psm1" -Force
 
 function Get-FileSha256Hex {
     param([Parameter(Mandatory)][string] $FilePath)

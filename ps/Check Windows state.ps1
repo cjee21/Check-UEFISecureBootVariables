@@ -26,8 +26,8 @@ switch ((Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoo
 
 Write-Host ""
 
-Import-Module "$PSScriptRoot\Get-BootMgrSecurityVersion.ps1"
-Import-Module "$PSScriptRoot\Get-EfiSignatures.ps1"
+Import-Module -Force "$PSScriptRoot\Get-BootMgrSecurityVersion.psm1"
+Import-Module -Force "$PSScriptRoot\Get-EfiSignatures.psm1"
 
 function Get-AuthenticodeSignatureSignerCertificateIssuerCN {
     param(
