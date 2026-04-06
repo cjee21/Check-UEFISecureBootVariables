@@ -259,40 +259,73 @@ $svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$svn_late
 $svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID" }).version
 $svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
 $svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version
-$dbx_bytes = (Get-SecureBootUEFI dbx).Bytes
-$dbx_hex = ($dbx_bytes | ForEach-Object {'{0:x2}' -f $_}) -join ''
 
-function Get-VersionFromHexString {
+$dbx_list = Get-SecureBootUEFI dbx | Get-UEFIDatabaseSignatures -ErrorAction Stop
+
+function Get-SVNfromDBX {
+    # Get Security Version Number (SVN) from DBX data
+    # SVNs are in SVN_DATA which are stored as EFI_CERT_SHA256_GUID with SignatureOwner {9d132b6c-59d5-4388-ab1c-185cfcb2eb92}
+    # There are 3 types of SVNs:
+    #  EFI_BOOTMGR_DBXSVN_GUID = {9d132b61-59d5-4388-ab1c-185c3cb2eb92}
+    #  EFI_CDBOOT_DBXSVN_GUID = {e8f82e9d-e127-4158-a488-4c18abe2f284}
+    #  EFI_WDSMGR_DBXSVN_GUID = {c999cac2-7ffe-496f-8127-9e2a8a535976}
     # SVN_DATA value:
-    # Byte[0] is the UINT8 version of the SVN_DATA structure.
-    # Bytes[1...16] are the GUID of the application being revoked. Little endian.
-    # Bytes[17...18] are the Minor SVN number. Litte endian UINT16.
-    # Bytes[19...20] are the Major SVN number. Litte endian UINT16.
-    # Bytes[21...31] are 11 zero bytes padding.
+    #  Byte[0] is the UINT8 version of the SVN_DATA structure.
+    #  Bytes[1...16] are the GUID of the application being revoked. Little endian.
+    #  Bytes[17...18] are the Minor SVN number. Litte endian UINT16.
+    #  Bytes[19...20] are the Major SVN number. Litte endian UINT16.
+    #  Bytes[21...31] are 11 zero bytes padding.
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]$HexString
+        [PSCustomObject]$UEFISignatureDatabase
     )
-    $byteArray = -split ($HexString -replace '..', '$& ') | ForEach-Object { 
-        [System.Convert]::ToByte($_, 16) 
+    $SVNs = foreach ($SignatureList in $UEFISignatureDatabase) {
+        if ($SignatureList.SignatureType -eq 'EFI_CERT_SHA256_GUID') {
+            foreach ($Signature in $SignatureList.SignatureList) {
+                if ($Signature.SignatureOwner -eq [guid]'9d132b6c-59d5-4388-ab1c-185cfcb2eb92') {
+                    if ($Signature.SignatureData -like "01*" -and $Signature.SignatureData.Substring(42, 22) -eq ("0" * 22)) {
+                        $byteArray = -split ($Signature.SignatureData -replace '..', '$& ') | ForEach-Object { 
+                            [System.Convert]::ToByte($_, 16)
+                        }
+                        $MinorBytes = $byteArray[17..18]
+                        $svn_ver_minor = [System.BitConverter]::ToUInt16($MinorBytes, 0)
+                        $MajorBytes = $byteArray[19..20]
+                        $svn_ver_major = [System.BitConverter]::ToUInt16($MajorBytes, 0)
+                        [PSCustomObject]@{
+                            GUID = New-Object -TypeName System.Guid -ArgumentList (,[byte[]]$byteArray[1..16])
+                            Version = [version]::new($svn_ver_major, $svn_ver_minor)
+                        } 
+                    }
+                }
+            }
+        }
     }
-    $MinorBytes = $byteArray[17..18]
-    $svn_ver_minor = [System.BitConverter]::ToUInt16($MinorBytes, 0)
-    $MajorBytes = $byteArray[19..20]
-    $svn_ver_major = [System.BitConverter]::ToUInt16($MajorBytes, 0)
-    return [version]::new($svn_ver_major, $svn_ver_minor)
+    $BootMgrSVN = $SVNs |
+        Where-Object { $_.GUID -eq [guid]'9d132b61-59d5-4388-ab1c-185c3cb2eb92' } | 
+        Sort-Object Version -Descending | 
+        Select-Object -First 1
+    $CDBootSVN = $SVNs |
+        Where-Object { $_.GUID -eq [guid]'e8f82e9d-e127-4158-a488-4c18abe2f284' } | 
+        Sort-Object Version -Descending | 
+        Select-Object -First 1
+    $WDSMgFwSVN = $SVNs |
+        Where-Object { $_.GUID -eq [guid]'c999cac2-7ffe-496f-8127-9e2a8a535976' } | 
+        Sort-Object Version -Descending | 
+        Select-Object -First 1
+    [PSCustomObject] @{
+        BootMgr = $BootMgrSVN
+        CDBoot = $CDBootSVN
+        WDSMgFw = $WDSMgFwSVN
+    }
 }
 
-Write-Host ("Windows Bootmgr SVN".PadRight($colWidth) + " : ") -NoNewline
-$svn_bootmgr = [Regex]::Matches($dbx_hex,'01612B139DD5598843AB1C185C3CB2EB92........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
+$svn_list = Get-SVNfromDBX $dbx_list
 
-if ($svn_bootmgr.Count) {
-    $svn_bootmgr_vers = $svn_bootmgr | ForEach-Object {
-        Get-VersionFromHexString($_)
-    }
-    $svn_bootmgr_ver = ($svn_bootmgr_vers | Measure-Object -Maximum).Maximum
+Write-Host ("Windows Bootmgr SVN".PadRight($colWidth) + " : ") -NoNewline
+if ($svn_list.BootMgr) {
+    $svn_bootmgr_ver = $svn_list.BootMgr.Version
     if ($svn_bootmgr_ver -ge $svn_bootmgr_latest) {
         Write-Host $svn_bootmgr_ver -ForegroundColor Green
     } else {
@@ -301,13 +334,10 @@ if ($svn_bootmgr.Count) {
 } else {
     Write-Host 'None' -ForegroundColor Red
 }
+
 Write-Host ("Windows cdboot SVN".PadRight($colWidth) + " : ") -NoNewline
-$svn_cdboot = [Regex]::Matches($dbx_hex,'019D2EF8E827E15841A4884C18ABE2F284........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
-if ($svn_cdboot.Count) {
-    $svn_cdboot_vers = $svn_cdboot | ForEach-Object {
-        Get-VersionFromHexString($_)
-    }
-    $svn_cdboot_ver = ($svn_cdboot_vers | Measure-Object -Maximum).Maximum
+if ($svn_list.CDBoot) {
+    $svn_cdboot_ver = $svn_list.CDBoot.Version
     if ($svn_cdboot_ver -ge $svn_cdboot_latest) {
         Write-Host $svn_cdboot_ver -ForegroundColor Green
     } else {
@@ -317,12 +347,8 @@ if ($svn_cdboot.Count) {
     Write-Host 'None' -ForegroundColor Red
 }
 Write-Host ("Windows wdsmgfw SVN".PadRight($colWidth) + " : ") -NoNewline
-$svn_wdsmgfw = [Regex]::Matches($dbx_hex,'01C2CA99C9FE7F6F4981279E2A8A535976........0000000000000000000000', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
-if ($svn_wdsmgfw.Count) {
-    $svn_wdsmgfw_vers = $svn_wdsmgfw | ForEach-Object {
-        Get-VersionFromHexString($_)
-    }
-    $svn_wdsmgfw_ver = ($svn_wdsmgfw_vers | Measure-Object -Maximum).Maximum
+if ($svn_list.WDSMgFw) {
+    $svn_wdsmgfw_ver = $svn_list.WDSMgFw.Version
     if ($svn_wdsmgfw_ver -ge $svn_wdsmgfw_latest) {
         Write-Host $svn_wdsmgfw_ver -ForegroundColor Green
     } else {
