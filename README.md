@@ -147,11 +147,11 @@ To save all UEFI Secure Boot variables and related information to an XML file, r
 
 The exported XML file can be imported back as a PowerShell object that can be navigated.
 
-For example, to view the 2023 CA update status or the current SVN in the DBX:
+For example, to view the 2023 CA update status or the current Boot Manager SVN in the DBX:
 
 ```powershell
 $SecureBootData = Import-Clixml 'SecureBootData.xml'
-$SecureBootData.RegistryKeys.UEFICA2023Status
+$SecureBootData.RegistryKeys.Servicing.UEFICA2023Status
 $SecureBootData.DBX.SecurityVersionNumber.BootMgr.Version.ToString()
 ```
 
