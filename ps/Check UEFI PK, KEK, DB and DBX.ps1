@@ -279,9 +279,9 @@ function Get-VersionFromHexString {
         [System.Convert]::ToByte($_, 16) 
     }
     $MinorBytes = $byteArray[17..18]
-    $svn_ver_minor = [System.BitConverter]::ToInt16($MinorBytes, 0)
+    $svn_ver_minor = [System.BitConverter]::ToUInt16($MinorBytes, 0)
     $MajorBytes = $byteArray[19..20]
-    $svn_ver_major = [System.BitConverter]::ToInt16($MajorBytes, 0)
+    $svn_ver_major = [System.BitConverter]::ToUInt16($MajorBytes, 0)
     return [version]::new($svn_ver_major, $svn_ver_minor)
 }
 
