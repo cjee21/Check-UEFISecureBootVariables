@@ -141,6 +141,20 @@ Press any key to continue . . .
 
 To display all the UEFI Secure Boot variables in readable format, right-click `Show UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*. All certificates in the PK, KEK and DB variables as well as all hashes in the DBX variable will be displayed.
 
+## Dumping all the UEFI Secure Boot variables and related information
+
+To save all UEFI Secure Boot variables and related information to an XML file, right-click `Dump Secure Boot data` and *Run as administrator*. `SecureBootData.xml` will be saved to the Desktop.
+
+The exported XML file can be imported back as a PowerShell object that can be navigated.
+
+For example, to view the 2023 CA update status or the current SVN in the DBX:
+
+```powershell
+$SecureBootData = Import-Clixml 'SecureBootData.xml'
+$SecureBootData.RegistryKeys.UEFICA2023Status
+$SecureBootData.DBX.SecurityVersionNumber.BootMgr.Version.ToString()
+```
+
 ## Checking EFI files
 
 `Check EFI file info.cmd` can be used to check and display various information of EFI and EXE files. A file path can be passed to it via CLI, a file can be dropped on it or a path may be provided to it when prompted. It can be used to check bootable media for example. Various information will be displayed as in the example below:
