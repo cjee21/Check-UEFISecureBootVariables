@@ -13,9 +13,9 @@ function Get-BootMgrSecurityVersion {
         return $null 
     }
     $MinorBytes = $SVN_bytes[0..1]
-    $svn_ver_minor = [System.BitConverter]::ToInt16($MinorBytes, 0)
+    $svn_ver_minor = [System.BitConverter]::ToUInt16($MinorBytes, 0)
     $MajorBytes = $SVN_bytes[2..3]
-    $svn_ver_major = [System.BitConverter]::ToInt16($MajorBytes, 0)
+    $svn_ver_major = [System.BitConverter]::ToUInt16($MajorBytes, 0)
     [version]::new($svn_ver_major, $svn_ver_minor)
 }
 
