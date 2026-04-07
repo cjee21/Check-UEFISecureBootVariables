@@ -154,9 +154,19 @@ function Show-UEFICertOthers {
     try {
         $certs = Get-SecureBootUEFI -Name $SecureBootUEFIVar | Get-UEFIDatabaseSignatures
         $cert_names = @()
-        $certs.SignatureList.SignatureData.Subject | ForEach-Object {
-            $cert_names += [regex]::Match($_, 'CN=([^,]+)').Groups[1].Value
+        $certs | ForEach-Object {
+            if ($_.SignatureType -eq 'EFI_CERT_X509_GUID') {
+                $_.SignatureList.SignatureData.Subject | ForEach-Object {
+                    $cert_names += [regex]::Match($_, 'CN=([^,]+)').Groups[1].Value
+                }
+            }
+            elseif ($_.SignatureType -eq 'EFI_CERT_SHA256_GUID') {
+                $_.SignatureList.SignatureData | ForEach-Object {
+                    $cert_names += "SHA256: $_"
+                }
+            }
         }
+        
         $cert_names | ForEach-Object {
             if ($KnownCerts -notcontains $_) {
                 # List out all other certs found other than those in known list
@@ -260,7 +270,14 @@ $svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{9d
 $svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
 $svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version
 
-$dbx_list = Get-SecureBootUEFI dbx | Get-UEFIDatabaseSignatures -ErrorAction Stop
+$dbx_raw = Get-SecureBootUEFI dbx -ErrorAction Stop
+
+$dbx_list = $dbx_raw | Get-UEFIDatabaseSignatures
+$dbx_size = $dbx_raw.Bytes.Length
+$dbx_hashes = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_GUID' } | ForEach-Object { $_.SignatureList.SignatureData }).Count
+$dbx_certs = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_X509_GUID' } | ForEach-Object { $_.SignatureList.SignatureData }).Count
+$dbx_svns = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_GUID' -and $_.SignatureList.SignatureOwner -eq [guid]'9d132b6c-59d5-4388-ab1c-185cfcb2eb92' } | ForEach-Object { $_.SignatureList.SignatureData }).Count
+$dbx_hashes -= $dbx_svns
 
 function Get-SVNfromDBX {
     # Get Security Version Number (SVN) from DBX data
@@ -357,3 +374,5 @@ if ($svn_list.WDSMgFw) {
 } else {
     Write-Host 'None' -ForegroundColor Red
 }
+
+Write-Host ("Statistics".PadRight($colWidth) + " : $dbx_size Bytes, $dbx_hashes SHA256 hashes, $dbx_certs X.509 certs, $dbx_svns SVNs")
