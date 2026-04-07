@@ -229,6 +229,13 @@ Show-UEFICertOthers -SecureBootUEFIVar DBDefault -KnownCerts $DBCerts
 Write-Host ""
 Write-Host $bold'Current UEFI DBX'$reset
 
+try {
+    $dbx_raw = Get-SecureBootUEFI dbx -ErrorAction Stop
+} catch {
+    Write-Host "Exception: $($_.Exception.Message)" -ForegroundColor Red
+    Break # No need to continue with remaining DBX-related checks of script if failed to obtain DBX data
+}
+
 $colWidth = 27
 function Show-CheckDBX {
     param(
@@ -269,8 +276,6 @@ $svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$svn_late
 $svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID" }).version
 $svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
 $svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version
-
-$dbx_raw = Get-SecureBootUEFI dbx -ErrorAction Stop
 
 $dbx_list = $dbx_raw | Get-UEFIDatabaseSignatures
 $dbx_size = $dbx_raw.Bytes.Length
