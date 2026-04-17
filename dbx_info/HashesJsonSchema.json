@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "images": {
+      "type": "object",
+      "properties": {
+        "x64": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "authenticodeHash": {
+                "type": "string",
+                "description": "Hash of the image using the PE Authenticode hashing standard"
+              },
+              "hashType": {
+                "type": "string",
+                "enum": [
+                  "SHA256"
+                ],
+                "description": "Type of the hashing algorithm, e.g., SHA256"
+              },
+              "flatHash": {
+                "type": "string",
+                "description": "SHA256 flat hash of the image file"
+              },
+              "filename": {
+                "type": "string",
+                "description": "Name of the image file"
+              },
+              "description": {
+                "type": "string",
+                "description": "Additional information for the image or the reason for its addition"
+              },
+              "companyName": {
+                "type": "string",
+                "description": "Name of the company that authored the image"
+              },
+              "dateOfAddition": {
+                "type": "string",
+                "format": "date",
+                "description": "Date when the certificate was added to this list in YYYY-MM-DD format"
+              },
+              "signingAuthority": {
+                "type": "string",
+                "description": "Common name (CN) of the intermediate CA used to sign the image"
+              }
+            },
+            "required": [
+              "authenticodeHash",
+              "hashType",
+              "flatHash",
+              "filename",
+              "description",
+              "companyName",
+              "dateOfAddition",
+              "signingAuthority"
+            ]
+          }
+        },
+        "ia32": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "authenticodeHash": {
+                "type": "string",
+                "description": "Hash of the image using the PE Authenticode hashing standard"
+              },
+              "hashType": {
+                "type": "string",
+                "enum": [
+                  "SHA256"
+                ],
+                "description": "Type of the hashing algorithm, e.g., SHA256"
+              },
+              "flatHash": {
+                "type": "string",
+                "description": "SHA256 flat hash of the image file"
+              },
+              "filename": {
+                "type": "string",
+                "description": "Name of the image file"
+              },
+              "description": {
+                "type": "string",
+                "description": "Additional information for the image or the reason for its addition"
+              },
+              "companyName": {
+                "type": "string",
+                "description": "Name of the company that authored the image"
+              },
+              "dateOfAddition": {
+                "type": "string",
+                "format": "date",
+                "description": "Date when the certificate was added to this list in YYYY-MM-DD format"
+              },
+              "signingAuthority": {
+                "type": "string",
+                "description": "Common name (CN) of the intermediate CA used to sign the image"
+              }
+            },
+            "required": [
+              "authenticodeHash",
+              "hashType",
+              "flatHash",
+              "filename",
+              "description",
+              "companyName",
+              "dateOfAddition",
+              "signingAuthority"
+            ]
+          }
+        },
+        "aarch64": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "authenticodeHash": {
+                "type": "string",
+                "description": "Hash of the image using the PE Authenticode hashing standard"
+              },
+              "hashType": {
+                "type": "string",
+                "enum": [
+                  "SHA256"
+                ],
+                "description": "Type of the hashing algorithm, e.g., SHA256"
+              },
+              "flatHash": {
+                "type": "string",
+                "description": "SHA256 flat hash of the image file"
+              },
+              "filename": {
+                "type": "string",
+                "description": "Name of the image file"
+              },
+              "description": {
+                "type": "string",
+                "description": "Additional information for the image or the reason for its addition"
+              },
+              "companyName": {
+                "type": "string",
+                "description": "Name of the company that authored the image"
+              },
+              "dateOfAddition": {
+                "type": "string",
+                "format": "date",
+                "description": "Date when the certificate was added to this list in YYYY-MM-DD format"
+              },
+              "signingAuthority": {
+                "type": "string",
+                "description": "Common name (CN) of the intermediate CA used to sign the image"
+              }
+            },
+            "required": [
+              "authenticodeHash",
+              "hashType",
+              "flatHash",
+              "filename",
+              "description",
+              "companyName",
+              "dateOfAddition",
+              "signingAuthority"
+            ]
+          }
+        },
+        "arm": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "authenticodeHash": {
+                "type": "string",
+                "description": "Hash of the image using the PE Authenticode hashing standard"
+              },
+              "hashType": {
+                "type": "string",
+                "enum": [
+                  "SHA256"
+                ],
+                "description": "Type of the hashing algorithm, e.g., SHA256"
+              },
+              "flatHash": {
+                "type": "string",
+                "description": "SHA256 flat hash of the image file"
+              },
+              "filename": {
+                "type": "string",
+                "description": "Name of the image file"
+              },
+              "description": {
+                "type": "string",
+                "description": "Additional information for the image or the reason for its addition"
+              },
+              "companyName": {
+                "type": "string",
+                "description": "Name of the company that authored the image"
+              },
+              "dateOfAddition": {
+                "type": "string",
+                "format": "date",
+                "description": "Date when the certificate was added to this list in YYYY-MM-DD format"
+              },
+              "signingAuthority": {
+                "type": "string",
+                "description": "Common name (CN) of the intermediate CA used to sign the image"
+              }
+            },
+            "required": [
+              "authenticodeHash",
+              "hashType",
+              "flatHash",
+              "filename",
+              "description",
+              "companyName",
+              "dateOfAddition",
+              "signingAuthority"
+            ]
+          }
+        }
+      },
+      "required": [
+        "x64",
+        "ia32",
+        "aarch64",
+        "arm"
+      ]
+    },
+    "certificates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Path to the certificate file"
+          },
+          "subjectName": {
+            "type": "string",
+            "description": "Common name (CN) of the subject of the certificate"
+          },
+          "issuerName": {
+            "type": "string",
+            "description": "Common name (CN) of the issuer of the certificate"
+          },
+          "thumbprint": {
+            "type": "string",
+            "description": "SHA1 thumbprint of the certificate"
+          },
+          "description": {
+            "type": "string",
+            "description": "Additional information for the certificate or the reason for its addition"
+          },
+          "dateOfAddition": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the certificate was added to this list in YYYY-MM-DD format"
+          }
+        },
+        "required": [
+          "value",
+          "subjectName",
+          "issuerName",
+          "thumbprint",
+          "description",
+          "dateOfAddition"
+        ]
+      }
+    },
+    "svns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "SVN_DATA value. Byte[0] is the UINT8 version of the SVN_DATA structure. Bytes[1...16] are the GUID of the application being revoked. Little endian. Bytes[17...18] are the Minor SVN number. Litte endian UINT16. Bytes[19...20] are the Major SVN number. Litte endian UINT16.Bytes[21...31] are 11 zero bytes padding."
+          },
+          "version": {
+            "type": "string",
+            "description": "SVN version number. Versions less than this version are revoked."
+          },
+          "filename": {
+            "type": "string",
+            "description": "Name of the image file"
+          },
+          "guid": {
+            "type": "string",
+            "description": "GUID representation of the image file"
+          },
+          "description": {
+            "type": "string",
+            "description": "Additional information for the svn, the image or the reason for its addition"
+          },
+          "dateOfLastChange": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the SVN was updated most recently, in YYYY-MM-DD format"
+          }
+        },
+        "required": [
+          "value",
+          "version",
+          "filename",
+          "guid",
+          "description",
+          "dateOfLastChange"
+        ]
+      }
+    }
+  },
+  "required": [
+    "images",
+    "certificates",
+    "svns"
+  ]
+}
