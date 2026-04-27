@@ -5,7 +5,7 @@ title EFI File Info
 if "%~1" == "" (
     set /p filepath="Path to EFI file: "
 ) else (
-    set filepath=%~1
+    set "filepath=%~1"
 )
 
 powershell -ExecutionPolicy Bypass -Command "Import-Module -Force '%~dp0\ps\Get-PEInfo.psm1'; try { $ErrorActionPreference = 'Stop'; Get-PEInfo -FilePath '%filepath%' | Format-List } catch {}"
