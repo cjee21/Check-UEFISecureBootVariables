@@ -87,35 +87,13 @@ function Get-EfiSignatures {
         $hashRange.Invoke($checksumOffset + 4, ($secDirOffset - ($checksumOffset + 4)))
         $hashRange.Invoke($secDirOffset + 8, ($sizeOfHeaders - ($secDirOffset + 8)))
 
-        # Step B: Sections (Sorted)
-        $sectionHeaderStart = $peOffset + 24 + $sizeOfOptionalHeader
-        $sections = New-Object System.Collections.Generic.List[PSObject]
-        for ($i = 0; $i -lt $numSections; $i++) {
-            $fs.Position = $sectionHeaderStart + ($i * 40) + 16
-            $sSize = $reader.ReadUInt32()
-            $sPtr  = $reader.ReadUInt32()
-            if ($sSize -gt 0) {
-                $sections.Add([PSCustomObject]@{ Ptr = $sPtr; Size = $sSize })
-            }
-        }
-
-        $sortedSections = $sections | Sort-Object Ptr
-        $processedUpTo = $sizeOfHeaders
-
-        foreach ($sec in $sortedSections) {
-            $hashRange.Invoke($sec.Ptr, $sec.Size)
-            $processedUpTo = $sec.Ptr + $sec.Size
-        }
-
-        # Step C: The Final Gap
-        # Hash only up to the start of the Certificate Table.
-        # If there's no signature, hash to the end of the file.
+        # Step B: Sections including extra data
         if ($certTableAddr -gt 0) {
-            if ($certTableAddr -gt $processedUpTo) {
-                $hashRange.Invoke($processedUpTo, ($certTableAddr - $processedUpTo))
-            }
-        } else {
+            $hashRange.Invoke($sizeOfHeaders, ($certTableAddr - $sizeOfHeaders))
+            $processedUpTo = $certTableAddr + $certTableSize
             $hashRange.Invoke($processedUpTo, ($fs.Length - $processedUpTo))
+        } else {
+            $hashRange.Invoke($sizeOfHeaders, ($fs.Length - $sizeOfHeaders))
         }
 
         $sha256.TransformFinalBlock($buffer, 0, 0) | Out-Null
@@ -158,7 +136,7 @@ function Get-EfiSignatures {
             }
         }
 
-        # Return Master Object
+        # --- 4. Return Master Object ---
         return [PSCustomObject]@{
             FilePath     = (Resolve-Path $FilePath).Path
             Authentihash = $authHash
