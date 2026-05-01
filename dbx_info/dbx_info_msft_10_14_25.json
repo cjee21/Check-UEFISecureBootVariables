@@ -6907,7 +6907,7 @@
             "value": "01612B139DD5598843AB1C185C3CB2EB92000007000000000000000000000000",
             "version": "7.0",
             "filename": "bootmgfw.efi",
-            "guid": "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID",
+            "guid": "{9d132b61-59d5-4388-ab1c-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID",
             "description": "Windows Bootmgr SVN CVE-2023-24932",
             "dateOfLastChange": "2025-06-06"
         },
@@ -6915,7 +6915,7 @@
             "value": "019D2EF8E827E15841A4884C18ABE2F284000003000000000000000000000000",
             "version": "3.0",
             "filename": "cdboot.efi",
-            "guid": "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID",
+            "guid": "{e8f82e9d-e127-4158-a488-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID",
             "description": "Windows cdboot SVN CVE-2023-24932",
             "dateOfLastChange": "2024-04-01"
         },
@@ -6923,7 +6923,7 @@
             "value": "01C2CA99C9FE7F6F4981279E2A8A535976000003000000000000000000000000",
             "version": "3.0",
             "filename": "wdsmgfw.efi",
-            "guid": "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID",
+            "guid": "{c999cac2-7ffe-496f-8127-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID",
             "description": "Windows wdsmgfw SVN CVE-2023-24932",
             "dateOfLastChange": "2024-04-01"
         }

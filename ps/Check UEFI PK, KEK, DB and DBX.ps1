@@ -272,10 +272,14 @@ if ($arch -eq "x64") {
 }
 
 $svn_latest_dbx = "10_14_25"
+$SVN_OWNER_GUID = '9d132b6c-59d5-4388-ab1c-185cfcb2eb92'
+$EFI_BOOTMGR_DBXSVN_GUID = '9d132b61-59d5-4388-ab1c-185c3cb2eb92'
+$EFI_CDBOOT_DBXSVN_GUID = 'e8f82e9d-e127-4158-a488-4c18abe2f284'
+$EFI_WDSMGR_DBXSVN_GUID = 'c999cac2-7ffe-496f-8127-9e2a8a535976'
 $svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$svn_latest_dbx.json" -Raw | ConvertFrom-Json
-$svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{9d132b61-59d5-4388-1cab-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID" }).version
-$svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{e8f82e9d-e127-4158-88a4-4c18abe2f284} == EFI_CDBOOT_DBXSVN_GUID" }).version
-$svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{c999cac2-7ffe-496f-2781-9e2a8a535976} == EFI_WDSMGR_DBXSVN_GUID" }).version
+$svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{$EFI_BOOTMGR_DBXSVN_GUID} == EFI_BOOTMGR_DBXSVN_GUID" }).version
+$svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{$EFI_CDBOOT_DBXSVN_GUID} == EFI_CDBOOT_DBXSVN_GUID" }).version
+$svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{$EFI_WDSMGR_DBXSVN_GUID} == EFI_WDSMGR_DBXSVN_GUID" }).version
 
 $dbx_list = $dbx_raw | Get-UEFIDatabaseSignatures
 $dbx_size = $dbx_raw.Bytes.Length
@@ -306,7 +310,7 @@ function Get-SVNfromDBX {
     $SVNs = foreach ($SignatureList in $UEFISignatureDatabase) {
         if ($SignatureList.SignatureType -eq 'EFI_CERT_SHA256_GUID') {
             foreach ($Signature in $SignatureList.SignatureList) {
-                if ($Signature.SignatureOwner -eq [guid]'9d132b6c-59d5-4388-ab1c-185cfcb2eb92') {
+                if ($Signature.SignatureOwner -eq [guid]$SVN_OWNER_GUID) {
                     if ($Signature.SignatureData -like "01*" -and $Signature.SignatureData.Substring(42, 22) -eq ("0" * 22)) {
                         $byteArray = -split ($Signature.SignatureData -replace '..', '$& ') | ForEach-Object { 
                             [System.Convert]::ToByte($_, 16)
@@ -325,15 +329,15 @@ function Get-SVNfromDBX {
         }
     }
     $BootMgrSVN = $SVNs |
-        Where-Object { $_.GUID -eq [guid]'9d132b61-59d5-4388-ab1c-185c3cb2eb92' } | 
+        Where-Object { $_.GUID -eq [guid]$EFI_BOOTMGR_DBXSVN_GUID } | 
         Sort-Object Version -Descending | 
         Select-Object -First 1
     $CDBootSVN = $SVNs |
-        Where-Object { $_.GUID -eq [guid]'e8f82e9d-e127-4158-a488-4c18abe2f284' } | 
+        Where-Object { $_.GUID -eq [guid]$EFI_CDBOOT_DBXSVN_GUID } | 
         Sort-Object Version -Descending | 
         Select-Object -First 1
     $WDSMgFwSVN = $SVNs |
-        Where-Object { $_.GUID -eq [guid]'c999cac2-7ffe-496f-8127-9e2a8a535976' } | 
+        Where-Object { $_.GUID -eq [guid]$EFI_WDSMGR_DBXSVN_GUID } | 
         Sort-Object Version -Descending | 
         Select-Object -First 1
     [PSCustomObject] @{
@@ -348,7 +352,7 @@ $svn_list = Get-SVNfromDBX $dbx_list
 Write-Host ("Windows Bootmgr SVN".PadRight($colWidth) + " : ") -NoNewline
 if ($svn_list.BootMgr) {
     $svn_bootmgr_ver = $svn_list.BootMgr.Version
-    if ($svn_bootmgr_ver -ge $svn_bootmgr_latest) {
+    if ($svn_bootmgr_latest -and $svn_bootmgr_ver -ge $svn_bootmgr_latest) {
         Write-Host $svn_bootmgr_ver -ForegroundColor Green
     } else {
         Write-Host $svn_bootmgr_ver -ForegroundColor Red
@@ -360,7 +364,7 @@ if ($svn_list.BootMgr) {
 Write-Host ("Windows cdboot SVN".PadRight($colWidth) + " : ") -NoNewline
 if ($svn_list.CDBoot) {
     $svn_cdboot_ver = $svn_list.CDBoot.Version
-    if ($svn_cdboot_ver -ge $svn_cdboot_latest) {
+    if ($svn_cdboot_latest -and $svn_cdboot_ver -ge $svn_cdboot_latest) {
         Write-Host $svn_cdboot_ver -ForegroundColor Green
     } else {
         Write-Host $svn_cdboot_ver -ForegroundColor Red
@@ -371,7 +375,7 @@ if ($svn_list.CDBoot) {
 Write-Host ("Windows wdsmgfw SVN".PadRight($colWidth) + " : ") -NoNewline
 if ($svn_list.WDSMgFw) {
     $svn_wdsmgfw_ver = $svn_list.WDSMgFw.Version
-    if ($svn_wdsmgfw_ver -ge $svn_wdsmgfw_latest) {
+    if ($svn_wdsmgfw_latest -and $svn_wdsmgfw_ver -ge $svn_wdsmgfw_latest) {
         Write-Host $svn_wdsmgfw_ver -ForegroundColor Green
     } else {
         Write-Host $svn_wdsmgfw_ver -ForegroundColor Red
