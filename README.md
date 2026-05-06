@@ -139,7 +139,7 @@ Press any key to continue . . .
 
 ## Viewing all the UEFI Secure Boot variables
 
-To display all the UEFI Secure Boot variables in readable format, right-click `Show UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*. All certificates in the PK, KEK and DB variables as well as all hashes in the DBX variable will be displayed.
+To display all the UEFI Secure Boot variables in readable format, right-click `Show UEFI PK, KEK, DB and DBX.cmd` and *Run as administrator*. All certificates in the PK, KEK and DB variables as well as all hashes in the DBX variable will be displayed. `Show UEFI PK, KEK, DB and DBX (new).cmd` can also be used if the Windows version is newer than April 2026 to obtain different information.
 
 ## Dumping all the UEFI Secure Boot variables and related information
 
