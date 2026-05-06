@@ -285,7 +285,7 @@ $dbx_list = $dbx_raw | Get-UEFIDatabaseSignatures
 $dbx_size = $dbx_raw.Bytes.Length
 $dbx_hashes = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_GUID' } | ForEach-Object { $_.SignatureList.SignatureData }).Count
 $dbx_certs = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_X509_GUID' } | ForEach-Object { $_.SignatureList.SignatureData }).Count
-$dbx_svns = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_GUID' -and $_.SignatureList.SignatureOwner -eq [guid]'9d132b6c-59d5-4388-ab1c-185cfcb2eb92' } | ForEach-Object { $_.SignatureList.SignatureData }).Count
+$dbx_svns = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_GUID' } | ForEach-Object { $_.SignatureList | Where-Object { $_.SignatureOwner -eq [guid]$SVN_OWNER_GUID } } | ForEach-Object { $_.SignatureData }).Count
 $dbx_hashes -= $dbx_svns
 
 function Get-SVNfromDBX {
