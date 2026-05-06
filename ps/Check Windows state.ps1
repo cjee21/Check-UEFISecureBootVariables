@@ -83,3 +83,15 @@ $memtest_ver_raw = $memtest_verinfo.FileVersionRaw
 Write-Host "memtest version          : $memtest_ver"
 Write-Host "memtest raw version      : $memtest_ver_raw"
 Write-Host "memtest signature CA     : $memtest_sigCA_name"
+
+Write-Host ""
+
+Import-Module -Force "$PSScriptRoot\Get-UEFIDatabaseSignatures.psm1"
+Import-Module -Force "$PSScriptRoot\Get-SVNfromDBX.psm1"
+
+$StagedSVNbytes = [IO.File]::ReadAllBytes('C:\Windows\System32\SecureBootUpdates\DBXUpdateSVN.bin')
+$staged_svn = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
+
+Write-Host "Staged BootMgr SVN       : $($staged_svn.BootMgr.Version)"
+Write-Host "Staged CDBoot SVN        : $($staged_svn.CDBoot.Version)"
+Write-Host "Staged WDSMgFw SVN       : $($staged_svn.WDSMgFw.Version)"
