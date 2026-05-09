@@ -288,14 +288,29 @@ $dbx_hashes -= $dbx_svns
 
 $svn_list = Get-SVNfromDBX $dbx_list
 
-Write-Host ("Windows Bootmgr SVN".PadRight($colWidth) + " : ") -NoNewline
+Write-Host ("Windows BootManager SVN".PadRight($colWidth) + " : ") -NoNewline
+
 if ($svn_list.BootMgr) {
+    $StagedSVNbytes = [IO.File]::ReadAllBytes('C:\Windows\System32\SecureBootUpdates\DBXUpdateSVN.bin')
+    $staged_svn = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
+
+    $svn_bootmgr_staged = $staged_svn.BootMgr.Version
     $svn_bootmgr_ver = $svn_list.BootMgr.Version
-    if ($svn_bootmgr_latest -and $svn_bootmgr_ver -ge $svn_bootmgr_latest) {
-        Write-Host $svn_bootmgr_ver -ForegroundColor Green
+
+    $target = if ($svn_bootmgr_latest -ge $svn_bootmgr_staged) {
+        $svn_bootmgr_latest
     } else {
-        Write-Host $svn_bootmgr_ver -ForegroundColor Red
+        $svn_bootmgr_staged
     }
+
+    $isUpdated = ($svn_bootmgr_ver -ge $target)
+    if ($isUpdated) {
+        $text = "$svn_bootmgr_ver"
+    } else {
+        $text = "$svn_bootmgr_ver (Latest $target)"
+    }
+
+    Write-Host $text -ForegroundColor $(if ($isUpdated) { 'Green' } else { 'Red' })
 } else {
     Write-Host 'None' -ForegroundColor Red
 }
