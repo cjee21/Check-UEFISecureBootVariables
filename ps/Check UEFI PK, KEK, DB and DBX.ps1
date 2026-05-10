@@ -286,41 +286,33 @@ $dbx_certs = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_X509_GU
 $dbx_svns = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_GUID' } | ForEach-Object { $_.SignatureList | Where-Object { $_.SignatureOwner -eq [guid]$SVN_OWNER_GUID } } | ForEach-Object { $_.SignatureData }).Count
 $dbx_hashes -= $dbx_svns
 
+$components = [ordered]@{
+    BootMgr = @{ Name="Windows Bootmgr SVN"; JSON=$svn_bootmgr_latest }
+    CDBoot  = @{ Name="Windows cdboot SVN"; JSON=$svn_cdboot_latest }
+    WDSMgFw = @{ Name="Windows wdsmgfw SVN"; JSON=$svn_wdsmgfw_latest }
+}
+
 $svn_list = Get-SVNfromDBX $dbx_list
+$StagedSVNbytes = [IO.File]::ReadAllBytes('C:\Windows\System32\SecureBootUpdates\DBXUpdateSVN.bin')
+$svn_staged = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
 
-Write-Host ("Windows Bootmgr SVN".PadRight($colWidth) + " : ") -NoNewline
-if ($svn_list.BootMgr) {
-    $svn_bootmgr_ver = $svn_list.BootMgr.Version
-    if ($svn_bootmgr_latest -and $svn_bootmgr_ver -ge $svn_bootmgr_latest) {
-        Write-Host $svn_bootmgr_ver -ForegroundColor Green
-    } else {
-        Write-Host $svn_bootmgr_ver -ForegroundColor Red
-    }
-} else {
-    Write-Host 'None' -ForegroundColor Red
-}
+foreach ($key in $components.Keys) {
+    Write-Host -NoNewline "$($components[$key].Name.PadRight($colWidth)) : "
 
-Write-Host ("Windows cdboot SVN".PadRight($colWidth) + " : ") -NoNewline
-if ($svn_list.CDBoot) {
-    $svn_cdboot_ver = $svn_list.CDBoot.Version
-    if ($svn_cdboot_latest -and $svn_cdboot_ver -ge $svn_cdboot_latest) {
-        Write-Host $svn_cdboot_ver -ForegroundColor Green
-    } else {
-        Write-Host $svn_cdboot_ver -ForegroundColor Red
+    if (-not $svn_list.$key) {
+        Write-Host "Not applied" -ForegroundColor Red
+        continue
     }
-} else {
-    Write-Host 'None' -ForegroundColor Red
-}
-Write-Host ("Windows wdsmgfw SVN".PadRight($colWidth) + " : ") -NoNewline
-if ($svn_list.WDSMgFw) {
-    $svn_wdsmgfw_ver = $svn_list.WDSMgFw.Version
-    if ($svn_wdsmgfw_latest -and $svn_wdsmgfw_ver -ge $svn_wdsmgfw_latest) {
-        Write-Host $svn_wdsmgfw_ver -ForegroundColor Green
-    } else {
-        Write-Host $svn_wdsmgfw_ver -ForegroundColor Red
-    }
-} else {
-    Write-Host 'None' -ForegroundColor Red
+
+    $json       = $components[$key].JSON
+    $current    = $svn_list.$key.Version
+    $staged     = $svn_staged.$key.Version
+
+    $target = if ($json -ge $staged) { $json } else { $staged }
+    $isUpdated = ($current -ge $target)
+    $color = if ($isUpdated) { "Green" } else { "Red" }
+    $text = if ($isUpdated) { "$current" } else { "$current (Target: $target)" }
+    Write-Host $text -ForegroundColor $color
 }
 
 Write-Host ("Statistics".PadRight($colWidth) + " : $dbx_size Bytes, $dbx_hashes SHA256 hashes, $dbx_certs X.509 certs, $dbx_svns SVNs")
