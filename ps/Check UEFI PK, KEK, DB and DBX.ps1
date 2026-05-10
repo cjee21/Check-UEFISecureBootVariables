@@ -297,7 +297,13 @@ $StagedSVNbytes = [IO.File]::ReadAllBytes('C:\Windows\System32\SecureBootUpdates
 $svn_staged = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
 
 foreach ($key in $components.Keys) {
-    $name       = $components[$key].Name.PadRight($colWidth) + " : "
+    Write-Host -NoNewline "$($components[$key].Name.PadRight($colWidth)) : "
+
+    if (-not $svn_list.$key) {
+        Write-Host "Not applied" -ForegroundColor Red
+        continue
+    }
+
     $json       = $components[$key].JSON
     $current    = $svn_list.$key.Version
     $staged     = $svn_staged.$key.Version
@@ -306,7 +312,6 @@ foreach ($key in $components.Keys) {
     $isUpdated = ($current -ge $target)
     $color = if ($isUpdated) { "Green" } else { "Red" }
     $text = if ($isUpdated) { "$current" } else { "$current (Target: $target)" }
-    Write-Host -NoNewline $name
     Write-Host $text -ForegroundColor $color
 }
 
