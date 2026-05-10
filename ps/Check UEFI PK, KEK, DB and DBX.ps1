@@ -261,6 +261,7 @@ if ($arch -eq "x64") {
   # Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-01-14.bin"
   # Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
     Show-CheckDBX "2025-10-14 (v1.6.0) [$arch]" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
+    Show-CheckDBX "Current Windows staged" "C:\Windows\System32\SecureBootUpdates\dbxupdate.bin"
 } elseif ($arch -eq "arm64") {
     Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
 } elseif ($arch -eq "x86") {
@@ -287,9 +288,9 @@ $dbx_svns = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_G
 $dbx_hashes -= $dbx_svns
 
 $components = [ordered]@{
-    BootMgr = @{ Name="Windows Bootmgr SVN"; JSON=$svn_bootmgr_latest }
-    CDBoot  = @{ Name="Windows cdboot SVN"; JSON=$svn_cdboot_latest }
-    WDSMgFw = @{ Name="Windows wdsmgfw SVN"; JSON=$svn_wdsmgfw_latest }
+    BootMgr = @{ Name="Windows BootMgr SVN"; JSON=$svn_bootmgr_latest }
+    CDBoot  = @{ Name="Windows CDBoot SVN"; JSON=$svn_cdboot_latest }
+    WDSMgFw = @{ Name="Windows WDSMgFw SVN"; JSON=$svn_wdsmgfw_latest }
 }
 
 $svn_list = Get-SVNfromDBX $dbx_list
