@@ -45,20 +45,34 @@ function Get-AuthenticodeSignatureSignerCertificateIssuerCN {
     $Issuers
 }
 
-mountvol s: /s
+function Get-UnassignedDriveLetter {
+    $alphabet = 65..90 | ForEach-Object { [char]$_ }
+    $used = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty Name
+    $free = $alphabet | Where-Object { $_ -notin $used }
+    if ($free.Count -eq 0) {
+        throw "No free drive letters to mount safely to."
+    }
+    $target = $free[[int]($free.Count / 2)]
+    return "${target}:"
+}
 
-$bootmgfw_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\bootmgfw.efi).VersionInfo
-$bootmgfw_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\bootmgfw.efi'
-$bootmgfw_svn_ver = Get-BootMgrSecurityVersion -Path 'S:\EFI\Microsoft\Boot\bootmgfw.efi'
+$targetDrive = Get-UnassignedDriveLetter
+$efiBootPath = "$targetDrive\EFI\Microsoft\Boot"
 
-$bootmgr_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\bootmgr.efi).VersionInfo
-$bootmgr_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\bootmgr.efi'
-$bootmgr_svn_ver = Get-BootMgrSecurityVersion -Path 'S:\EFI\Microsoft\Boot\bootmgr.efi'
+mountvol $targetDrive /s
 
-$memtest_verinfo = (Get-Item -Path S:\EFI\Microsoft\Boot\memtest.efi).VersionInfo
-$memtest_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN 'S:\EFI\Microsoft\Boot\memtest.efi'
+$bootmgfw_verinfo = (Get-Item -Path "$efiBootPath\bootmgfw.efi").VersionInfo
+$bootmgfw_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN "$efiBootPath\bootmgfw.efi"
+$bootmgfw_svn_ver = Get-BootMgrSecurityVersion -Path "$efiBootPath\bootmgfw.efi"
 
-mountvol s: /d
+$bootmgr_verinfo = (Get-Item -Path "$efiBootPath\bootmgr.efi").VersionInfo
+$bootmgr_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN "$efiBootPath\bootmgr.efi"
+$bootmgr_svn_ver = Get-BootMgrSecurityVersion -Path "$efiBootPath\bootmgr.efi"
+
+$memtest_verinfo = (Get-Item -Path "$efiBootPath\memtest.efi").VersionInfo
+$memtest_sigCA_name = Get-AuthenticodeSignatureSignerCertificateIssuerCN "$efiBootPath\memtest.efi"
+
+mountvol $targetDrive /d
 
 $bootmgfw_ver = $bootmgfw_verinfo.FileVersion
 $bootmgfw_ver_raw = $bootmgfw_verinfo.FileVersionRaw

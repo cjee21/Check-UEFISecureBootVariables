@@ -9,7 +9,7 @@ param(
     # Root directories to scan for .efi files (optional)
     [string[]] $Paths,
 
-    # If set, will mount ESP to S: (mountvol s: /s) and scan it (default: true)
+    # If set, will mount ESP to an unassigned drive letter: (mountvol {letter}: /s) and scan it (default: true)
     [switch] $ScanESP = $true,
 
     # Helper flag: scan common OS paths too (default: false)
@@ -140,17 +140,30 @@ function Get-EfiFilesUnderPaths {
     $all
 }
 
+function Get-UnassignedDriveLetter {
+    $alphabet = 65..90 | ForEach-Object { [char]$_ }
+    $used = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty Name
+    $free = $alphabet | Where-Object { $_ -notin $used }
+    if ($free.Count -eq 0) {
+        throw "No free drive letters to mount safely to."
+    }
+    $target = $free[[int]($free.Count / 2)]
+    return "${target}:"
+}
+
+$targetDrive = Get-UnassignedDriveLetter
+
 # Build scan roots
 $scanRoots = New-Object System.Collections.Generic.List[string]
 
 $didMountEsp = $false
 if ($ScanESP) {
     try {
-        mountvol s: /s | Out-Null
+        mountvol $targetDrive /s | Out-Null
         $didMountEsp = $true
-        $scanRoots.Add('S:\') | Out-Null
+        $scanRoots.Add("${targetDrive}\") | Out-Null
     } catch {
-        Write-Warning "Could not mount ESP to S:. Run as Administrator? Continuing..."
+        Write-Warning "Could not mount ESP to $targetDrive. Run as Administrator? Continuing..."
     }
 }
 
@@ -213,26 +226,26 @@ foreach ($file in $efiFiles) {
         }
     } catch {}
 
-    $matches = @()
+    $efiMatches = @()
 
     foreach ($set in $revocationSets) {
         # Hash match
         if ($fileSha -and $set.Sha256Set.Contains($fileSha)) {
-            $matches += [PSCustomObject]@{ Source=$set.Name; Type='Hash'; Detail='SHA256(Authenticode) matches revocation list' }
+            $efiMatches += [PSCustomObject]@{ Source=$set.Name; Type='Hash'; Detail='SHA256(Authenticode) matches revocation list' }
         }
 
         # Cert match
         if ($signerThumbprints.Count -gt 0 -$set.X509DerSet.Count -gt 0) {
             foreach ($derHex in $signerThumbprints) {
                 if ($set.X509DerSet.Contains($derHex)) {
-                    $matches += [PSCustomObject]@{ Source=$set.Name; Type='SignerCert'; Detail='Signer certificate DER matches DBX X509 revocation' }
+                    $efiMatches += [PSCustomObject]@{ Source=$set.Name; Type='SignerCert'; Detail='Signer certificate DER matches DBX X509 revocation' }
                     break
                 }
             }
         }
     }
 
-    if ($matches.Count -gt 0) {
+    if ($efiMatches.Count -gt 0) {
         $warnCount++
         Write-Host ""
         Write-Host "WARNING: EFI file matches revocation list(s)" -ForegroundColor Yellow
@@ -242,7 +255,7 @@ foreach ($file in $efiFiles) {
             Write-Host ("  Signer thumbprint(s): {0}" -f ($signerThumbprints -join ', '))
         }
 
-        foreach ($m in $matches) {
+        foreach ($m in $efiMatches) {
             Write-Host ("  Match: [{0}] {1} - {2}" -f $m.Source, $m.Type, $m.Detail) -ForegroundColor Yellow
         }
     }
@@ -252,5 +265,5 @@ Write-Host ""
 Write-Host ("Scan complete. Warnings: {0}" -f $warnCount) -ForegroundColor Cyan
 
 if ($didMountEsp) {
-    try { mountvol s: /d | Out-Null } catch {}
+    try { mountvol $targetDrive /d | Out-Null } catch {}
 }
