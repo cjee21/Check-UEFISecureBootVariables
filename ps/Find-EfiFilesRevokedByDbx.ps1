@@ -9,7 +9,7 @@ param(
     # Root directories to scan for .efi files (optional)
     [string[]] $Paths,
 
-    # If set, will mount ESP to S: (mountvol s: /s) and scan it (default: true)
+    # If set, will mount ESP to an unassigned drive letter: (mountvol {letter}: /s) and scan it (default: true)
     [switch] $ScanESP = $true,
 
     # Helper flag: scan common OS paths too (default: false)
@@ -140,23 +140,48 @@ function Get-EfiFilesUnderPaths {
     $all
 }
 
+function Get-UnassignedDriveLetter {
+    $used = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty Name
+    
+    # Use drive S: if it is available
+    if ('S' -notin $used) {
+        return 'S:'
+    }
+
+    # Fallback: Search for an unassigned letter from the middle of the alphabet
+    $alphabet = 68..90 | ForEach-Object { [char]$_ } # Search from D to Z
+    $free = @($alphabet | Where-Object { $_ -notin $used })
+    if ($free.Count -eq 0) {
+        throw "No free drive letters to mount safely to."
+    }
+    $target = $free[[int]($free.Count / 2)]
+    return "${target}:"
+}
+
+# Track our mounting state
+$mountedByUs = $false
+$targetDrive = $null
+
+# Check if the ESP is already mounted and mount if not already mounted
+$ESPMountStatus = (mountvol | Out-String) -split "`r?`n" | Where-Object { $_ -match 'EFI' } | Select-Object -Last 1
+if ($ESPMountStatus -match '([A-Z]):\\') {
+    $driveLetter = $Matches[1]
+    $targetDrive = "${driveLetter}:"
+    Write-Host "The EFI System Partition is already mounted at ${targetDrive}.`n" -ForegroundColor Cyan
+} else {
+    $targetDrive = Get-UnassignedDriveLetter
+    Write-Host "The EFI System Partition is not mounted. Mounting to ${targetDrive}.`n" -ForegroundColor Yellow
+    & mountvol "${targetDrive}" /S
+    $mountedByUs = $true
+}
+
 # Build scan roots
 $scanRoots = New-Object System.Collections.Generic.List[string]
-
-$didMountEsp = $false
-if ($ScanESP) {
-    try {
-        mountvol s: /s | Out-Null
-        $didMountEsp = $true
-        $scanRoots.Add('S:\') | Out-Null
-    } catch {
-        Write-Warning "Could not mount ESP to S:. Run as Administrator? Continuing..."
-    }
-}
+$scanRoots.Add("${targetDrive}") | Out-Null
 
 if ($ScanDefaultPaths) {
     # Common locations where EFI binaries may exist on the OS volume.
-    $scanRoots.Add("$env:SystemRoot\Boot\EFI") | Out-Null
+    $scanRoots.Add("$env:SystemRoot\Boot") | Out-Null # WIN11-25H2 \EFI + \EFI_EX
     $scanRoots.Add("$env:SystemDrive\EFI") | Out-Null
     $scanRoots.Add("$env:SystemDrive\Boot") | Out-Null
 }
@@ -213,26 +238,26 @@ foreach ($file in $efiFiles) {
         }
     } catch {}
 
-    $matches = @()
+    $efiMatches = @()
 
     foreach ($set in $revocationSets) {
         # Hash match
         if ($fileSha -and $set.Sha256Set.Contains($fileSha)) {
-            $matches += [PSCustomObject]@{ Source=$set.Name; Type='Hash'; Detail='SHA256(Authenticode) matches revocation list' }
+            $efiMatches += [PSCustomObject]@{ Source=$set.Name; Type='Hash'; Detail='SHA256(Authenticode) matches revocation list' }
         }
 
         # Cert match
         if ($signerThumbprints.Count -gt 0 -$set.X509DerSet.Count -gt 0) {
             foreach ($derHex in $signerThumbprints) {
                 if ($set.X509DerSet.Contains($derHex)) {
-                    $matches += [PSCustomObject]@{ Source=$set.Name; Type='SignerCert'; Detail='Signer certificate DER matches DBX X509 revocation' }
+                    $efiMatches += [PSCustomObject]@{ Source=$set.Name; Type='SignerCert'; Detail='Signer certificate DER matches DBX X509 revocation' }
                     break
                 }
             }
         }
     }
 
-    if ($matches.Count -gt 0) {
+    if ($efiMatches.Count -gt 0) {
         $warnCount++
         Write-Host ""
         Write-Host "WARNING: EFI file matches revocation list(s)" -ForegroundColor Yellow
@@ -242,7 +267,7 @@ foreach ($file in $efiFiles) {
             Write-Host ("  Signer thumbprint(s): {0}" -f ($signerThumbprints -join ', '))
         }
 
-        foreach ($m in $matches) {
+        foreach ($m in $efiMatches) {
             Write-Host ("  Match: [{0}] {1} - {2}" -f $m.Source, $m.Type, $m.Detail) -ForegroundColor Yellow
         }
     }
@@ -251,6 +276,10 @@ foreach ($file in $efiFiles) {
 Write-Host ""
 Write-Host ("Scan complete. Warnings: {0}" -f $warnCount) -ForegroundColor Cyan
 
-if ($didMountEsp) {
-    try { mountvol s: /d | Out-Null } catch {}
+# Guaranteed cleanup
+if ($mountedByUs) {
+    Write-Host "Cleaning up: Unmounting the EFI System Partition from ${targetDrive} because we mounted it." -ForegroundColor Yellow
+    & mountvol "${targetDrive}" /D
+} else {
+    Write-Host "Cleanup skipped: The EFI System Partition was already mounted before we started." -ForegroundColor Cyan
 }

@@ -113,30 +113,34 @@ To view the current Windows Secure Boot state, right-click `Check Windows state.
 Checking for Administrator permission...
 Running as administrator - continuing execution...
 
-Windows version: 25H2 (Build 26200.8246)
+Windows version: 25H2 (Build 26200.8457)
 
 UEFISecureBootEnabled    : 1
 AvailableUpdates         : 0x0000
 UEFICA2023Status         : Updated
 WindowsUEFICA2023Capable : Windows UEFI CA 2023 cert is in DB, system is starting from 2023 signed boot manager
 
+The EFI System Partition is not mounted. Mounting to S:.
+
 bootmgfw version         : 10.0.28000.322 (WinBuild.160101.0800)
-bootmgfw raw version     : 10.0.28000.322
+bootmgfw raw version     : 10.0.28000.326
 bootmgfw signature CA    : Windows UEFI CA 2023
 bootmgfw SVN             : 8.0
 
 bootmgr version          : 10.0.28000.322 (WinBuild.160101.0800)
-bootmgr raw version      : 10.0.28000.322
+bootmgr raw version      : 10.0.28000.326
 bootmgr signature CA     : Microsoft Windows Production PCA 2011
 bootmgr SVN              : 8.0
 
 memtest version          : 10.0.26100.1 (WinBuild.160101.0800)
-memtest raw version      : 10.0.26100.8115
+memtest raw version      : 10.0.26100.8457
 memtest signature CA     : Microsoft Windows Production PCA 2011
 
 Staged BootMgr SVN       : 8.0
 Staged CDBoot SVN        : 3.0
 Staged WDSMgFw SVN       : 3.0
+
+Cleaning up: Unmounting the EFI System Partition from S: because we mounted it.
 
 Press any key to continue . . .
 ```
