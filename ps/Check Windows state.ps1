@@ -68,9 +68,8 @@ $mountedByUs = $false
 $targetDrive = $null
 
 # Check if the ESP is already mounted and mount if not already mounted
-$MountVolOutput = mountvol | Where-Object { $_.Trim() -ne "" }
-$LastLine = $MountVolOutput[-1].Trim()
-if ($LastLine -match 'EFI.*([A-Z]):\\$') {
+$ESPMountStatus = (mountvol | Out-String) -split "`r?`n" | Where-Object { $_ -match 'EFI' } | Select-Object -Last 1
+if ($ESPMountStatus -match '([A-Z]):\\') {
     $driveLetter = $Matches[1]
     $targetDrive = "${driveLetter}:"
     Write-Host "The EFI System Partition is already mounted at ${targetDrive}.`n" -ForegroundColor Cyan
