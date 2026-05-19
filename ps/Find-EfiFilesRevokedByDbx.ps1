@@ -141,9 +141,16 @@ function Get-EfiFilesUnderPaths {
 }
 
 function Get-UnassignedDriveLetter {
-    $alphabet = 65..90 | ForEach-Object { [char]$_ }
     $used = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty Name
-    $free = $alphabet | Where-Object { $_ -notin $used }
+    
+    # Use drive S: if it is available
+    if ('S' -notin $used) {
+        return 'S:'
+    }
+
+    # Fallback: Search for an unassigned letter from the middle of the alphabet
+    $alphabet = 68..90 | ForEach-Object { [char]$_ } # Search from D to Z
+    $free = @($alphabet | Where-Object { $_ -notin $used })
     if ($free.Count -eq 0) {
         throw "No free drive letters to mount safely to."
     }
@@ -151,25 +158,30 @@ function Get-UnassignedDriveLetter {
     return "${target}:"
 }
 
-$targetDrive = Get-UnassignedDriveLetter
+# Track our mounting state
+$mountedByUs = $false
+$targetDrive = $null
+
+# Check if the ESP is already mounted and mount if not already mounted
+$ESPMountStatus = (mountvol | Out-String) -split "`r?`n" | Where-Object { $_ -match 'EFI' } | Select-Object -Last 1
+if ($ESPMountStatus -match '([A-Z]):\\') {
+    $driveLetter = $Matches[1]
+    $targetDrive = "${driveLetter}:"
+    Write-Host "The EFI System Partition is already mounted at ${targetDrive}.`n" -ForegroundColor Cyan
+} else {
+    $targetDrive = Get-UnassignedDriveLetter
+    Write-Host "The EFI System Partition is not mounted. Mounting to ${targetDrive}.`n" -ForegroundColor Yellow
+    & mountvol "${targetDrive}" /S
+    $mountedByUs = $true
+}
 
 # Build scan roots
 $scanRoots = New-Object System.Collections.Generic.List[string]
-
-$didMountEsp = $false
-if ($ScanESP) {
-    try {
-        mountvol $targetDrive /s | Out-Null
-        $didMountEsp = $true
-        $scanRoots.Add("${targetDrive}\") | Out-Null
-    } catch {
-        Write-Warning "Could not mount ESP to $targetDrive. Run as Administrator? Continuing..."
-    }
-}
+$scanRoots.Add("${targetDrive}") | Out-Null
 
 if ($ScanDefaultPaths) {
     # Common locations where EFI binaries may exist on the OS volume.
-    $scanRoots.Add("$env:SystemRoot\Boot\EFI") | Out-Null
+    $scanRoots.Add("$env:SystemRoot\Boot") | Out-Null # WIN11-25H2 \EFI + \EFI_EX
     $scanRoots.Add("$env:SystemDrive\EFI") | Out-Null
     $scanRoots.Add("$env:SystemDrive\Boot") | Out-Null
 }
@@ -264,6 +276,10 @@ foreach ($file in $efiFiles) {
 Write-Host ""
 Write-Host ("Scan complete. Warnings: {0}" -f $warnCount) -ForegroundColor Cyan
 
-if ($didMountEsp) {
-    try { mountvol $targetDrive /d | Out-Null } catch {}
+# Guaranteed cleanup
+if ($mountedByUs) {
+    Write-Host "Cleaning up: Unmounting the EFI System Partition from ${targetDrive} because we mounted it." -ForegroundColor Yellow
+    & mountvol "${targetDrive}" /D
+} else {
+    Write-Host "Cleanup skipped: The EFI System Partition was already mounted before we started." -ForegroundColor Cyan
 }
