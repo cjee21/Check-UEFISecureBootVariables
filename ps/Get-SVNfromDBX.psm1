@@ -1,7 +1,7 @@
-Set-Variable -Name SVN_OWNER_GUID -Value '9d132b6c-59d5-4388-ab1c-185cfcb2eb92' -Option Constant
-Set-Variable -Name EFI_BOOTMGR_DBXSVN_GUID -Value '9d132b61-59d5-4388-ab1c-185c3cb2eb92' -Option Constant
-Set-Variable -Name EFI_CDBOOT_DBXSVN_GUID -Value 'e8f82e9d-e127-4158-a488-4c18abe2f284' -Option Constant
-Set-Variable -Name EFI_WDSMGR_DBXSVN_GUID -Value 'c999cac2-7ffe-496f-8127-9e2a8a535976' -Option Constant
+Set-Variable -Name SVN_OWNER_GUID -Value '9d132b6c-59d5-4388-ab1c-185cfcb2eb92' -Option ReadOnly
+Set-Variable -Name EFI_BOOTMGR_DBXSVN_GUID -Value '9d132b61-59d5-4388-ab1c-185c3cb2eb92' -Option ReadOnly
+Set-Variable -Name EFI_CDBOOT_DBXSVN_GUID -Value 'e8f82e9d-e127-4158-a488-4c18abe2f284' -Option ReadOnly
+Set-Variable -Name EFI_WDSMGR_DBXSVN_GUID -Value 'c999cac2-7ffe-496f-8127-9e2a8a535976' -Option ReadOnly
 
 function Get-SVNfromDBX {
     # Get Security Version Number (SVN) from DBX data
