@@ -17,6 +17,18 @@ function Get-WindowsVersionFromBuild([int]$Build) {
     }
 }
 
+function Resolve-ArchName {
+    param([string]$Arch)
+
+    switch ($Arch.ToUpper()) {
+        "AMD64" { "AMD64/X64" }
+        "ARM"   { "ARM" }
+        "ARM64" { "ARM64/AARCH64" }
+        "X86"   { "X86/IA32" }
+        default { $Arch }
+    }
+}
+
 function Format-Set($Values) {
 
     # Filter out duplicates and junk
@@ -47,7 +59,6 @@ function Format-DeviceModel([string[]]$Values) {
     $result = if ($t1) { @($t1) + @($t2) } else { @($t3) }
     $result -join ' - '
 }
-
 
 function Show-WindowsVersion {
     $windows = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
@@ -84,7 +95,7 @@ function Show-Device {
             $device.OEMModelSKU
             $device.OEMModelBaseBoardVersion
         )),
-        $device.OSArchitecture
+        (Resolve-ArchName $device.OSArchitecture)
         
     # Firmware
     "FW : {0} - {1} - {2}" -f `
@@ -96,4 +107,5 @@ function Show-Device {
 Export-ModuleMember -Function `
     Spacer,
     Show-WindowsVersion,
-    Show-DeviceOverview
+    Show-DeviceOverview,
+    Resolve-ArchName
