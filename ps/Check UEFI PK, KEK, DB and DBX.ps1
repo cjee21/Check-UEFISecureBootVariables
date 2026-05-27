@@ -18,15 +18,9 @@ if (-not ((Test-Path -Path "$PSScriptRoot\Check-Dbx-Simplified.ps1" -PathType Le
 }
 
 # Print computer info
-Get-Date -Format 'dd MMMM yyyy'
-$computer = Get-CimInstance -ClassName Win32_ComputerSystem
-$bios = Get-CimInstance -ClassName Win32_BIOS
-"Manufacturer: " + $computer.Manufacturer
-"Model: " + $computer.Model
-$biosinfo = $bios.Manufacturer , $bios.Name , $bios.SMBIOSBIOSVersion , $bios.Version -join ", "
-"BIOS: " + $biosinfo
-$v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
-"Windows version: {0} (Build {1}.{2})`n" -f $v.DisplayVersion, $v.CurrentBuildNumber, $v.UBR
+Import-Module $PSScriptRoot\Get-SystemOverview.psm1 -Force
+Show-DeviceOverview
+Write-Host
 
 # Check architecture
 $IsArm = $false
