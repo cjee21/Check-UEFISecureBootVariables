@@ -3,12 +3,9 @@
 # Repository: https://github.com/cjee21/Check-UEFISecureBootVariables
 
 # Check for admin
-Write-Host "Checking for Administrator permission..."
 if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Warning "Insufficient permissions to run this script. Please run as administrator."
     Break
-} else {
-    Write-Host "Running as administrator - continuing execution...`n"
 }
 
 # Check files
@@ -274,8 +271,7 @@ Show-CheckDBX "Current Windows staged" "C:\Windows\System32\SecureBootUpdates\db
 
 Import-Module -Force "$PSScriptRoot\Get-SVNfromDBX.psm1"
 
-$svn_latest_dbx = "10_14_25"
-$svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_$svn_latest_dbx.json" -Raw | ConvertFrom-Json
+$svn_json = Get-Content -Path "$PSScriptRoot\..\dbx_info\dbx_info_msft_latest.json" -Raw | ConvertFrom-Json
 $svn_bootmgr_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{$EFI_BOOTMGR_DBXSVN_GUID} == EFI_BOOTMGR_DBXSVN_GUID" }).version
 $svn_cdboot_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{$EFI_CDBOOT_DBXSVN_GUID} == EFI_CDBOOT_DBXSVN_GUID" }).version
 $svn_wdsmgfw_latest = [version]($svn_json.svns | Where-Object { $_.guid -eq "{$EFI_WDSMGR_DBXSVN_GUID} == EFI_WDSMGR_DBXSVN_GUID" }).version

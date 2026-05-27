@@ -2,12 +2,9 @@
 # License: MIT
 
 # Check for admin
-Write-Host "Checking for Administrator permission..."
 if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Warning "Insufficient permissions to run this script. Please run as administrator."
     Break
-} else {
-    Write-Host "Running as administrator - continuing execution...`n"
 }
 
 # Print computer info

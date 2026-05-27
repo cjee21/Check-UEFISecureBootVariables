@@ -110,8 +110,6 @@ Double-click `Show Secure Boot update events.cmd` to display all the Secure Boot
 To view the current Windows Secure Boot state, right-click `Check Windows state.cmd` and *Run as administrator*. The output will be similar to the following:
 
 ```
-Checking for Administrator permission...
-Running as administrator - continuing execution...
 
 Windows version: 25H2 (Build 26200.8457)
 
