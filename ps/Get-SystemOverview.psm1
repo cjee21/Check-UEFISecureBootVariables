@@ -2,7 +2,7 @@
 # Repository https://github.com/cjee21/Check-UEFISecureBootVariables
 
 function Spacer() {
-    Write-Host ("-" * 45)
+    Write-Host ("-" * 60)
 }
 
 function Get-WindowsVersionFromBuild([int]$Build) {
@@ -35,6 +35,7 @@ function Format-Set($Values) {
     $clean = $Values | Where-Object {
         $_ -and
         $_ -notmatch "to be filled by o\.e\.m\." -and
+        $_ -notmatch "default string" -and
         $_ -ne "1.0" # Only applied to hardware, firmware can be '1.0'
     } | Select-Object -Unique
 
