@@ -31,13 +31,16 @@ function Resolve-ArchName {
 
 function Format-Set($Values) {
 
-    # Filter out duplicates and junk
-    $clean = $Values | Where-Object {
-        $_ -and
-        $_ -notmatch "to be filled by o\.e\.m\." -and
-        $_ -notmatch "default string" -and
-        $_ -ne "1.0" # Only applied to hardware, firmware can be '1.0'
-    } | Select-Object -Unique
+    $Exclude = @(
+        'Default String'
+        'System Manufacturer'
+        'System Product Name'
+        'System Version'
+        'To Be Filled By O.E.M.'
+    )
+
+    # Filter out empty, exclude list, duplications. Return most specific (first of given set)
+    $clean = $Values | Where-Object { $_ -and $_ -notin $Exclude } | Select-Object -Unique
 
     # Filter out substrings of others
     foreach ($v in @($clean)) {
@@ -46,18 +49,19 @@ function Format-Set($Values) {
         }
     }
 
-    $clean
+    $clean | Select-Object -First 1 
 }
 
 function Format-DeviceModel([string[]]$Values) {
 
-    # Build three tiers, from most specific to most generic
-    $t1 = Format-Set $Values[0,1] # OEMModelNumber, OEMModelBaseBoard
-    $t2 = Format-Set $Values[2,3] # OEMModelSystemFamily, OEMModelSystemVersion
-    $t3 = Format-Set $Values[4,5] # OEMModelSKU, OEMModelBaseBoardVersion
+    # Build tiers, most specific to most generic device info
+    $t1 = Format-Set $Values[0,1] # OEMModelNumber, OEMModelBaseBoard 
+    $t2 = Format-Set $Values[2,3] # OEMModelSystemFamily, OEMModelSystemVersion 
+    $t3 = Format-Set $Values[4] # OEMModelSKU
+    $t4 = Format-Set $Values[5] # OEMModelBaseBoardVersion
 
-    # T1 and T2 always, T3 as fallback
-    $result = if ($t1) { @($t1) + @($t2) } else { @($t3) }
+    # T1 -> T2 -> T3 + T4 as combined fallback 
+    $result = if ($t1) { @($t1) } elseif ($t2) { @($t2) } else { @($t3) + @($t4) }
     $result -join ' - '
 }
 
