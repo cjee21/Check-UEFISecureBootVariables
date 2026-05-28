@@ -110,8 +110,7 @@ Double-click `Show Secure Boot update events.cmd` to display all the Secure Boot
 To view the current Windows Secure Boot state, right-click `Check Windows state.cmd` and *Run as administrator*. The output will be similar to the following:
 
 ```
-
-Windows version: 25H2 (Build 26200.8457)
+Windows version          : Windows 11 - 25H2 (Build 26200.8457)
 
 UEFISecureBootEnabled    : 1
 AvailableUpdates         : 0x0000

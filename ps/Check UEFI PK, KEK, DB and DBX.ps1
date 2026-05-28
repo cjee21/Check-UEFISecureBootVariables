@@ -18,15 +18,9 @@ if (-not ((Test-Path -Path "$PSScriptRoot\Check-Dbx-Simplified.ps1" -PathType Le
 }
 
 # Print computer info
-Get-Date -Format 'dd MMMM yyyy'
-$computer = Get-CimInstance -ClassName Win32_ComputerSystem
-$bios = Get-CimInstance -ClassName Win32_BIOS
-"Manufacturer: " + $computer.Manufacturer
-"Model: " + $computer.Model
-$biosinfo = $bios.Manufacturer , $bios.Name , $bios.SMBIOSBIOSVersion , $bios.Version -join ", "
-"BIOS: " + $biosinfo
-$v = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
-"Windows version: {0} (Build {1}.{2})`n" -f $v.DisplayVersion, $v.CurrentBuildNumber, $v.UBR
+Import-Module $PSScriptRoot\Get-SystemOverview.psm1 -Force
+Show-DeviceOverview
+Write-Host
 
 # Check architecture
 $IsArm = $false
@@ -47,7 +41,7 @@ try {
     $cpuArch = 9 # default x64
 }
 $arch = if ($Is64bit -and $cpuArch -eq 9) { # CPU arch x64
-        "x64"
+        "amd64"
     } elseif ($Is64bit -and $cpuArch -eq 12) { # CPU arch ARM64
         "arm64"
     } elseif (-not $Is64bit -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
@@ -58,7 +52,7 @@ $arch = if ($Is64bit -and $cpuArch -eq 9) { # CPU arch x64
         "unsupported"
     }
 
-Write-Host "Detected $arch UEFI architecture. Ensure that this is correct for valid DBX results.`n"
+Write-Host "Detected $(Resolve-ArchName($arch)) UEFI architecture. Ensure that this is correct for valid DBX results.`n"
 
 # Check for Secure Boot status
 Write-Host "Secure Boot status: " -NoNewLine
@@ -252,20 +246,20 @@ function Show-CheckDBX {
 
 # select the proper bin file for the DBX Update.
 # files are copied from https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX
-if ($arch -eq "x64") {
+if ($arch -eq "amd64") {
   # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
   # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
   # Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-01-14.bin"
   # Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
-    Show-CheckDBX "2025-10-14 (v1.6.0) [$arch]" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
+    Show-CheckDBX "2025-10-14 (v1.6.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
 } elseif ($arch -eq "arm64") {
-    Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
+    Show-CheckDBX "2025-02-25 (v1.4.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
 } elseif ($arch -eq "x86") {
-    Show-CheckDBX "2025-10-14 (v1.6.0) [$arch]" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
+    Show-CheckDBX "2025-10-14 (v1.6.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
 } elseif ($arch -eq "arm") {
-    Show-CheckDBX "2025-02-25 (v1.4.0) [$arch]" "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
+    Show-CheckDBX "2025-02-25 (v1.4.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
 } else {
-     Write-Warning "[$arch] architecture."
+    Write-Warning "[$($arch.ToUpper())] architecture."
 }
 Show-CheckDBX "Current Windows staged" "C:\Windows\System32\SecureBootUpdates\dbxupdate.bin"
 
