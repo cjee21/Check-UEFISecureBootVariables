@@ -220,11 +220,11 @@ function Show-CheckDBX {
 function Get-DbxMetadata {
     param([string]$name)
 
-    if ($name -notmatch '^DBXUpdate_(\d{4}-\d{2}-\d{2})_([^_]+)_([^.]+)\.bin$') { return $null }
+    if ($name -notmatch '^DBXUpdate_([^_]+)_(\d{4}-\d{2}-\d{2})_([^.]+)\.bin$') { return $null }
 
     return [pscustomobject]@{
-        Date    = [datetime]::ParseExact($matches[1], "yyyy-MM-dd", $null)
-        Version = $matches[2]
+        Version = $matches[1]
+        Date    = [datetime]::ParseExact($matches[2], "yyyy-MM-dd", $null)
         Arch    = $matches[3]
         Name    = $name
     }
@@ -268,9 +268,9 @@ $dbx_svns = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_G
 $dbx_hashes -= $dbx_svns
 
 $components = [ordered]@{
-    BootMgr = @{ Name="Firmware BootMgr SVN"; JSON=$svn_bootmgr_latest }
-    CDBoot  = @{ Name="Firmware CDBoot SVN"; JSON=$svn_cdboot_latest }
-    WDSMgFw = @{ Name="Firmware WDSMgFw SVN"; JSON=$svn_wdsmgfw_latest }
+    BootMgr = @{ Name="FirmwareSVN BootMgr"; JSON=$svn_bootmgr_latest }
+    CDBoot  = @{ Name="FirmwareSVN CDBoot"; JSON=$svn_cdboot_latest }
+    WDSMgFw = @{ Name="FirmwareSVN WDSMgFw"; JSON=$svn_wdsmgfw_latest }
 }
 
 $svn_firmware = Get-SVNfromDBX $dbx_list
