@@ -3,11 +3,11 @@
 
  $patchfile  = $args[0]
 
- if ($patchfile -eq  $null) {
+ if ($null -eq $patchfile) {
    Write-Host "Patchfile not specified!`n"
    Break
  }
- $patchfile = (gci -literalpath $patchfile).FullName
+ $patchfile = (Get-ChildItem -literalpath $patchfile).FullName
 
  Import-Module -Force "$PSScriptRoot\Get-UEFIDatabaseSignatures.psm1"
 
@@ -48,8 +48,6 @@
         Write-Information "!!! NOT FOUND`n$RequiredSig`n!!!`n"
         $failures++
     }
-    $i = $successes + $failures
-    Write-Progress -Activity 'Checking if all patches applied' -Status "Checking element $i of $requiredCount" -PercentComplete ($i/$requiredCount *100)
  }
 
  if ($failures -ne 0) {
