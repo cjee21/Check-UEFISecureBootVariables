@@ -17,42 +17,14 @@ if (-not ((Test-Path -Path "$PSScriptRoot\Check-Dbx-Simplified.ps1" -PathType Le
     Break
 }
 
+do {
 # Print computer info
 Import-Module $PSScriptRoot\Get-SystemOverview.psm1 -Force
 Show-DeviceOverview
 Write-Host
 
 # Check architecture
-$IsArm = $false
-$Is64bit = $true
-try {
-    $cpuArch = (Get-CimInstance -ClassName Win32_Processor -ErrorAction Stop).Architecture
-    # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
-    if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
-        $IsArm = $true
-    }
-    # Windows and UEFI bit-ness should always match on officially supported installs
-    # since UEFI doesn't support cross-platform boot as of https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools#windows-support-for-uefi
-    $Is64bit = [Environment]::Is64BitOperatingSystem
-} catch {
-    $IsArm = $false
-    $Is64bit = $true
-    Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
-    $cpuArch = 9 # default x64
-}
-$arch = if ($Is64bit -and $cpuArch -eq 9) { # CPU arch x64
-        "amd64"
-    } elseif ($Is64bit -and $cpuArch -eq 12) { # CPU arch ARM64
-        "arm64"
-    } elseif (-not $Is64bit -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
-        "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we need.
-    } elseif (-not $Is64bit -and $IsArm) { # cpu arch check with $IsArm above
-        "arm"
-    } else { # any other unsupported CPU architecture
-        "unsupported"
-    }
-
-Write-Host "Detected $(Resolve-ArchName($arch)) UEFI architecture. Ensure that this is correct for valid DBX results.`n"
+$arch = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes").OSArchitecture
 
 # Check for Secure Boot status
 Write-Host "Secure Boot status: " -NoNewLine
@@ -94,7 +66,7 @@ try {
 
 Write-Host ""
 Write-Host $bold'Default UEFI PK'$reset
-if ($IsArm) {
+if ($arch -match '^arm') {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
 try {
@@ -184,7 +156,7 @@ Show-UEFICertOthers -SecureBootUEFIVar kek -KnownCerts $KEKCerts
 
 Write-Host ""
 Write-Host $bold'Default UEFI KEK'$reset
-if ($IsArm) {
+if ($arch -match '^arm') {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
 $KEKCerts | ForEach-Object {
@@ -209,7 +181,7 @@ Show-UEFICertOthers -SecureBootUEFIVar db -KnownCerts $DBCerts
 
 Write-Host ""
 Write-Host $bold'Default UEFI DB'$reset
-if ($IsArm) {
+if ($arch -match '^arm') {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
 $DBCerts  | ForEach-Object {
@@ -227,7 +199,7 @@ try {
     Break # No need to continue with remaining DBX-related checks of script if failed to obtain DBX data
 }
 
-$colWidth = 27
+$colWidth = 20
 function Show-CheckDBX {
     param(
         [Parameter(Mandatory)][string]$Label,
@@ -244,24 +216,42 @@ function Show-CheckDBX {
     }
 }
 
-# select the proper bin file for the DBX Update.
-# files are copied from https://github.com/microsoft/secureboot_objects/tree/main/PostSignedObjects/DBX
-if ($arch -eq "amd64") {
-  # Show-CheckDBX "2023-03-14         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-03-14.bin"
-  # Show-CheckDBX "2023-05-09         " "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2023-05-09.bin"
-  # Show-CheckDBX "2025-01-14 (v1.3.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-01-14.bin"
-  # Show-CheckDBX "2025-06-11 (v1.5.1)" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-06-11.bin"
-    Show-CheckDBX "2025-10-14 (v1.6.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\x64_DBXUpdate_2025-10-14.bin"
-} elseif ($arch -eq "arm64") {
-    Show-CheckDBX "2025-02-25 (v1.4.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\arm64_DBXUpdate_2025-02-25.bin"
-} elseif ($arch -eq "x86") {
-    Show-CheckDBX "2025-10-14 (v1.6.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\x86_DBXUpdate_2025-10-14.bin"
-} elseif ($arch -eq "arm") {
-    Show-CheckDBX "2025-02-25 (v1.4.0) [$($arch.ToUpper())]" "$PSScriptRoot\..\dbx_bin\arm_DBXUpdate_2025-02-25.bin"
-} else {
-    Write-Warning "[$($arch.ToUpper())] architecture."
+# Read metadata (Date, Version, Arch) from bin file name
+function Get-DbxMetadata {
+    param([string]$name)
+
+    if ($name -notmatch '^DBXUpdate_(\d{4}-\d{2}-\d{2})_([^_]+)_([^.]+)\.bin$') { return $null }
+
+    return [pscustomobject]@{
+        Date    = [datetime]::ParseExact($matches[1], "yyyy-MM-dd", $null)
+        Version = $matches[2]
+        Arch    = $matches[3]
+        Name    = $name
+    }
 }
-Show-CheckDBX "Current Windows staged" "C:\Windows\System32\SecureBootUpdates\dbxupdate.bin"
+
+# Published DBX bin for arch
+$dbxFolder = "$PSScriptRoot\..\dbx_bin"
+$publishedDBX = Get-ChildItem $dbxFolder -Filter "DBXUpdate_*.bin" |
+    ForEach-Object { Get-DbxMetadata $_.Name } |
+    Where-Object { $_ -ne $null -and $_.Arch -eq $arch } | 
+    Sort-Object Date -Descending | 
+    Select-Object -First 1
+if (-not $publishedDBX) { throw "No published DBX file found for architecture: $arch" }
+
+# Staged DBX bin
+$stagedPath = "C:\Windows\System32\SecureBootUpdates\dbxupdate.bin"
+$stagedDate = if (Test-Path $stagedPath) { (Get-Item $stagedPath).LastWriteTime } else { $null }
+
+# Check DBX against latest DBX revocations
+if ($stagedDate -and ($stagedDate -ge $publishedDBX.Date)) {
+    Show-CheckDBX ("Staged ({0})" -f $stagedDate.ToString('dd MMM yyyy')) $stagedPath
+} else {
+    $label = "{0} ({1})" -f `
+        $publishedDBX.Version,
+        $publishedDBX.Date.ToString('dd MMM yyyy')
+    Show-CheckDBX $label "$dbxFolder\$($publishedDBX.Name)"
+}
 
 Import-Module -Force "$PSScriptRoot\Get-SVNfromDBX.psm1"
 
@@ -278,25 +268,25 @@ $dbx_svns = @($dbx_list | Where-Object { $_.SignatureType -eq 'EFI_CERT_SHA256_G
 $dbx_hashes -= $dbx_svns
 
 $components = [ordered]@{
-    BootMgr = @{ Name="Windows BootMgr SVN"; JSON=$svn_bootmgr_latest }
-    CDBoot  = @{ Name="Windows CDBoot SVN"; JSON=$svn_cdboot_latest }
-    WDSMgFw = @{ Name="Windows WDSMgFw SVN"; JSON=$svn_wdsmgfw_latest }
+    BootMgr = @{ Name="Firmware BootMgr SVN"; JSON=$svn_bootmgr_latest }
+    CDBoot  = @{ Name="Firmware CDBoot SVN"; JSON=$svn_cdboot_latest }
+    WDSMgFw = @{ Name="Firmware WDSMgFw SVN"; JSON=$svn_wdsmgfw_latest }
 }
 
-$svn_list = Get-SVNfromDBX $dbx_list
+$svn_firmware = Get-SVNfromDBX $dbx_list
 $StagedSVNbytes = [IO.File]::ReadAllBytes('C:\Windows\System32\SecureBootUpdates\DBXUpdateSVN.bin')
 $svn_staged = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
 
 foreach ($key in $components.Keys) {
     Write-Host -NoNewline "$($components[$key].Name.PadRight($colWidth)) : "
 
-    if (-not $svn_list.$key) {
+    if (-not $svn_firmware.$key) {
         Write-Host "Not applied" -ForegroundColor Red
         continue
     }
 
     $json       = $components[$key].JSON
-    $current    = $svn_list.$key.Version
+    $current    = $svn_firmware.$key.Version
     $staged     = $svn_staged.$key.Version
 
     $target = if ($json -ge $staged) { $json } else { $staged }
@@ -307,3 +297,8 @@ foreach ($key in $components.Keys) {
 }
 
 Write-Host ("Statistics".PadRight($colWidth) + " : $dbx_size Bytes, $dbx_hashes SHA256 hashes, $dbx_certs X.509 certs, $dbx_svns SVNs")
+
+Write-Host
+Read-Host "Press ENTER to refresh"
+
+} while ($true)
