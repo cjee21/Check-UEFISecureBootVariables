@@ -26,6 +26,38 @@ Write-Host
 # Check architecture
 $arch = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes").OSArchitecture
 
+# Previous architecture check as fallback
+if (-not $arch) {
+    $IsArm = $false
+    $Is64bit = $true
+    try {
+        $cpuArch = (Get-CimInstance -ClassName Win32_Processor -ErrorAction Stop).Architecture
+        # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
+        if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
+            $IsArm = $true
+        }
+        # Windows and UEFI bit-ness should always match on officially supported installs
+        # since UEFI doesn't support cross-platform boot as of https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools#windows-support-for-uefi
+        $Is64bit = [Environment]::Is64BitOperatingSystem
+    } catch {
+        $IsArm = $false
+        $Is64bit = $true
+        Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
+        $cpuArch = 9 # default x64
+    }
+    $arch = if ($Is64bit -and $cpuArch -eq 9) { # CPU arch x64
+        "amd64"
+    } elseif ($Is64bit -and $cpuArch -eq 12) { # CPU arch ARM64
+        "arm64"
+    } elseif (-not $Is64bit -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
+        "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we need.
+    } elseif (-not $Is64bit -and $IsArm) { # cpu arch check with $IsArm above
+        "arm"
+    } else { # any other unsupported CPU architecture
+        "unsupported"
+    }
+}
+
 # Check for Secure Boot status
 Write-Host "Secure Boot status: " -NoNewLine
 try {
