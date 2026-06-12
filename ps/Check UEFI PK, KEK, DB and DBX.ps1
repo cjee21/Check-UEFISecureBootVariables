@@ -332,5 +332,9 @@ Write-Host ("Statistics".PadRight($colWidth) + " : $dbx_size Bytes, $dbx_hashes 
 
 Write-Host
 Read-Host "Press ENTER to refresh"
+if ((Get-PartitionStyle) -ne "GPT") {
+    Write-Host
+    Write-Warning "See https://learn.microsoft.com/windows/deployment/mbr-to-gpt before Secure Boot can be enabled.`n"
+} 
 
 } while ($true)

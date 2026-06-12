@@ -1,6 +1,10 @@
 # Created by github.com/jcoester
 # Repository https://github.com/cjee21/Check-UEFISecureBootVariables
 
+$reset = "$([char]0x1b)[0m"
+$yellow = "$([char]0x1b)[93m"
+$red   = "$([char]0x1b)[91m"
+
 function Spacer() {
     Write-Host ("-" * 60)
 }
@@ -67,11 +71,27 @@ function Format-DeviceModel([string[]]$Values) {
 
 function Show-WindowsVersion {
     $windows = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
-    "OS : Windows {0} - {1} (Build {2}.{3})" -f `
+    "OS : Windows {0} - {1} (Build {2}.{3}) - {4}" -f `
         (Get-WindowsVersionFromBuild ([int]$windows.CurrentBuildNumber)),
         $windows.DisplayVersion,
         $windows.CurrentBuildNumber,
-        $windows.UBR
+        $windows.UBR,
+        (Show-SystemPartitioning)
+}
+
+function Get-PartitionStyle {
+    param([string]$DriveLetter = $env:SystemDrive.TrimEnd(':'))
+    (Get-Disk -Number (Get-Partition -DriveLetter $DriveLetter).DiskNumber).PartitionStyle
+}
+
+function Show-SystemPartitioning {
+    $DriveLetter = $env:SystemDrive.TrimEnd(':').Trim()
+
+    switch(Get-PartitionStyle($DriveLetter)) {
+        "GPT" { "$($DriveLetter): GPT" }
+        "MBR" { $label = "MBR"; return "$($DriveLetter): $red$label$reset" }
+        default { $label = "Can't determine partition style"; return "$yellow$label$reset" }
+    }
 }
 
 function Show-DeviceOverview {
@@ -112,5 +132,6 @@ function Show-Device {
 Export-ModuleMember -Function `
     Spacer,
     Show-WindowsVersion,
+    Get-PartitionStyle,
     Show-DeviceOverview,
     Resolve-ArchName
