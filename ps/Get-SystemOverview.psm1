@@ -85,7 +85,7 @@ function Get-PartitionStyle {
 }
 
 function Show-SystemPartitioning {
-    $DriveLetter = $env:SystemDrive.TrimEnd(':').Trim()
+    $DriveLetter = $env:SystemDrive.TrimEnd(':')
 
     switch(Get-PartitionStyle($DriveLetter)) {
         "GPT" { "$($DriveLetter): GPT" }

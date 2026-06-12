@@ -335,6 +335,8 @@ Read-Host "Press ENTER to refresh"
 if ((Get-PartitionStyle) -ne "GPT") {
     Write-Host
     Write-Warning "See https://learn.microsoft.com/windows/deployment/mbr-to-gpt before Secure Boot can be enabled.`n"
+    Write-Warning "See https://learn.microsoft.com/windows/deployment/mbr-to-gpt before Secure Boot can be enabled."
+    Write-Host
 } 
 
 } while ($true)
