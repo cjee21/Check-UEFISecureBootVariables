@@ -265,27 +265,6 @@ function Show-UEFIDBX {
         $UEFI_DBX_SVN_APPS[$appHash] = $True}}
 
     # --- EFI Images ---
-    # Check against full JSON revocations # While Microsoft version is broken
-    $DBX_Full_Matches = @() 
-    $DBX_Full_Missing = @()
-    foreach ($hash in $JSON_DBX_FULL_HASHSET.Keys) { 
-        if ($UEFI_DBX_EFI_SET.ContainsKey($hash)) { 
-            $DBX_Full_Matches += $hash 
-        } else { 
-            $DBX_Full_Missing += $hash 
-        } 
-    }
-
-    #  Display mandatory revocation results
-    Write-Host ("{0,-20} : " -f "Entire revocations") -NoNewline    
-    if ($DBX_Full_Missing.Count -eq 0) {
-        $label = "SUCCESS: $($DBX_Full_Matches.Count) revocations detected." 
-        Write-Host "$green$label" 
-    } else {
-        $label = "FAIL: $($DBX_Full_Missing.Count) revocations missing, $($DBX_Full_Matches.Count) detected." 
-        Write-Host "$red$label"
-    }
-
     # Check against mandatory JSON revocations
     $DBX_Mandatory_Matches = @() 
     $DBX_Mandatory_Missing = @()
@@ -462,10 +441,6 @@ $archMap = @{
     "arm"   = "arm"
 }
 $archJson = $archMap[$archWin]
-
-# Full revocations while Microsoft JSON versioning is faulty
-$JSON_DBX_FULL_HASHSET = @{}; $json.images.$archJson | 
-    ForEach-Object { $JSON_DBX_FULL_HASHSET[$_.authenticodeHash] = $True }
 
 # Mandatory revocations
 $JSON_DBX_MANDATORY_HASHSET = @{}; $json.images.$archJson | 
