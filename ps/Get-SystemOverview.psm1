@@ -1,9 +1,10 @@
 # Created by github.com/jcoester
 # Repository https://github.com/cjee21/Check-UEFISecureBootVariables
-
-$reset = "$([char]0x1b)[0m"
-$yellow = "$([char]0x1b)[93m"
-$red   = "$([char]0x1b)[91m"
+# References:
+    # [1] https://support.microsoft.com/topic/registry-key-updates-for-secure-boot-windows-devices-with-it-managed-updates-a7be69c9-4634-42e1-9ca1-df06f43f360d#bkmk_registry_keys_described
+    # [2] https://support.microsoft.com/topic/secure-boot-certificate-updates-guidance-for-it-professionals-and-organizations-e2b43f9f-b424-42df-bc6a-8476db65ab2f#bkmk_preparation
+    # [3] https://support.microsoft.com/topic/secure-boot-troubleshooting-guide-5d1bf6b4-7972-455a-a421-0184f1e1ed7d#bkmk_the_availableupdates_registry_bitmask
+    # [4] https://support.microsoft.com/topic/how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d#bkmk_mitigation_guidelines
 
 function Spacer() {
     Write-Host ("-" * 60)
@@ -32,6 +33,18 @@ function Resolve-ArchName {
         default { $Arch }
     }
 }
+
+function Show-PartitionStyleDisclaimer() {
+    $DriveLetter = $env:SystemDrive
+    $PartitionStyle = (Get-Disk -Number (Get-Partition -DriveLetter $DriveLetter.TrimEnd(':')).DiskNumber).PartitionStyle
+    if ($PartitionStyle -ne "GPT") {
+        Write-Warning (
+            "System drive $DriveLetter partitioned as '$PartitionStyle', needs to be 'GPT'.`n" + 
+            "See https://learn.microsoft.com/windows/deployment/mbr-to-gpt before Secure Boot can be enabled."
+        )
+    }
+}
+
 
 function Format-Set($Values) {
 
@@ -69,29 +82,121 @@ function Format-DeviceModel([string[]]$Values) {
     $result -join ' - '
 }
 
+function Show-UEFISecureBootEnabled($prefix) {
+    Write-Host $prefix -NoNewLine
+
+    $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State"
+    $prop = "UEFISecureBootEnabled"
+    $value = (Get-ItemProperty $path).$prop
+
+    switch ($value) {
+        1 { Write-Host "Enabled" -ForegroundColor Green }
+        0 { Write-Host "Disabled" -ForegroundColor Red }
+        default { Write-Host "$value unknown for '$prop'" -ForegroundColor Red }
+    }
+}
+
+# Ref [1]
+function Show-WindowsUEFICA2023Capable($prefix) {
+    Write-Host $prefix -NoNewLine
+     
+    $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing"
+    $prop = "WindowsUEFICA2023Capable"
+    $value = (Get-ItemProperty $path).$prop
+    switch ($value) {
+        2 { Write-Host "Windows UEFI CA 2023 cert in DB. Starting from 2023 signed boot manager" -ForegroundColor Green }
+        1 { Write-Host "Windows UEFI CA 2023 cert in DB. But NOT starting from 2023 signed boot manager" -ForegroundColor Red }
+        0 { Write-Host "Windows UEFI CA 2023 cert NOT in DB" -ForegroundColor Red }
+        default { Write-Host "$value unknown for '$prop'" -ForegroundColor Red }
+    }
+}
+
+# Ref [1]
+function Show-UEFICA2023Status($prefix) {
+    Write-Host $prefix -NoNewLine
+    
+    $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing"
+    $prop = "UEFICA2023Status"
+    $value = (Get-ItemProperty $path).$prop
+
+    switch ($value) {
+        "Updated" { Write-Host "$value" -ForegroundColor Green }
+        "InProgress" { Write-Host "$value" -ForegroundColor Yellow }
+        "NotStarted" { Write-Host "$value" -ForegroundColor Red }
+        default { Write-Host "$value unknown for '$prop'" -ForegroundColor Red }
+    }
+    
+    $prop = "UEFICA2023Error"
+    $value = (Get-ItemProperty $path).$prop
+    # Show if available
+    if ($value -gt 0) {
+        Write-Host $prefix -NoNewLine
+        Write-Host "Error: $value" -ForegroundColor Red
+    }
+
+    $prop = "UEFICA2023ErrorEvent"
+    $value = (Get-ItemProperty $path).$prop
+    # Show if available
+    if ($value -gt 0) {
+        Write-Host $prefix -NoNewLine
+        Write-Host "ErrorEvent: $value" -ForegroundColor Red
+    }
+}
+
+# Ref [2]
+function Show-ConfidenceLevel($prefix) {
+    Write-Host $prefix -NoNewLine
+    
+    $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing"
+    $prop = "ConfidenceLevel"
+    $value = (Get-ItemProperty $path).$prop
+
+    switch -Regex ($value) {
+        "High Confidence" { Write-Host "$value" -ForegroundColor Green }
+        "Under Observation" { Write-Host "$value" -ForegroundColor DarkCyan }
+        "No Data Observed" { Write-Host "$value" -ForegroundColor DarkYellow }
+        "Temporarily Paused" { Write-Host "$value" -ForegroundColor DarkYellow }
+        "Not Supported" { Write-Host "$value" -ForegroundColor DarkRed }
+        default { Write-Host "$value unknown for '$prop'" -ForegroundColor Red }
+    }
+}
+
+# Refs [1] [2] [3] [4]
+function Show-AvailableUpdates($prefix) {
+    Write-Host $prefix -NoNewLine
+    
+    $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot"
+    $prop = "AvailableUpdates"
+    $value = "0x" + ([Convert]::ToString([int64](Get-ItemProperty $path).$prop, 16)).ToUpper()
+
+    switch ($value) {
+        "0x0" { Write-Host "No Secure Boot key updates are performed" }
+        "0x2" { Write-Host "Apply updates to DBX" }
+        "0x4" { Write-Host "Apply 'Microsoft KEK 2K CA 2023' signed by device PK to KEK" }
+        "0x40" { Write-Host "Apply 'Windows UEFI CA 2023' to DB" }
+        "0x80" { Write-Host "Revoke 'Windows Production PCA 2011' to DBX" }
+        "0x100" { Write-Host "Apply 'Windows UEFI CA 2023' signed boot manager" }
+        "0x200" { Write-Host "Apply 'SVN' update to the firmware" }
+        "0x400" { Write-Host "Apply 'Secure Boot Advanced Targeting' (SBAT) to the firmware" }
+        "0x800" { Write-Host "Apply 'Microsoft Option ROM UEFI CA 2023' to DB" }
+        "0x1000" { Write-Host "Apply 'Microsoft UEFI CA 2023' to DB" }
+        "0x4000" { Write-Host "Successful completion of all applicable update actions" }
+        "0x4100" { Write-Host "Manually reboot the system" -ForegroundColor Yellow }
+        "0x4104" { Write-Host "'Microsoft UEFI CA 2023' is added to DB" }
+        "0x5104" { Write-Host "'Microsoft Option ROM UEFI CA 2023' is added to DB" }
+        "0x5904" { Write-Host "'Windows UEFI CA 2023' is added to DB" }
+        "0x5944" { Write-Host "Deploy all needed certificates and update to the PCA2023 signed boot manager" }
+        default { Write-Host "$value unknown for '$prop'" -ForegroundColor Red }
+    }
+}
+
 function Show-WindowsVersion {
     $windows = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
-    "OS : Windows {0} - {1} (Build {2}.{3}) - {4}" -f `
+    "OS : Windows {0} - {1} (Build {2}.{3})" -f `
         (Get-WindowsVersionFromBuild ([int]$windows.CurrentBuildNumber)),
         $windows.DisplayVersion,
         $windows.CurrentBuildNumber,
-        $windows.UBR,
-        (Show-SystemPartitioning)
-}
-
-function Get-PartitionStyle {
-    param([string]$DriveLetter = $env:SystemDrive.TrimEnd(':'))
-    (Get-Disk -Number (Get-Partition -DriveLetter $DriveLetter).DiskNumber).PartitionStyle
-}
-
-function Show-SystemPartitioning {
-    $DriveLetter = $env:SystemDrive.TrimEnd(':')
-
-    switch(Get-PartitionStyle($DriveLetter)) {
-        "GPT" { "$($DriveLetter): GPT" }
-        "MBR" { $label = "MBR"; return "$($DriveLetter): $red$label$reset" }
-        default { $label = "Can't determine partition style"; return "$yellow$label$reset" }
-    }
+        $windows.UBR
 }
 
 function Show-DeviceOverview {
@@ -99,6 +204,10 @@ function Show-DeviceOverview {
     Spacer
     Show-Device
     Show-WindowsVersion
+}
+
+function Get-DeviceArch {
+    (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes").OSArchitecture
 }
 
 function Show-Device {
@@ -132,6 +241,11 @@ function Show-Device {
 Export-ModuleMember -Function `
     Spacer,
     Show-WindowsVersion,
-    Get-PartitionStyle,
     Show-DeviceOverview,
-    Resolve-ArchName
+    Resolve-ArchName,
+    Show-UEFISecureBootEnabled,
+    Show-UEFICA2023Status,
+    Show-WindowsUEFICA2023Capable,
+    Show-ConfidenceLevel,
+    Show-AvailableUpdates,
+    Show-PartitionStyleDisclaimer
