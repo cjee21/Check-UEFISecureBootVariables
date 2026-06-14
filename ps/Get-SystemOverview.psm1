@@ -20,49 +20,32 @@ function Get-WindowsVersionFromBuild([int]$Build) {
 function Resolve-ArchName {
     param([string]$Arch)
 
-    switch ($Arch.ToUpper()) {
+    switch ($Arch) {
         "AMD64" { "AMD64/X64" }
         "ARM"   { "ARM" }
         "ARM64" { "ARM64/AARCH64" }
         "X86"   { "X86/IA32" }
-        default { $Arch }
+        default { "N/A. Please report." }
     }
 }
 
-function Format-Set($Values) {
+function Format-Set {
+    param([string[]]$Values)
 
-    $Exclude = @(
-        'Default String'
-        'System Manufacturer'
-        'System Product Name'
-        'System Version'
-        'To Be Filled By O.E.M.'
-    )
+    $clean = @($Values) |
+        ForEach-Object { 
+            if ($_ ) { $_.ToString().Trim() } else { $null } 
+        } |
+        Where-Object {
+            $_ -and
+            $_ -ne 'Default String' -and
+            $_ -ne 'To Be Filled By O.E.M.' -and
+            $_ -ne 'System Manufacturer' -and
+            $_ -ne 'System Product Name'
+        } |
+        Select-Object -Unique
 
-    # Filter out empty, exclude list, duplications. Return most specific (first of given set)
-    $clean = $Values | Where-Object { $_ -and $_ -notin $Exclude } | Select-Object -Unique
-
-    # Filter out substrings of others
-    foreach ($v in @($clean)) {
-        if ($clean | Where-Object { $_ -ne $v -and $_ -like "*$v*" }) {
-            $clean = $clean -ne $v
-        }
-    }
-
-    $clean | Select-Object -First 1 
-}
-
-function Format-DeviceModel([string[]]$Values) {
-
-    # Build tiers, most specific to most generic device info
-    $t1 = Format-Set $Values[0,1] # OEMModelNumber, OEMModelBaseBoard 
-    $t2 = Format-Set $Values[2,3] # OEMModelSystemFamily, OEMModelSystemVersion 
-    $t3 = Format-Set $Values[4] # OEMModelSKU
-    $t4 = Format-Set $Values[5] # OEMModelBaseBoardVersion
-
-    # T1 -> T2 -> T3 + T4 as combined fallback 
-    $result = if ($t1) { @($t1) } elseif ($t2) { @($t2) } else { @($t3) + @($t4) }
-    $result -join ' - '
+    if ($clean) { $clean -join " " } else { $null }
 }
 
 function Show-WindowsVersion {
@@ -83,38 +66,26 @@ function Show-DeviceOverview {
 
 function Show-Device {
     # Show Secure Boot related device hardware and firmware info
-    $device  = Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes"
-    $firmware = Get-CimInstance Win32_BIOS
+    $cim_cs = Get-CimInstance Win32_ComputerSystemProduct -ErrorAction SilentlyContinue
+    $cim_bb = Get-CimInstance Win32_BaseBoard -ErrorAction SilentlyContinue
+    $cim_fw = Get-CimInstance Win32_BIOS -ErrorAction SilentlyContinue
 
-    # Hardware
-    "HW : {0} - {1} - {2}" -f `
-        ((Format-Set @(
-            $device.OEMName
-            $device.OEMManufacturerName
-            $device.BaseBoardManufacturer
-        )) -join " - "),
-        (Format-DeviceModel @(
-            $device.OEMModelNumber    
-            $device.OEMModelBaseBoard
-            $device.OEMModelSystemFamily
-            $device.OEMModelSystemVersion
-            $device.OEMModelSKU
-            $device.OEMModelBaseBoardVersion
-        )),
-        (Resolve-ArchName $device.OSArchitecture)
+    $cs = if ($cim_cs) { Format-Set @($cim_cs.Vendor, $cim_cs.Name) } else { $null }
+    $bb = if ($cim_bb) { Format-Set @($cim_bb.Manufacturer, $cim_bb.Product) } else { $null }
+    $arch = $env:PROCESSOR_ARCHITECTURE
 
-    # Firmware
-    $fwDate = Format-Set $firmware.ReleaseDate
-    $fwDate = try { 
-        ([datetime]$fwDate).ToString('dd MMM yyyy')
-    } catch { 
-        if ([string]::IsNullOrWhiteSpace($fwDate)) { "ReleaseDate: N/A" } else { $fwDate }
+    $fwM = if ($cim_fw) { $cim_fw.Manufacturer } else { $null }
+    $fwV = if ($cim_fw) { $cim_fw.SMBIOSBIOSVersion } else { $null }
+    $fwD = $null
+    if ($cim_fw -and $cim_fw.ReleaseDate) {
+        try { $fwD = ([datetime]$cim_fw.ReleaseDate).ToString('dd MMM yyyy') }
+        catch { $fwD = $cim_fw.ReleaseDate }
     }
 
-    "FW : {0} - {1} - {2}" -f `
-        (Format-Set $firmware.Manufacturer),
-        (Format-Set @($firmware.SMBIOSBIOSVersion, $firmware.Name)),
-        $fwDate
+    $hw = (@($cs, $bb, (Resolve-ArchName $arch)) | Where-Object { $_ }) -join " - "
+    $fw = (@($fwM, $fwV, $fwD) | Where-Object { $_ }) -join " - "
+    if ($hw) { "HW : $hw" } else { "HW : N/A" }
+    if ($fw) { "FW : $fw" } else { "FW : N/A"}
 }
 
 Export-ModuleMember -Function `
