@@ -84,6 +84,7 @@ function Show-DeviceOverview {
 function Show-Device {
     # Show Secure Boot related device hardware and firmware info
     $device  = Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes"
+    $firmware = Get-CimInstance Win32_BIOS
 
     # Hardware
     "HW : {0} - {1} - {2}" -f `
@@ -101,12 +102,19 @@ function Show-Device {
             $device.OEMModelBaseBoardVersion
         )),
         (Resolve-ArchName $device.OSArchitecture)
-        
+
     # Firmware
+    $fwDate = Format-Set $firmware.ReleaseDate
+    $fwDate = try { 
+        ([datetime]$fwDate).ToString('dd MMM yyyy')
+    } catch { 
+        if ([string]::IsNullOrWhiteSpace($fwDate)) { "ReleaseDate: N/A" } else { $fwDate }
+    }
+
     "FW : {0} - {1} - {2}" -f `
-        $device.FirmwareManufacturer,
-        $device.FirmwareVersion,
-        ([datetime]$device.FirmwareReleaseDate).ToString('dd MMM yyyy')
+        (Format-Set $firmware.Manufacturer),
+        (Format-Set @($firmware.SMBIOSBIOSVersion, $firmware.Name)),
+        $fwDate
 }
 
 Export-ModuleMember -Function `
