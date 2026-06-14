@@ -72,7 +72,7 @@ function Show-Device {
 
     $cs = if ($cim_cs) { Format-Set @($cim_cs.Vendor, $cim_cs.Name) } else { $null }
     $bb = if ($cim_bb) { Format-Set @($cim_bb.Manufacturer, $cim_bb.Product) } else { $null }
-    $arch = $env:PROCESSOR_ARCHITECTURE
+    $arch = Resolve-ArchName $env:PROCESSOR_ARCHITECTURE
 
     $fwM = if ($cim_fw) { $cim_fw.Manufacturer } else { $null }
     $fwV = if ($cim_fw) { $cim_fw.SMBIOSBIOSVersion } else { $null }
@@ -82,7 +82,7 @@ function Show-Device {
         catch { $fwD = $cim_fw.ReleaseDate }
     }
 
-    $hw = (@($cs, $bb, (Resolve-ArchName $arch)) | Where-Object { $_ }) -join " - "
+    $hw = (@($cs, $bb, $arch) | Where-Object { $_ } | Select-Object -Unique) -join " - "
     $fw = (@($fwM, $fwV, $fwD) | Where-Object { $_ }) -join " - "
     if ($hw) { "HW : $hw" } else { "HW : N/A" }
     if ($fw) { "FW : $fw" } else { "FW : N/A"}
