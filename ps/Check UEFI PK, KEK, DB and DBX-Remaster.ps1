@@ -2,14 +2,13 @@
 # License: MIT
 # Repository: https://github.com/cjee21/Check-UEFISecureBootVariables
 
-# Tracking vulnerable certificate presence for Optional Revocations checks
+# Tracking vulnerable certificate presence
 $script:vulnerableCertPresentDB = $null
 $script:vulnerableCertPresentDBDefault = $null
 
 # ANSI colors
-$reset = "$([char]0x1b)[0m"
+$reset = "$([char]0x1b)[00m"
 $white = "$([char]0x1b)[97m"
-$cyan = "$([char]0x1b)[96m"
 $yellow = "$([char]0x1b)[93m"
 $green = "$([char]0x1b)[92m"
 $red   = "$([char]0x1b)[91m"
@@ -21,49 +20,52 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Break
 }
 
-function Get-SignatureCN([string]$s) {
+function Get-SignatureCN {
+    param([string]$s)
+
     if (-not $s) { return $null }
     ($s -split ',')[0].Trim() -replace '^CN\s*=\s*', ''
 }
 
-function Get-SignatureOrg([string]$s) {
+function Get-SignatureOrg {
+    param([string]$s)
+
     if (-not $s) { return $null }
     ($s -split ',')[1].Trim() -replace '^O\s*=\s*', ''
 }
 
 function Get-LatestJsonBySVN {
     param(
-        [object]$LocalJson,
-        [object]$BaselineJson
+        [object]$FirstJson,
+        [object]$SecondJson # Default
     )
 
-    $localMoreRecent = $False
+    $firstMoreRecent = $False
 
-    $local = $LocalJson.svns.version | ForEach-Object { [version]$_ }
-    $baseline = $BaselineJson.svns.version | ForEach-Object { [version]$_ }
+    $first = $FirstJson.svns.version | ForEach-Object { [version]$_ }
+    $second = $SecondJson.svns.version | ForEach-Object { [version]$_ }
 
     # Compare amount of SVNs
-    if ($local.Count -gt $baseline.Count) {
-        $localMoreRecent = $True
+    if ($first.Count -gt $second.Count) {
+        $firstMoreRecent = $True
     } else {
         # Compare SVN values
-        for ($i = 0; $i -lt $local.Count; $i++) {
-            # Immediately determine from first difference
-            if ($local[$i] -gt $baseline[$i]) {
-                $localMoreRecent = $True
+        for ($i = 0; $i -lt $first.Count; $i++) {
+            # Immediately determine on first difference
+            if ($first[$i] -gt $second[$i]) {
+                $firstMoreRecent = $True
                 break
-            } elseif ($baseline[$i] -gt $local[$i]) { 
+            } elseif ($second[$i] -gt $first[$i]) { 
                 break 
             }
         }
     }
 
-    # Return latest JSON
-    if ($localMoreRecent) {
-        return $LocalJson
+    if ($firstMoreRecent) {
+        return $FirstJson # First if more recent
     } 
     
-    return $BaselineJson
+    return $SecondJson # Default
 }
 
 function Split-SVNEntry {
@@ -81,9 +83,7 @@ function Split-SVNEntry {
     # Sample: 01|612B139DD5598843AB1C185C3CB2EB92|0000|0900|0000000000000000000000
     # Sample interpretated as "Windows Bootmgr SVN 9.0"
     
-    $b = for ($i = 0; $i -lt $hex.Length; $i += 2) {
-        [Convert]::ToByte($hex.Substring($i,2),16)
-    }
+    $b = for ($i = 0; $i -lt $hex.Length; $i += 2) { [Convert]::ToByte($hex.Substring($i,2),16) }
 
     $applications = @{
         "612B139DD5598843AB1C185C3CB2EB92" = "Windows Bootmgr SVN"
@@ -94,7 +94,7 @@ function Split-SVNEntry {
     $applicationHash = ($b[1..16] | ForEach-Object { $_.ToString("X2") }) -join ''
     
     $application = $applications[$applicationHash]
-    if (-not $application) { $application = "UNKNOWN" }
+    if (-not $application) { $application = $applicationHash } # Return the hash if name not recognized
 
     $minor = [BitConverter]::ToUInt16($b, 17)
     $major = [BitConverter]::ToUInt16($b, 19)
@@ -106,21 +106,29 @@ function Split-SVNEntry {
     }
 }
 
-function Get-DaysUntilExpiration($validTo) {
+function Get-TimeUntilExpiration {
+    param(
+        [datetime]$validTo,
+        [string]$Key
+    )
+
+    # Skip for Default PK, KEK, DB. Only Current
+    if ($Key -like "*Default*") { return "" }
+        
     $now = Get-Date
-    $validTo = [datetime]$validTo
-    $isValid = $now -le $validTo
-    $span = if ($validTo -ge $now) { $validTo - $now } else { $now - $validTo }
-    $time = [math]::Floor($span.TotalDays)
-    if ($isValid) {
+    $time = [math]::Floor(($validTo - $now).TotalDays)
+    
+    # Not expired yet
+    if ($now -le $validTo) {
         if ($time -lt 365) { 
             $suffix = if ($time -eq 1) { "" } else { "s" }
-            return "$yellow$time day$suffix$reset" # Less than a year: Yellow
+            return "$yellow$time day$suffix$reset" # Less than a year: n day(s)
         } else { 
             $time = [int]($time / 365)
             $suffix = if ($time -eq 1) { "" } else { "s" }
-            return "$green$time year$suffix$reset" # Longer than a year: Green
+            return "$green$time year$suffix$reset" # Longer than a year: n year(s)
         }
+    # Already expired
     } else {
         $text = "Expired"
         return "$yellow$text$reset"
@@ -142,98 +150,92 @@ function Show-UEFICerts {
         return 
     }
 
-    # Current DBX for Current lookup, Default DBX for Defaults.
+    # Lookup DBX / DBXDefault 
     if ($Key -like "*Default*") { $reference = "DBXDefault" } else { $reference = "DBX" }
 
     # UEFI values
     $Values = $UEFI_Values[$Key]
 
-    # Check against Microsoft Baseline
+    # Check against Microsoft baseline
     foreach ($entry in $Baseline) {
-        $name = $entry.Name
+        
+        $name = $entry.Name # Cert CN
+        $tag = "$reset$($entry.Tag)$reset" # MS Baseline identification tag, ensure length as other tags
 
         # Found match
         $match = $Values | Where-Object { (Get-SignatureCN $_.Subject) -eq $name }
         $present = $null -ne $match
         
-        # Display Microsoft PK only if present. Since there can only be one PK.
+        # Display Microsoft PK baseline only if present. Since there can only be one PK.
         if (($Key -eq "PK" -or $Key -eq "PKDefault") -and -not $match) { continue }
 
         # Verify SignatureOwner to be Microsoft
         if ($present -and (-not ($Values.SignatureOwner -eq $SignatureOwnerMicrosoft))) {
             Write-Host $red"SignatureOwner not Microsoft, the certificate might impersonate one."
-        } 
+        }
 
-        # Check if revoked in DBX/DBXDefault
+        # Check if revoked in reference: DBX or DBXDefault
         $revoked = $UEFI_Values[$reference] | Where-Object {
             $_.SignatureOwner -eq $match.SignatureOwner -and
             $_.Subject -eq $match.Subject
         }
 
-        # Show expiration time for current certificates
-        if ($Key -like "*Default*") { 
-            $expiration = "" 
-        } else { 
-            $expiration = Get-DaysUntilExpiration $entry.ValidTo 
-        }
-
-        # Status text
+        # Assign text and color
         if ($revoked) {
             $state = "REVOKED"
+            $color = $red
         } elseif ($present) {
             $state = "PRESENT"
+            $color = $green
         } else {
             $state = "ABSENT"
+            $color = $gray
         }
 
-        # Status color
-        $color = switch ($state) {
-            "REVOKED" { $red }
-            "PRESENT" { $green }
-            "ABSENT"  { $gray }
-        }
-
-        # Add asterix if cert is marked as vulnerable in Microsoft JSON.
-        $revocation = $json.certificates | Where-Object { (Get-SignatureCN $_.subjectName) -eq $name }
-        if ($revocation) {
+        # Add asterix if cert is marked vulnerable in Microsoft JSON.
+        $vulnerable = $json.certificates | Where-Object { (Get-SignatureCN $_.subjectName) -eq $name }
+        if ($vulnerable) {
             $name = switch ($state) {
-                "REVOKED" { "{0}{1}{2}{3}" -f $name, $gray, "*", $reset } # Successfully revoked
-                "PRESENT" { "{0}{1}{2}{3}" -f $name, $red, "*", $reset; # Caution: Vulnerable cert present 
+                "ABSENT"  { "$name$gray*$reset" } # Recommended state for vulnerable cert
+                "REVOKED" { "$name$gray*$reset" } # Recommended state for vulnerable cert
+                "PRESENT" { "$name$red*$reset"; # CAUTION state for vulnerable cert
                     if ($reference -eq "DBX") { 
-                        $script:vulnerableCertPresentDB = $True # Present in Current DB
-                    } elseif ($reference -eq "DBXDefault") { 
-                        $script:vulnerableCertPresentDBDefault = $True # Present in Default DB
+                        $script:vulnerableCertPresentDB = $True 
+                    } else { 
+                        $script:vulnerableCertPresentDBDefault = $True 
                     }
                 }
-                "ABSENT"  { "{0}{1}{2}{3}" -f $name, $gray, "*", $reset } # Successfully removed, or never added
             } 
-        }
+        } else { $name = "$name$reset$reset" } # Reserve same space without revocation asterix
 
-        $msTag = "$($entry.Tag)$reset" # MS cert identification tag
-        $status = "$color$state$reset"
-
-        "{0,-16} {1,-38} [{2}] {3}" -f $status, $name, $msTag, $expiration
+        "{0,-17} {1,-48} {2} {3}" -f 
+            "$color$state$reset", $name, "[$tag]", (Get-TimeUntilExpiration $entry.ValidTo $Key)
     }
 
     # Remaining certs, outside of Microsoft Baseline
     $remaining = $Values | Where-Object { (Get-SignatureCN $_.Subject) -notin ($Baseline | ForEach-Object { $_.Name }) }
     foreach ($entry in $remaining) {
-        $name = Get-SignatureCN $entry.Subject
 
-        # Automatically present
-        $state = "PRESENT"
+        $name = Get-SignatureCN $entry.Subject # Cert CN
+        $tag = "$gray$(Get-SignatureOrg $entry.Subject)$reset" # Cert O
 
-        # Show expiration time only for current certificates, not default
-        if ($Key -like "*Default*") { 
-            $expiration = "" 
-        } else { 
-            $expiration = Get-DaysUntilExpiration $entry.ValidTo 
+        # Check if revoked in reference: DBX or DBXDefault
+        $revoked = $UEFI_Values[$reference] | Where-Object {
+            $_.SignatureOwner -eq $match.SignatureOwner -and
+            $_.Subject -eq $match.Subject
         }
 
-        $nonMsTag = "$gray$(Get-SignatureOrg $entry.Subject)$reset" # Non-MS cert organization
-        $status = "{0}{1}{2}" -f $green, $state, $reset 
+        # Assign text and color
+        if ($revoked) {
+            $state = "REVOKED"
+            $color = $red
+        } else {
+            $state = "PRESENT"
+            $color = $green
+        } 
 
-        "{0,-16} {1,-38} [{2}] {3}" -f $status, $name, $nonMsTag, $expiration
+        "{0,-17} {1,-48} {2} {3}" -f 
+            "$color$state$reset", "$name$reset$reset", "[$tag]", (Get-TimeUntilExpiration $entry.ValidTo $Key)
     }
 }
 
@@ -254,15 +256,18 @@ function Show-UEFIDBX {
         return 
     }
 
-    # All UEFI DBX revocations
+    # EFI images (All Hashes excluding SVN hashes)
     $UEFI_DBX_EFI_SET = @{}; $UEFI_Values[$Key].Where({ $_.SignatureOwner -ne "9d132b6c-59d5-4388-ab1c-185cfcb2eb92" }) | 
         ForEach-Object { if ($_.Hash) { $UEFI_DBX_EFI_SET[$_.Hash] = $True }}
+    # Certificates
     $UEFI_DBX_CERT_SET = @{}; $UEFI_Values[$Key] | ForEach-Object { if ($_.Subject) { $UEFI_DBX_CERT_SET[$_.Subject] = $True }}
+    # SVN hashes
     $UEFI_DBX_SVN_SET = @{}; $UEFI_Values[$Key].Where({ $_.SignatureOwner -eq "9d132b6c-59d5-4388-ab1c-185cfcb2eb92" }) | 
         ForEach-Object { if ($_.Hash) { $UEFI_DBX_SVN_SET[$_.Hash] = $True }}
+    # Apps derived SVN hashes
     $UEFI_DBX_SVN_APPS = @{}; foreach ($entry in $UEFI_DBX_SVN_SET.GetEnumerator()) {
-    if (($appHash = (Split-SVNEntry $entry.Name).ApplicationHash)) {
-        $UEFI_DBX_SVN_APPS[$appHash] = $True}}
+        if (($appHash = (Split-SVNEntry $entry.Name).ApplicationHash)) { $UEFI_DBX_SVN_APPS[$appHash] = $True}
+    }
 
     # --- EFI Images ---
     # Check against mandatory JSON revocations
@@ -275,14 +280,13 @@ function Show-UEFIDBX {
             $DBX_Mandatory_Missing += $hash 
         } 
     }
-
     #  Display mandatory revocation results
     Write-Host ("{0,-20} : " -f "Main revocations") -NoNewline    
     if ($DBX_Mandatory_Missing.Count -eq 0) {
-        $label = "SUCCESS: $($DBX_Mandatory_Matches.Count) revocations detected." 
+        $label = "SUCCESS: $($DBX_Mandatory_Matches.Count) successes." 
         Write-Host "$green$label" 
     } else {
-        $label = "FAIL: $($DBX_Mandatory_Missing.Count) revocations missing, $($DBX_Mandatory_Matches.Count) detected." 
+        $label = "FAIL: $($DBX_Mandatory_Missing.Count) missing, $($DBX_Mandatory_Matches.Count) successes." 
         Write-Host "$red$label"
     }
 
@@ -299,13 +303,12 @@ function Show-UEFIDBX {
             } else { 
                 $DBX_Optional_Missing += $hash } 
         }
-
         # Display optional revocations results
         if ($DBX_Optional_Missing.Count -eq 0) { 
-            $label = "SUCCESS: $($DBX_Optional_Matches.Count) revocations detected." 
+            $label = "SUCCESS: $($DBX_Optional_Matches.Count) successes." 
             Write-Host "$green$label" 
         } else { 
-            $label = "FAIL: $($DBX_Optional_Missing.Count) revocations missing, $($DBX_Optional_Matches.Count) detected." 
+            $label = "FAIL: $($DBX_Optional_Missing.Count) missing, $($DBX_Optional_Matches.Count) successes." 
             Write-Host "$red$label" 
         }
 
@@ -315,13 +318,12 @@ function Show-UEFIDBX {
     }
     
     # --- SVNs ---
-    # Read highest UEFI SVNs for each Application, e.g. Bootmgr might have multiple historical entries with increasing SVN.
+    # Determine high UEFI SVNs for each application, e.g. Bootmgr might have multiple historical entries with increasing SVN.
     $UEFI_SVN_LOOKUP = @{}
     foreach ($entry in $UEFI_DBX_SVN_SET.GetEnumerator()) {
         $obj = Split-SVNEntry $entry.Name
         if (-not $UEFI_SVN_LOOKUP.ContainsKey($obj.ApplicationHash) -or $obj.SVN -gt $UEFI_SVN_LOOKUP[$obj.ApplicationHash].SVN) { 
-            $UEFI_SVN_LOOKUP[$obj.ApplicationHash] = $obj 
-        }
+            $UEFI_SVN_LOOKUP[$obj.ApplicationHash] = $obj }
     }
 
     # Check UEFI SVNs against Microsoft JSON baseline
@@ -332,10 +334,10 @@ function Show-UEFIDBX {
         Write-Host ("{0,-20} : " -f $json.ApplicationName) -NoNewline
         # UEFI SVN applied 
         if ($fw) {
-            # UEFI meets JSON Baseline: Compliant
+            # UEFI meets JSON Baseline
             if ($fw.SVN -ge $json.SVN) {
                 Write-Host $green$($fw.SVN)
-            # UEFI lower than JSON Baseline: Not compliant, Show target version
+            # UEFI fails JSON Baseline: Show JSON target SVN
             } else {
                 Write-Host "$red$($fw.SVN) (Target $($json.SVN))"
             }
@@ -346,15 +348,15 @@ function Show-UEFIDBX {
         }
     }
 
-    ("{0,-20} : {1} EFI images, {2} certificates, {3} SVNs from {4} apps") -f 
+    ("{0,-20} : {1} EFI images, {2} certificates, {3} SVNs for {4} apps") -f 
         "Revocation summary", 
-        ($UEFI_DBX_EFI_SET.Count), 
+        $UEFI_DBX_EFI_SET.Count, 
         $UEFI_DBX_CERT_SET.Count,
         $UEFI_DBX_SVN_SET.Count, 
         $UEFI_DBX_SVN_APPS.Count
 }
 
-# Read UEFI once; 'dbt' and 'dbtDefault' omitted.
+# Read Secure Boot UEFI once; 'dbt' and 'dbtDefault' not used.
 $UEFI_Keys = @("SecureBoot","SetupMode","PK","PKDefault","KEK","KEKDefault","db","dbDefault","dbx","dbxDefault")
 $UEFI_Values = @{}
 foreach ($Key in $UEFI_Keys) {
@@ -378,13 +380,13 @@ $baselineJson = Get-Content "$PSScriptRoot\..\dbx_info\dbx_info_msft_latest.json
 $localJsonPath = (Join-Path (Split-Path (Get-Command Get-SecureBootUEFI).DLL -Parent) "hashes.json") 
 $localJson = Get-Content $localJsonPath -Raw | ConvertFrom-Json
 
-# Determine which JSON (GitHub, Local) is more recent
-$json = Get-LatestJsonBySVN $localJson $baselineJson
+# Determine most recent JSON (from GitHub, or local Windows Update rollout)
+$json = Get-LatestJsonBySVN $localJson $baselineJson # Second = Default
 
-# MS Signature
+# MS Signature for certificate verification
 $SignatureOwnerMicrosoft = "77fa9abd-0359-4d32-bd60-28f4e78f784b"
 
-# Expected Microsoft certs
+# Baseline Microsoft certs
 $MicrosoftPK = @(
     @{ Name = "Windows OEM Devices PK"; Tag = "MS-PK"; ValidTo = "2038-09-18 22:28:26Z" }
 )
@@ -431,8 +433,9 @@ try {
 Show-UEFICA2023Status "SB : " 
 Show-WindowsUEFICA2023Capable "SB : "
 Show-AvailableUpdates "SB : "
+Spacer
 
-# Determine arch for the correct revocation hashes
+# Determine arch for the correct EFI revocation hashes
 $archWin = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes" -ErrorAction SilentlyContinue).OSArchitecture
 $archMap = @{
     "amd64" = "x64"
@@ -447,34 +450,32 @@ $JSON_DBX_MANDATORY_HASHSET = @{}; $json.images.$archJson |
     Where-Object { -not $_.PSObject.Properties['isOptional']} | 
     ForEach-Object { $JSON_DBX_MANDATORY_HASHSET[$_.authenticodeHash] = $True }
 
-# Optional revocations (for certificates that are expected to be revoked)
+# Optional revocations (likely for certificates that are expected to be revoked)
 $JSON_DBX_OPTIONAL_HASHSET = @{}; $json.images.$archJson | 
     Where-Object { $_.PSObject.Properties['isOptional']} | 
     ForEach-Object { $JSON_DBX_OPTIONAL_HASHSET[$_.authenticodeHash] = $True }
 
 # Display PK, KEK, DB, DBX
-Spacer
 Show-UEFICerts -Title "Current PK"   -Baseline $MicrosoftPK   -Key "PK"
 Write-Host
 Show-UEFICerts -Title "Default PK"   -Baseline $MicrosoftPK   -Key "PKDefault"
-Spacer
+Write-Host
 Show-UEFICerts -Title "Current KEK"  -Baseline $MicrosoftKEK  -Key "KEK"
 Write-Host
 Show-UEFICerts -Title "Default KEK"  -Baseline $MicrosoftKEK  -Key "KEKDefault"
-Spacer
+Write-Host
 Show-UEFICerts -Title "Current DB"   -Baseline $MicrosoftDB   -Key "DB"
 
 # Certificate revocation disclaimer
 if ($script:vulnerableCertPresentDB) {
-    Write-Host ("{0}*CAUTION: Vulnerable certificate expected to be REVOKED or REMOVED." -f $red, $gray)
+    Write-Host ("{0}*CAUTION: Vulnerable certificate recommended to be ABSENT or REVOKED." -f $red, $gray)
 } else {
-    Write-Host ("{0}*Vulnerable certificate in expected state." -f $gray)
+    Write-Host ("{0}*Vulnerable certificate in recommended state." -f $gray)
 }
 
 Write-Host
 Show-UEFICerts -Title "Default DB"   -Baseline $MicrosoftDB   -Key "DBDefault"
-Spacer
+Write-Host
 Show-UEFIDBX -Title "Current DBX"  -Key "dbx"
 Write-Host
 Show-UEFIDBX -Title "Default DBX"  -Key "dbxDefault"
-Spacer
