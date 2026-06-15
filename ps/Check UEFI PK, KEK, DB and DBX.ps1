@@ -291,8 +291,12 @@ if ([System.IntPtr]::Size -eq 4 -and $env:PROCESSOR_ARCHITEW6432) {
     $WinSysPath = "$env:SystemRoot\System32"
 }
 $svn_list = Get-SVNfromDBX $dbx_list
-$StagedSVNbytes = [IO.File]::ReadAllBytes("$WinSysPath\SecureBootUpdates\DBXUpdateSVN.bin")
-$svn_staged = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
+try {
+    $StagedSVNbytes = [IO.File]::ReadAllBytes("$WinSysPath\SecureBootUpdates\DBXUpdateSVN.bin")
+    $svn_staged = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
+} catch {
+    $svn_staged = $null
+}
 
 foreach ($key in $components.Keys) {
     Write-Host -NoNewline "$($components[$key].Name.PadRight($colWidth)) : "
@@ -304,7 +308,7 @@ foreach ($key in $components.Keys) {
 
     $json       = $components[$key].JSON
     $current    = $svn_list.$key.Version
-    $staged     = $svn_staged.$key.Version
+    $staged     = if ($svn_staged) { $svn_staged.$key.Version } else { [version]0.0 }
 
     $target = if ($json -ge $staged) { $json } else { $staged }
     $isUpdated = ($current -ge $target)
