@@ -89,7 +89,7 @@ try {
         Write-Host "$check $pk_name"
     }
 } catch {
-    Write-Warning "Failed to query UEFI variable PK"
+    Write-Warning "Failed to query UEFI variable PK: $($_.Exception.Message)"
 }
 
 Write-Host ""
@@ -104,118 +104,165 @@ try {
         Write-Host "$check $pk_name"
     }
 } catch {
-    Write-Warning "Failed to query UEFI variable PKDefault"
+    Write-Warning "Failed to query UEFI variable PKDefault: $($_.Exception.Message)"
+}
+
+function Is-CertThumbprintRevoked {
+    param (
+        [Parameter(Mandatory)]
+        [string]$CertThumbprint,
+        [Parameter()]
+        [PSCustomObject]$DBX
+    )
+    $revoked = 'false'
+    if ($DBX) {
+        foreach ($SignatureList in $DBX) {
+            if ($SignatureList.SignatureType -eq 'EFI_CERT_X509_GUID') {
+                foreach ($Signature in $SignatureList.SignatureList) {
+                    if ($Signature.SignatureData.Thumbprint -eq $CertThumbprint) {
+                        $revoked = 'true'
+                    }
+                }
+            }
+        }
+    } else {
+        $revoked = 'unknown'
+    }
+    $revoked
 }
 
 function Show-UEFICertIsPresent {
     param (
         [Parameter(Mandatory)]
-        [string]$SecureBootUEFIVar,
+        [PSCustomObject]$UEFISignatureDatabase,
         [Parameter(Mandatory)]
-        [string]$CertName
+        [string]$CertThumbprint,
+        [Parameter(Mandatory)]
+        [string]$CertName,
+        [Parameter()]
+        [PSCustomObject]$DBX
     )
-    try {
-        if ([System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI $SecureBootUEFIVar -ErrorAction Stop).bytes) -match $CertName) {
-            if ($CertName) {
-                $revoked = $false
-                try {
-                    $revoked = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI dbx -ErrorAction Stop).bytes) -match $CertName
-                } catch {
-                    $revoked = $false
+    $found = $false
+    foreach ($SignatureList in $UEFISignatureDatabase) {
+        if ($SignatureList.SignatureType -eq 'EFI_CERT_X509_GUID') {
+            foreach ($Signature in $SignatureList.SignatureList) {
+                if ($Signature.SignatureData.Thumbprint -eq $CertThumbprint) {
+                    $found = $true
                 }
-                Write-Host "$check $CertName (revoked: $revoked)"
-            } else {
-                Write-Host "$check $CertName (revoked: Unknown)"
             }
-        } else {
-            Write-Host "$cross $CertName"
         }
-    } catch {
-        Write-Warning "Failed to query UEFI variable '$SecureBootUEFIVar' for cert '$CertName'"
+    }
+    $revoked = Is-CertThumbprintRevoked -CertThumbprint $CertThumbprint -DBX $DBX
+    if ($found) {
+        Write-Host "$check $CertName (revoked: $revoked)"
+    } else {
+        Write-Host "$cross $CertName (revoked: $revoked)"
     }
 }
 
 function Show-UEFICertOthers {
     param (
         [Parameter(Mandatory)]
-        [string]$SecureBootUEFIVar,
+        [PSCustomObject]$UEFISignatureDatabase,
         [Parameter(Mandatory)]
-        [Array]$KnownCerts
+        [Array]$KnownCerts,
+        [Parameter()]
+        [PSCustomObject]$DBX
     )
-    try {
-        $certs = Get-SecureBootUEFI -Name $SecureBootUEFIVar | Get-UEFIDatabaseSignatures
-        $cert_names = @()
-        $certs | ForEach-Object {
-            if ($_.SignatureType -eq 'EFI_CERT_X509_GUID') {
-                $_.SignatureList.SignatureData.Subject | ForEach-Object {
-                    $cert_names += [regex]::Match($_, 'CN=([^,]+)').Groups[1].Value
-                }
-            }
-            elseif ($_.SignatureType -eq 'EFI_CERT_SHA256_GUID') {
-                $_.SignatureList.SignatureData | ForEach-Object {
-                    $cert_names += "SHA256: $_"
-                }
+    $cert_names = [ordered]@{}
+    foreach ($SignatureList in $UEFISignatureDatabase) {
+        if ($SignatureList.SignatureType -eq 'EFI_CERT_X509_GUID') {
+            foreach ($Signature in $SignatureList.SignatureList) {
+                $revoked = Is-CertThumbprintRevoked -CertThumbprint $Signature.SignatureData.Thumbprint -DBX $DBX
+                $cert_names[$Signature.SignatureData.Thumbprint] = [regex]::Match($Signature.SignatureData.Subject, 'CN=([^,]+)').Groups[1].Value + " (revoked: $revoked)"
             }
         }
-        
-        $cert_names | ForEach-Object {
-            if ($KnownCerts -notcontains $_) {
-                # List out all other certs found other than those in known list
-                # No check for revocation since not all certs have unique CNs and we do not check by thumbprint
-                Write-Host "$check $_"
+        elseif ($SignatureList.SignatureType -eq 'EFI_CERT_SHA256_GUID') {
+            foreach ($Signature in $SignatureList.SignatureList) {
+                $cert_names[$Signature.SignatureData] = "SHA256: $($Signature.SignatureData)"
+                # Note: Hashes are not checked for revocations at the moment
             }
         }
-    } catch {
-        Write-Warning "Failed to query UEFI variable '$SecureBootUEFIVar'"
+    }
+    foreach ($Key in $cert_names.Keys) {
+        if ($Key -notin $KnownCerts.Keys) {
+            Write-Host "$check $($cert_names[$Key])"
+        }
     }
 }
 
-$KEKCerts = @(
-    'Microsoft Corporation KEK CA 2011'
-    'Microsoft Corporation KEK 2K CA 2023'
-)
+try {
+    $dbx = Get-SecureBootUEFI dbx -ErrorAction Stop | Get-UEFIDatabaseSignatures -ErrorAction Stop
+} catch {
+    $dbx = $null
+}
+
+$KEKCerts = [ordered]@{
+    '31590BFD89C9D74ED087DFAC66334B3931254B30' = 'Microsoft Corporation KEK CA 2011'
+    '459AB6FB5E284D272D5E3E6ABC8ED663829D632B' = 'Microsoft Corporation KEK 2K CA 2023'
+}
 
 Write-Host ""
 Write-Host $bold'Current UEFI KEK'$reset
-$KEKCerts | ForEach-Object {
-    Show-UEFICertIsPresent -SecureBootUEFIVar kek -CertName $_
+try {
+    $kek = Get-SecureBootUEFI kek -ErrorAction Stop | Get-UEFIDatabaseSignatures -ErrorAction Stop
+    foreach ($Cert in $KEKCerts.GetEnumerator()) {
+        Show-UEFICertIsPresent -UEFISignatureDatabase $kek -CertThumbprint $Cert.Key -CertName $Cert.Value -DBX $dbx
+    }
+    Show-UEFICertOthers -UEFISignatureDatabase $kek -KnownCerts $KEKCerts -DBX $dbx
+} catch {
+    Write-Warning "Failed to query UEFI variable KEK: $($_.Exception.Message)"
 }
-Show-UEFICertOthers -SecureBootUEFIVar kek -KnownCerts $KEKCerts
 
 Write-Host ""
 Write-Host $bold'Default UEFI KEK'$reset
 if ($IsArm) {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
-$KEKCerts | ForEach-Object {
-    Show-UEFICertIsPresent -SecureBootUEFIVar KEKDefault -CertName $_
+try {
+    $kekDefault = Get-SecureBootUEFI kekDefault -ErrorAction Stop | Get-UEFIDatabaseSignatures -ErrorAction Stop
+    foreach ($Cert in $KEKCerts.GetEnumerator()) {
+        Show-UEFICertIsPresent -UEFISignatureDatabase $kekDefault -CertThumbprint $Cert.Key -CertName $Cert.Value -DBX $dbx
+    }
+    Show-UEFICertOthers -UEFISignatureDatabase $kekDefault -KnownCerts $KEKCerts -DBX $dbx
+} catch {
+    Write-Warning "Failed to query UEFI variable KEKDefault: $($_.Exception.Message)"
 }
-Show-UEFICertOthers -SecureBootUEFIVar KEKDefault -KnownCerts $KEKCerts
 
-$DBCerts = @(
-    'Microsoft Windows Production PCA 2011'
-    'Microsoft Corporation UEFI CA 2011'
-    'Windows UEFI CA 2023'
-    'Microsoft UEFI CA 2023'
-    'Microsoft Option ROM UEFI CA 2023'
-)
+$DBCerts = [ordered]@{
+    '580A6F4CC4E4B669B9EBDC1B2B3E087B80D0678D' = 'Microsoft Windows Production PCA 2011'
+    '46DEF63B5CE61CF8BA0DE2E6639C1019D0ED14F3' = 'Microsoft Corporation UEFI CA 2011'
+    '45A0FA32604773C82433C3B7D59E7466B3AC0C67' = 'Windows UEFI CA 2023'
+    'B5EEB4A6706048073F0ED296E7F580A790B59EAA' = 'Microsoft UEFI CA 2023'
+    '3FB39E2B8BD183BF9E4594E72183CA60AFCD4277' = 'Microsoft Option ROM UEFI CA 2023'
+}
 
 Write-Host ""
 Write-Host $bold'Current UEFI DB'$reset
-$DBCerts  | ForEach-Object {
-    Show-UEFICertIsPresent -SecureBootUEFIVar db -CertName $_
+try {
+    $db = Get-SecureBootUEFI db -ErrorAction Stop | Get-UEFIDatabaseSignatures -ErrorAction Stop
+    foreach ($Cert in $DBCerts.GetEnumerator()) {
+        Show-UEFICertIsPresent -UEFISignatureDatabase $db -CertThumbprint $Cert.Key -CertName $Cert.Value -DBX $dbx
+    }
+    Show-UEFICertOthers -UEFISignatureDatabase $db -KnownCerts $DBCerts -DBX $dbx
+} catch {
+    Write-Warning "Failed to query UEFI variable DB: $($_.Exception.Message)"
 }
-Show-UEFICertOthers -SecureBootUEFIVar db -KnownCerts $DBCerts
 
 Write-Host ""
 Write-Host $bold'Default UEFI DB'$reset
 if ($IsArm) {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
-$DBCerts  | ForEach-Object {
-    Show-UEFICertIsPresent -SecureBootUEFIVar dbDefault -CertName $_
+try {
+    $dbDefault = Get-SecureBootUEFI dbDefault -ErrorAction Stop | Get-UEFIDatabaseSignatures -ErrorAction Stop
+    foreach ($Cert in $DBCerts.GetEnumerator()) {
+        Show-UEFICertIsPresent -UEFISignatureDatabase $dbDefault -CertThumbprint $Cert.Key -CertName $Cert.Value -DBX $dbx
+    }
+    Show-UEFICertOthers -UEFISignatureDatabase $dbDefault -KnownCerts $DBCerts -DBX $dbx
+} catch {
+    Write-Warning "Failed to query UEFI variable DBDefault: $($_.Exception.Message)"
 }
-Show-UEFICertOthers -SecureBootUEFIVar DBDefault -KnownCerts $DBCerts
 
 Write-Host ""
 Write-Host $bold'Current UEFI DBX'$reset
