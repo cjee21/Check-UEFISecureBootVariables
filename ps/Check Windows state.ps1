@@ -13,13 +13,16 @@ Import-Module $PSScriptRoot\Get-SystemOverview.psm1 -Force
 
 Write-Host "UEFISecureBootEnabled    :" (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State).UEFISecureBootEnabled
 "AvailableUpdates         : 0x{0:X4}" -f (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot).AvailableUpdates
-Write-Host "UEFICA2023Status         :" (Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing).UEFICA2023Status
-Write-Host "WindowsUEFICA2023Capable : " -NoNewline
-switch ((Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing).WindowsUEFICA2023Capable) {
-    1 { "Windows UEFI CA 2023 cert is in DB" }
-    2 { "Windows UEFI CA 2023 cert is in DB, system is starting from 2023 signed boot manager" }
-    Default { "Windows UEFI CA 2023 cert is not in DB" }
-}
+try {
+    $SecureBootServicing = Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing -ErrorAction Stop
+    Write-Host "UEFICA2023Status         :" $SecureBootServicing.UEFICA2023Status
+    Write-Host "WindowsUEFICA2023Capable : " -NoNewline
+    switch ($SecureBootServicing.WindowsUEFICA2023Capable) {
+        1 { "Windows UEFI CA 2023 cert is in DB" }
+        2 { "Windows UEFI CA 2023 cert is in DB, system is starting from 2023 signed boot manager" }
+        Default { "Windows UEFI CA 2023 cert is not in DB" }
+    }
+} catch {}
 
 Write-Host ""
 
@@ -131,7 +134,7 @@ try {
     Write-Host ""
 
 } catch {
-    Write-Error "An exception has occured: $_"
+
 } finally {
     # Guaranteed cleanup
     if ($mountedByUs) {
