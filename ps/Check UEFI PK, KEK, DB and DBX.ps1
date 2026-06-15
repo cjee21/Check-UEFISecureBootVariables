@@ -285,8 +285,13 @@ $components = [ordered]@{
     WDSMgFw = @{ Name="Windows WDSMgFw SVN"; JSON=$svn_wdsmgfw_latest }
 }
 
+if ([System.IntPtr]::Size -eq 4 -and $env:PROCESSOR_ARCHITEW6432) {
+    $WinSysPath = "$env:SystemRoot\Sysnative"
+} else {
+    $WinSysPath = "$env:SystemRoot\System32"
+}
 $svn_list = Get-SVNfromDBX $dbx_list
-$StagedSVNbytes = [IO.File]::ReadAllBytes('C:\Windows\System32\SecureBootUpdates\DBXUpdateSVN.bin')
+$StagedSVNbytes = [IO.File]::ReadAllBytes("$WinSysPath\SecureBootUpdates\DBXUpdateSVN.bin")
 $svn_staged = Get-SVNfromDBX (Get-UEFIDatabaseSignatures -BytesIn $StagedSVNbytes)
 
 foreach ($key in $components.Keys) {
