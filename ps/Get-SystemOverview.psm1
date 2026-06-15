@@ -69,21 +69,9 @@ function Show-Device {
     $cim_cs = Get-CimInstance -ClassName Win32_ComputerSystemProduct -ErrorAction SilentlyContinue
     $cim_bb = Get-CimInstance -ClassName Win32_BaseBoard -ErrorAction SilentlyContinue
     $cim_fw = Get-CimInstance -ClassName Win32_BIOS -ErrorAction SilentlyContinue
-    $cim_cpu = Get-CimInstance -ClassName Win32_Processor -ErrorAction SilentlyContinue
 
     $cs = if ($cim_cs) { Format-Set @($cim_cs.Vendor, $cim_cs.Name) } else { $null }
     $bb = if ($cim_bb) { Format-Set @($cim_bb.Manufacturer, $cim_bb.Product) } else { $null }
-    $arch = if ($cim_cpu) {
-                $cpuArchString = switch ($cim_cpu.Architecture) {
-                          0 { "AMD64" }
-                          5 { "ARM" }
-                          6 { "IA64" }
-                          9 { "AMD64" }
-                         12 { "ARM64" }
-                    default { "N/A. Please report." }
-                }
-                Resolve-ArchName $cpuArchString
-            } else { $null }
 
     $fwM = if ($cim_fw) { $cim_fw.Manufacturer } else { $null }
     $fwV = if ($cim_fw) { $cim_fw.SMBIOSBIOSVersion } else { $null }
@@ -93,7 +81,7 @@ function Show-Device {
         catch { $fwD = $cim_fw.ReleaseDate }
     }
 
-    $hw = (@($cs, $bb, $arch) | Where-Object { $_ } | Select-Object -Unique) -join " - "
+    $hw = (@($cs, $bb) | Where-Object { $_ } | Select-Object -Unique) -join " - "
     $fw = (@($fwM, $fwV, $fwD) | Where-Object { $_ }) -join " - "
     if ($hw) { "HW : $hw" } else { "HW : N/A" }
     if ($fw) { "FW : $fw" } else { "FW : N/A"}
