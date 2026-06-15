@@ -174,7 +174,11 @@ function Show-UEFICertOthers {
         if ($SignatureList.SignatureType -eq 'EFI_CERT_X509_GUID') {
             foreach ($Signature in $SignatureList.SignatureList) {
                 $revoked = Is-CertThumbprintRevoked -CertThumbprint $Signature.SignatureData.Thumbprint -DBX $DBX
-                $cert_names[$Signature.SignatureData.Thumbprint] = [regex]::Match($Signature.SignatureData.Subject, 'CN=([^,]+)').Groups[1].Value + " (revoked: $revoked)"
+                $common_name = [regex]::Match($Signature.SignatureData.Subject, 'CN=([^,]+)').Groups[1].Value
+                if ([string]::IsNullOrWhiteSpace($common_name)) {
+                    $common_name = $Signature.SignatureData.Thumbprint # Show Thumbprint if cert has no CN
+                }
+                $cert_names[$Signature.SignatureData.Thumbprint] = $common_name + " (revoked: $revoked)"
             }
         }
         elseif ($SignatureList.SignatureType -eq 'EFI_CERT_SHA256_GUID') {
