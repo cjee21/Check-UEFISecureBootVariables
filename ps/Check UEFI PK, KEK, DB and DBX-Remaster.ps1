@@ -224,7 +224,7 @@ function Show-UEFICerts {
 
         # Only for current variables: Certificate revocation disclaimer 
         if ($Key -notlike "*Default" -and $vulnerable -and $script:vulnerableCertPresentDB) {
-            Write-Host "$red*CAUTION: Vulnerable certificate recommended state to be ABSENT or REVOKED."
+            Write-Host "$red*Vulnerable certificate recommended to be ABSENT or REVOKED."
         } elseif ($Key -notlike "*Default" -and $vulnerable) {
             Write-Host "$gray*Vulnerable certificate in recommended state."
         }
@@ -472,6 +472,35 @@ Spacer
 
 # Determine arch for the correct EFI revocation hashes
 $archWin = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes" -ErrorAction SilentlyContinue).OSArchitecture
+# Fallback from cjee21
+if (-not $archWin) {
+    $IsArm = $false
+    $Is64bit = $true
+    try {
+        $cpuArch = (Get-CimInstance -ClassName Win32_Processor -ErrorAction Stop).Architecture
+        # 0 = x86, 9 = x64, 5 = ARM, 12 = ARM64
+        if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
+            $IsArm = $true
+        }
+        # Windows and UEFI bit-ness should always match on officially supported installs
+        # since UEFI doesn't support cross-platform boot as of https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools#windows-support-for-uefi
+        $Is64bit = [Environment]::Is64BitOperatingSystem
+    } catch {
+        Write-Warning "Unable to determine system architecture, proceeding with defaults (x64).`n"
+        $cpuArch = 9 # default x64
+    }
+    $archWin = if ($Is64bit -and $cpuArch -eq 9) { # CPU arch x64
+        "amd64"
+    } elseif ($Is64bit -and $cpuArch -eq 12) { # CPU arch ARM64
+        "arm64"
+    } elseif (-not $Is64bit -and ($cpuArch -eq 0 -or $cpuArch -eq 9)) {
+        "x86" # CPU arch can be x86 or x64, but Windows/EFI arch is x86, thus the one we need.
+    } elseif (-not $Is64bit -and $IsArm) { # cpu arch check with $IsArm above
+        "arm"
+    } else { # any other unsupported CPU architecture
+        "unsupported"
+    }
+}
 $archMap = @{
     "amd64" = "x64"
     "x86"   = "ia32"

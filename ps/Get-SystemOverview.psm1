@@ -25,12 +25,12 @@ function Get-WindowsVersionFromBuild([int]$Build) {
 function Resolve-ArchName {
     param([string]$Arch)
 
-    switch ($Arch.ToUpper()) {
+    switch ($Arch) {
         "AMD64" { "AMD64/X64" }
         "ARM"   { "ARM" }
         "ARM64" { "ARM64/AARCH64" }
         "X86"   { "X86/IA32" }
-        default { $Arch }
+        default { "N/A. Please report." }
     }
 }
 
@@ -45,41 +45,24 @@ function Show-PartitionStyleDisclaimer() {
     }
 }
 
+function Format-Set {
+    param([string[]]$Values)
 
-function Format-Set($Values) {
+    $clean = @($Values) |
+        ForEach-Object { 
+            if ($_ ) { $_.ToString().Trim() } else { $null } 
+        } |
+        Where-Object {
+            $_ -and
+            $_ -ne 'Default String' -and
+            $_ -ne 'To Be Filled By O.E.M.' -and
+            $_ -ne 'System Manufacturer' -and
+            $_ -ne 'System Product Name' -and
+            $_ -ne 'System Version'
+        } |
+        Select-Object -Unique
 
-    $Exclude = @(
-        'Default String'
-        'System Manufacturer'
-        'System Product Name'
-        'System Version'
-        'To Be Filled By O.E.M.'
-    )
-
-    # Filter out empty, exclude list, duplications. Return most specific (first of given set)
-    $clean = $Values | Where-Object { $_ -and $_ -notin $Exclude } | Select-Object -Unique
-
-    # Filter out substrings of others
-    foreach ($v in @($clean)) {
-        if ($clean | Where-Object { $_ -ne $v -and $_ -like "*$v*" }) {
-            $clean = $clean -ne $v
-        }
-    }
-
-    $clean | Select-Object -First 1 
-}
-
-function Format-DeviceModel([string[]]$Values) {
-
-    # Build tiers, most specific to most generic device info
-    $t1 = Format-Set $Values[0,1] # OEMModelNumber, OEMModelBaseBoard 
-    $t2 = Format-Set $Values[2,3] # OEMModelSystemFamily, OEMModelSystemVersion 
-    $t3 = Format-Set $Values[4] # OEMModelSKU
-    $t4 = Format-Set $Values[5] # OEMModelBaseBoardVersion
-
-    # T1 -> T2 -> T3 + T4 as combined fallback 
-    $result = if ($t1) { @($t1) } elseif ($t2) { @($t2) } else { @($t3) + @($t4) }
-    $result -join ' - '
+    if ($clean) { $clean -join " " } else { $null }
 }
 
 function Show-UEFISecureBootEnabled($prefix) {
@@ -87,7 +70,7 @@ function Show-UEFISecureBootEnabled($prefix) {
 
     $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State"
     $prop = "UEFISecureBootEnabled"
-    $value = (Get-ItemProperty $path).$prop
+    $value = (Get-ItemProperty $path -ErrorAction SilentlyContinue).$prop
 
     switch ($value) {
         1 { Write-Host "Enabled" -ForegroundColor Green }
@@ -102,7 +85,7 @@ function Show-WindowsUEFICA2023Capable($prefix) {
      
     $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing"
     $prop = "WindowsUEFICA2023Capable"
-    $value = (Get-ItemProperty $path).$prop
+    $value = (Get-ItemProperty $path -ErrorAction SilentlyContinue).$prop
     switch ($value) {
         2 { Write-Host "Windows UEFI CA 2023 cert in DB. Starting from 2023 signed boot manager" -ForegroundColor Green }
         1 { Write-Host "Windows UEFI CA 2023 cert in DB. But NOT starting from 2023 signed boot manager" -ForegroundColor Red }
@@ -117,7 +100,7 @@ function Show-UEFICA2023Status($prefix) {
     
     $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing"
     $prop = "UEFICA2023Status"
-    $value = (Get-ItemProperty $path).$prop
+    $value = (Get-ItemProperty $path -ErrorAction SilentlyContinue).$prop
 
     switch ($value) {
         "Updated" { Write-Host "$value" -ForegroundColor Green }
@@ -127,7 +110,7 @@ function Show-UEFICA2023Status($prefix) {
     }
     
     $prop = "UEFICA2023Error"
-    $value = (Get-ItemProperty $path).$prop
+    $value = (Get-ItemProperty $path -ErrorAction SilentlyContinue).$prop
     # Show if available
     if ($value -gt 0) {
         Write-Host $prefix -NoNewLine
@@ -135,7 +118,7 @@ function Show-UEFICA2023Status($prefix) {
     }
 
     $prop = "UEFICA2023ErrorEvent"
-    $value = (Get-ItemProperty $path).$prop
+    $value = (Get-ItemProperty $path -ErrorAction SilentlyContinue).$prop
     # Show if available
     if ($value -gt 0) {
         Write-Host $prefix -NoNewLine
@@ -149,7 +132,7 @@ function Show-ConfidenceLevel($prefix) {
     
     $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing"
     $prop = "ConfidenceLevel"
-    $value = (Get-ItemProperty $path).$prop
+    $value = (Get-ItemProperty $path -ErrorAction SilentlyContinue).$prop
 
     switch -Regex ($value) {
         "High Confidence" { Write-Host "$value" -ForegroundColor Green }
@@ -167,7 +150,7 @@ function Show-AvailableUpdates($prefix) {
     
     $path = "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot"
     $prop = "AvailableUpdates"
-    $value = "0x" + ([Convert]::ToString([int64](Get-ItemProperty $path).$prop, 16)).ToUpper()
+    $value = "0x" + ([Convert]::ToString([int64](Get-ItemProperty $path -ErrorAction SilentlyContinue).$prop, 16)).ToUpper()
 
     switch ($value) {
         "0x0" { Write-Host "No Secure Boot key updates are performed" }
@@ -191,7 +174,7 @@ function Show-AvailableUpdates($prefix) {
 }
 
 function Show-WindowsVersion {
-    $windows = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+    $windows = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" -ErrorAction SilentlyContinue
     "OS : Windows {0} - {1} (Build {2}.{3})" -f `
         (Get-WindowsVersionFromBuild ([int]$windows.CurrentBuildNumber)),
         $windows.DisplayVersion,
@@ -206,36 +189,35 @@ function Show-DeviceOverview {
     Show-WindowsVersion
 }
 
-function Get-DeviceArch {
-    (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes").OSArchitecture
-}
-
 function Show-Device {
     # Show Secure Boot related device hardware and firmware info
-    $device  = Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing\DeviceAttributes"
+    $cim_cs = Get-CimInstance -ClassName Win32_ComputerSystemProduct -ErrorAction SilentlyContinue
+    $cim_bb = Get-CimInstance -ClassName Win32_BaseBoard -ErrorAction SilentlyContinue
+    $cim_fw = Get-CimInstance -ClassName Win32_BIOS -ErrorAction SilentlyContinue
 
-    # Hardware
-    "HW : {0} - {1} - {2}" -f `
-        ((Format-Set @(
-            $device.OEMName
-            $device.OEMManufacturerName
-            $device.BaseBoardManufacturer
-        )) -join " - "),
-        (Format-DeviceModel @(
-            $device.OEMModelNumber    
-            $device.OEMModelBaseBoard
-            $device.OEMModelSystemFamily
-            $device.OEMModelSystemVersion
-            $device.OEMModelSKU
-            $device.OEMModelBaseBoardVersion
-        )),
-        (Resolve-ArchName $device.OSArchitecture)
-        
-    # Firmware
-    "FW : {0} - {1} - {2}" -f `
-        $device.FirmwareManufacturer,
-        $device.FirmwareVersion,
-        ([datetime]$device.FirmwareReleaseDate).ToString('dd MMM yyyy')
+    $cs = if ($cim_cs) { Format-Set @($cim_cs.Vendor, $cim_cs.Name, $cim_cs.Version) } else { $null }
+    $bb = if ($cim_bb) { Format-Set @($cim_bb.Manufacturer, $cim_bb.Product, $cim_bb.Version) } else { $null }
+
+    $fwM = if ($cim_fw) { $cim_fw.Manufacturer } else { $null }
+    $fwV = if ($cim_fw) { $cim_fw.SMBIOSBIOSVersion } else { $null }
+    $fwD = $null
+    if ($cim_fw -and $cim_fw.ReleaseDate) {
+        try { $fwD = ([datetime]$cim_fw.ReleaseDate).ToString('dd MMM yyyy') }
+        catch { $fwD = $cim_fw.ReleaseDate }
+    }
+
+    # Print ComputerSystemProduct if available
+    if ($cs) { 
+        "HW : $cs" 
+    # Print BaseBoard if available
+    } elseif ($bb) {
+        "HW : $bb"
+    } else { 
+        "HW : N/A" 
+    }
+    
+    $fw = (@($fwM, $fwV, $fwD) | Where-Object { $_ }) -join " - "
+    if ($fw) { "FW : $fw" } else { "FW : N/A"}
 }
 
 Export-ModuleMember -Function `
