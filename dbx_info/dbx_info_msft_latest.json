@@ -497,6 +497,7 @@
                 "flatHash": "3D23947C39680B9FCF22B092B97C9D38EDCC02F7AD13D3A925D1EE0B62797E73",
                 "filename": "grubx64.efi",
                 "description": "CVE-2020-10713; CVE-2020-14308; CVE-2020-14309; CVE-2020-14310; CVE-2020-14311; CVE-2020-15705; CVE-2020-15706; CVE-2020-15707",
+                "isOptional": "true",
                 "companyName": "Canonical",
                 "dateOfAddition": "2020-07-01",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
@@ -507,6 +508,7 @@
                 "flatHash": "0AC2943ABF5EF953B939247B74331FB2C437E405A81DD5569D9CFF1D6183D53A",
                 "filename": "gcdx64.efi",
                 "description": "CVE-2020-10713; CVE-2020-14308; CVE-2020-14309; CVE-2020-14310; CVE-2020-14311; CVE-2020-15705; CVE-2020-15706; CVE-2020-15707",
+                "isOptional": "true",
                 "companyName": "Canonical",
                 "dateOfAddition": "2020-07-01",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
@@ -517,6 +519,7 @@
                 "flatHash": "8E8ADDB29426D845A0101C2C1F26C2E7FE8C78128AB04F16CFCB4E06461B0101",
                 "filename": "grubnetx64.efi",
                 "description": "CVE-2020-10713; CVE-2020-14308; CVE-2020-14309; CVE-2020-14310; CVE-2020-14311; CVE-2020-15705; CVE-2020-15706; CVE-2020-15707",
+                "isOptional": "true",
                 "companyName": "Canonical",
                 "dateOfAddition": "2020-07-01",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
@@ -4321,8 +4324,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "CBFA2A86144EB21D65A6B17245BAD4F73058436C7292BE56DC6EBAB29DA61606",
                 "hashType": "SHA256",
                 "flatHash": "A4A5D536E11A12E1023ED51ACDBA64107C5B463822D31C6F5F7855B32FF031D1",
@@ -4331,8 +4334,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "9D7E7174C281C6526B44C632BAA8C3320ADD0C77DC90778CC148938829F45E5E",
                 "hashType": "SHA256",
                 "flatHash": "1BA53A168EA9F0C2835BBD11EC1DD4DCAE9D8C9312F8FFEE1362359844674870",
@@ -4341,8 +4344,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "9B1F35052CFC5FB06DAB5E8F7B47F081DA28D722DB59ADE253B9E38AB5A19847",
                 "hashType": "SHA256",
                 "flatHash": "821C96C73C476C194ED456F70826DA9BC06857A29B0EB6A0FE9B1286686DAD18",
@@ -4351,8 +4354,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "E3C5E55E84371D3F2FBCA2241EF0711FF80876EBF71BAB07D8E6E45AAA8B45AF",
                 "hashType": "SHA256",
                 "flatHash": "FBE157A9E4D1522A6A06BF9AACB7F4792EE631E4F8D447D7DBD81315178098A6",
@@ -4361,8 +4364,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "EE093913ABBD3D4CB85EA31375179A8B55A298353C03AFE5055AA4E8EBD10EC2",
                 "hashType": "SHA256",
                 "flatHash": "495157D91DFD7F1255C56E4C6A389DA5B35D1F542B35360512AAED05CFEDC880",
@@ -4371,8 +4374,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "B4E1880425F7857B741B921D04FD9276130927CF90A427C454B970E7A28EB88B",
                 "hashType": "SHA256",
                 "flatHash": "27E2C712A58ACA27B35E78303E46E24E50061C955743363AE6D10F5C9A823A6D",
@@ -4381,8 +4384,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "CDA0B4A59390B36E1B654850428CBB5B4C7B5E4349E87ACDE97FB5437D64D9FC",
                 "hashType": "SHA256",
                 "flatHash": "D3AFD86D86D52AF45964DF9ECD2B01EEE9B3A5468C660A88EA12E857D961DC42",
@@ -4391,8 +4394,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "C87EFD057497F90321D62A69B311912BE8EF8A045FE9C5E6BD5C8C1A41D6B295",
                 "hashType": "SHA256",
                 "flatHash": "FB4CE9A346B67C4C706834A95B81910DDE9C2CAFE4996D2BFBB8CAA4BAD8942D",
@@ -4401,8 +4404,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "9E19DD645235341A555DA6C065594543AE1E3918ECD37DF22DFEBE91E71C3A59",
                 "hashType": "SHA256",
                 "flatHash": "663A8A79C13174E7B262A1C49080F6E7A44B0717B006AB54B9D5D5CC5A6C9304",
@@ -4411,8 +4414,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "63F67824FDA998798964FF33B87441857DA92F3A8EE3E04166EEC315E6600FD1",
                 "hashType": "SHA256",
                 "flatHash": "71EDB98CBB9E136BE2E22AF4EC2727854D906B613185B46FA128DC559144F73F",
@@ -4421,8 +4424,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "0BC4F078388D41AB039F87AE84CF8D39302CCBDD70C4ADE02263EBFCE6DEF0F5",
                 "hashType": "SHA256",
                 "flatHash": "9F068CD3ABD8BC4291C3A3AAC3E009F90343DF138EA06D6940C689110BC7E687",
@@ -4431,8 +4434,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "E2AEC271B9596A461EB6D54D8B1785E4E4C615CFAD5F4504BCC0A329433A9747",
                 "hashType": "SHA256",
                 "flatHash": "799DDA62A826D774074B7DB847593020F95BC43A11C66CA7AE41691954D97CF5",
@@ -4441,8 +4444,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "6B4328EBCBE46ED9118FF2D4472DE329D70BA83016DF7A6F50F8AF923883BC54",
                 "hashType": "SHA256",
                 "flatHash": "A11996AAF7F32AA09F78DB608106E25A47970BFEEEC76D49AF743EEE71B55F06",
@@ -4451,8 +4454,8 @@
                 "companyName": "DT Research Inc",
                 "dateOfAddition": "2025-05-07",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              },
-              {
+            },
+            {
                 "authenticodeHash": "E14C88DC48339C0555686849A4E3F8986D558E65C4FC863A1A4F1D40478BD47C",
                 "hashType": "SHA256",
                 "flatHash": "0C1E0821CEF69A0BC2798996C6CE0B60564B2A1A9D67EF89F3059023EDAB720C",
@@ -4461,9 +4464,129 @@
                 "companyName": "IGEL",
                 "dateOfAddition": "2025-09-02",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
-              }
-            ],
-            "ia32": [
+            },
+            {
+                "authenticodeHash": "D013BA511AEE89BA3285D1CAC0C9F4F21EF4810873C2EBBFFE7712BF0BE8CED3",
+                "hashType": "SHA256",
+                "flatHash": "926BB1A08E1427AB7E14587955D451A8A05808BE609C92CB74668B0828DD8CE1",
+                "filename": "shdloader.efi",
+                "description": "EasyFix tool from EAZ solutions",
+                "companyName": "EAZ Solutions",
+                "dateOfAddition": "2026-04-02",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "AE75F0D82BA3DF824FBFC69340CC3B4D66C598373B1AB54CDB6C8BFD83A6B961",
+                "hashType": "SHA256",
+                "flatHash": "1D18DF4B15D3BC3DFFA1777A557075210DD0C53B",
+                "filename": "bootX64.efi",
+                "description": "Uploaded to VirusTotal as a part of ZIP archive named spyrus.zip which contains files related to WTGCreator software in version V4.2",
+                "companyName": "Spyrus",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "7B2A3F5C96F95BD8086CE54B0825E300F9C8F11FE3401BB631B3215C8DE9EB10",
+                "hashType": "SHA256",
+                "flatHash": "3F24DD838C5C9E35B104FA2F3B74AC6A5BF92FD2",
+                "filename": "BOOTX64.EFI",
+                "description": "The shim can be found in the rhel-server-7.2-x86_64-dvd.iso",
+                "companyName": "RedHat",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "EB86FA1386FE6E4533B8B938DCC1250616D2F1C14C15E2FCF80834A161018A0A",
+                "hashType": "SHA256",
+                "flatHash": "E133BE08E8AD17AC00E3C8ED215499C5F3C54E64",
+                "filename": "BOOTX64.EFI",
+                "description": "The shim can be found in the CentOS-7-x86_64-DVD-1511.iso",
+                "companyName": "RedHat",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "FD23D6E57DE6F4E1F9D7118DA1C5F31A8AF6BE5E5D9E8170F9493447268D50C5",
+                "hashType": "SHA256",
+                "flatHash": "8637D7EFA23A8A5738F2E4AACB6C9919B405AA2C",
+                "filename": "shim_x64.efi",
+                "description": "Part of Baramanudi Management Suite software",
+                "companyName": "Baramundi",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "A0DE9333442C1BF9349A460141AE5E80F911955C6506040FA3D021BF6C1AE3E4",
+                "hashType": "SHA256",
+                "flatHash": "8A402AFCD3C23D9253BBEA08576113C63E448AD0",
+                "filename": "",
+                "description": "part of ISO image named wd-enterprise-dongle.iso",
+                "companyName": "WhiteCanyon/blancco",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "95B6D71FC0C0F8C5E1533A37AEF92CF6B0C961E2CC612A97117FA6759CE5FC06",
+                "hashType": "SHA256",
+                "flatHash": "8A83FA30DBF0073F33EAD298A7D5CD69A47C3A4B",
+                "filename": "vbootx64.efi",
+                "description": "",
+                "companyName": "Finland's Matriculation Examination Board",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "236A9CB0D71951C36398A32EB660CE2CD4A52CCFA7CF751CC6A35D9DE549E19B",
+                "hashType": "SHA256",
+                "flatHash": "8F9E8DB8E2C2157C2A591F2BE070FF96BFE318C7",
+                "filename": "",
+                "description": "The shim can be found in ROSA.FRESH.PLASMA.R9.x86_64.uefi.iso or ROSA.FRESH.PLASMA.R10.x86_64.uefi.iso",
+                "companyName": "NTC IT ROSA, LLC",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "5E594C448760A3135B1A3A83E07A4F2E6FBE49414EF2C7CAB1CBA77F284FA63B",
+                "hashType": "SHA256",
+                "flatHash": "A16136899A12AD214FA4FBA60072BA72FBAB8BCA",
+                "filename": "shimx64.efi",
+                "description": "The shim can be found in the OracleLinux-R7-U2-Server-x86_64-dvd.iso or shim-signed-0.9-2.0.3.el7.src.rpm package from the OracleLinux 7.2",
+                "companyName": "Oracle America, Inc.",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "8A964D5F8373948D20A1D4296FB92E545DAD4617A0C810F3B934B53D98AE8963",
+                "hashType": "SHA256",
+                "flatHash": "BC01320D8FF8343B348EF8F3C947A66EB8FD9CE2",
+                "filename": "bootx64.efi",
+                "description": "",
+                "companyName": "PC-Doctor, Inc.",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "410260B1B6F5AF5FBEEB9EA3220658435E876CB3247126EE907A437F312DB373",
+                "hashType": "SHA256",
+                "flatHash": "3CF8BEB1E2885F51CA04002425C4F3C796D105BC",
+                "filename": "shimx64.efi",
+                "description": "OpenSUSE shim-0.9-10.1.x86_64.rpm",
+                "companyName": "OpenSUSE",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "96275DFD6282A522B011177EE049296952AC794832091F937FBBF92869028629",
+                "hashType": "SHA256",
+                "flatHash": "6DB5266E80C9D51CDD54421E736DF2E6E6879A56",
+                "filename": "shimx64.efi",
+                "description": "OpenSUSE shim-0.9-2.1.x86_64.rpm",
+                "companyName": "OpenSUSE",
+                "dateOfAddition": "2026-04-09",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            }
+        ],
+        "ia32": [
             {
                 "authenticodeHash": "363384D14D1F2E0B7815626484C459AD57A318EF4396266048D058C5A19BBF76",
                 "hashType": "SHA256",
@@ -5426,6 +5549,16 @@
                 "description": "",
                 "companyName": "IGEL",
                 "dateOfAddition": "2025-09-02",
+                "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
+            },
+            {
+                "authenticodeHash": "A059D649606A11F88E6BA2883491C6EB4CAD48E433846E29CAB8D14547164016",
+                "hashType": "SHA256",
+                "flatHash": "C458F16FEB497594F5E15575FBF17734161A4DE8FF04E37585B0ED081FB0F9A1",
+                "filename": "shdloader.efi",
+                "description": "EasyFix tool from EAZ solutions",
+                "companyName": "EAZ Solutions",
+                "dateOfAddition": "2026-04-02",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
             }
         ],
@@ -6891,7 +7024,7 @@
                 "signingAuthority": "CN = Microsoft Windows Production PCA 2011"
             }
         ]
-	},
+    },
     "certificates": [
         {
             "value": "MicWinProPCA2011_2011-10-19.der",
@@ -6903,15 +7036,15 @@
         }
     ],
 	"svns": [
-		{
-            "value": "01612B139DD5598843AB1C185C3CB2EB92000008000000000000000000000000",
-            "version": "8.0",
+        {
+            "value": "01612B139DD5598843AB1C185C3CB2EB92000009000000000000000000000000",
+            "version": "9.0",
             "filename": "bootmgfw.efi",
             "guid": "{9d132b61-59d5-4388-ab1c-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID",
             "description": "Windows Bootmgr SVN CVE-2023-24932",
             "dateOfLastChange": "2026-04-10"
         },
-		{
+        {
             "value": "019D2EF8E827E15841A4884C18ABE2F284000003000000000000000000000000",
             "version": "3.0",
             "filename": "cdboot.efi",
@@ -6919,7 +7052,7 @@
             "description": "Windows cdboot SVN CVE-2023-24932",
             "dateOfLastChange": "2024-04-01"
         },
-		{
+        {
             "value": "01C2CA99C9FE7F6F4981279E2A8A535976000003000000000000000000000000",
             "version": "3.0",
             "filename": "wdsmgfw.efi",

@@ -1,0 +1,3810 @@
+{
+    "9a3056b5260f628645b4d9ac61aebd8060305c3e": {
+        "KEKUpdate": "AMI/KEKUpdate_AMI_PK1.bin",
+        "Certificate": {
+            "serial_number": "ea01f2fb64c48b8f4390e52d69123b85",
+            "issued_to": "CN=DO NOT TRUST - AMI Test PK",
+            "issued_by": "CN=DO NOT TRUST - AMI Test PK"
+        }
+    },
+    "a773113bafaf5129aa83fd0912e95da4fa555f91": {
+        "KEKUpdate": "AMI/KEKUpdate_AMI_PK2.bin",
+        "Certificate": {
+            "serial_number": "e4126c1da6b1d49f4194e0fe365059c9",
+            "issued_to": "CN=DO NOT TRUST - AMI Test PK",
+            "issued_by": "CN=DO NOT TRUST - AMI Test PK"
+        }
+    },
+    "6592a50636faf8be9ae74f0f7f8bd744fa44b329": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK1.bin",
+        "Certificate": {
+            "serial_number": "55fbef878123008447170bb3cd873af4",
+            "issued_to": "CN=DO NOT TRUST - AMI Test PK",
+            "issued_by": "CN=DO NOT TRUST - AMI Test PK"
+        }
+    },
+    "2b6ccde909230f89447d8a583d03a432d686faee": {
+        "KEKUpdate": "AMI/KEKUpdate_AMI_PK4.bin",
+        "Certificate": {
+            "serial_number": "f73d2e3c9364aeb04c8395fdf7ed32a7",
+            "issued_to": "CN=DO NOT TRUST - AMI Test PK",
+            "issued_by": "CN=DO NOT TRUST - AMI Test PK"
+        }
+    },
+    "e71d30efce55f3cc7184b4d582acd54cef64d231": {
+        "KEKUpdate": "ASRock/KEKUpdate_ASRock_PK1.bin",
+        "Certificate": {
+            "serial_number": "ab1e4330c991e68849ad787b8e49347d",
+            "issued_to": "CN=ASRock Inc.",
+            "issued_by": "CN=Root Agency"
+        }
+    },
+    "bf90b4eb7bba92f95444d7ba960f0a874d2682ab": {
+        "KEKUpdate": "ASRock/KEKUpdate_ASRock_PK2.bin",
+        "Certificate": {
+            "serial_number": "89b49b649638a59e46b5463528aa06ff",
+            "issued_to": "CN=ASOCK - PK",
+            "issued_by": "CN=Root Agency"
+        }
+    },
+    "be7a5fc4b20bd4266d36097d98fd0b47d4b617ed": {
+        "KEKUpdate": "ASRock/KEKUpdate_ASRock_PK3.bin",
+        "Certificate": {
+            "serial_number": "98e2f7fbe4d5c4a84c2416f3c79a172e",
+            "issued_to": "CN=ASRock Rack Inc.",
+            "issued_by": "CN=ASRock Rack Inc."
+        }
+    },
+    "b0f4706c049a7143c6de32f3ec71891b0a597cb0": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK9.bin",
+        "Certificate": {
+            "serial_number": "a4e34e3689fe2e9e465bc8836bb71d5d",
+            "issued_to": "CN=ASUS PK Certificate",
+            "issued_by": "CN=ASUS PK Certificate"
+        }
+    },
+    "440ede47b78d3bab3a9c8fac51a586bcff3df686": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK11.bin",
+        "Certificate": {
+            "serial_number": "980ab35fc290aa904406656b4260833c",
+            "issued_to": "CN=SIMATIC IPC",
+            "issued_by": "CN=SIMATIC IPC"
+        }
+    },
+    "131a78741e5d4152489b838ed8f717fb167d6888": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK131A7874.bin",
+        "Certificate": {
+            "serial_number": "e354f2a30935d3954b734b7641c91fe1",
+            "issued_to": "CN=ASUSTeK Notebook PK Certificate",
+            "issued_by": "CN=ASUSTeK Notebook PK Certificate"
+        }
+    },
+    "e13627fbf64300cc535e7d38a7ef4e8fea11908b": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK2.bin",
+        "Certificate": {
+            "serial_number": "a6c4f142c359bea54a164bb8e29a0475",
+            "issued_to": "CN=Quanta Notebook PK Certificate 2022",
+            "issued_by": "CN=Quanta Notebook PK Certificate 2022"
+        }
+    },
+    "21303e44ff724e7ba4a998a8bb87fc7bbca62dd0": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK21303E44.bin",
+        "Certificate": {
+            "serial_number": "d7d37421fbfbfbb7472c7c57005b1882",
+            "issued_to": "CN=ASUS Secure Boot PK",
+            "issued_by": "CN=ASUS Secure Boot Root CA"
+        }
+    },
+    "b174673b11abb5d048ca1a6c1fb7768767ace48b": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK3.bin",
+        "Certificate": {
+            "serial_number": "e85c673307b5688c4c5fdd08adfe008a",
+            "issued_to": "CN=PEGASW2_PK",
+            "issued_by": "CN=PEGASW2_PK"
+        }
+    },
+    "d91870d4ab35916ea281fc62769b22747d0ae30b": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK4.bin",
+        "Certificate": {
+            "serial_number": "4238256238813fab4f31de855fe58652",
+            "issued_to": "CN=db_Manufacture20150617",
+            "issued_by": "CN=db_Manufacture20150617"
+        }
+    },
+    "6aec08d989c03d1ca0d4adc7af7dafa6da6fc8e4": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK5.bin",
+        "Certificate": {
+            "serial_number": "1a3a8ca42fa07fa3400d843215e80b40",
+            "issued_to": "CN=Huaqin NBD2 PlatformKey Certificate",
+            "issued_by": "CN=Huaqin NBD2 PlatformKey Certificate"
+        }
+    },
+    "04c223b184ea600a0a6fadb1c172fecc4f8c706d": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK6.bin",
+        "Certificate": {
+            "serial_number": "cacbdc6cd453c2a24947464d40dc6adb",
+            "issued_to": "CN=ASUSTeK Notebook PK Certificate",
+            "issued_by": "CN=ASUSTeK Notebook PK Certificate"
+        }
+    },
+    "d3295ee0bed3aa7ecea6cff7e2a741729dafc3de": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK7.bin",
+        "Certificate": {
+            "serial_number": "bea69406680d00ac4bca54960198e94d",
+            "issued_to": "CN=HQ Platform Key Certificate",
+            "issued_by": "CN=HQ Platform Key Certificate"
+        }
+    },
+    "ecd988462ebc25e7eea79172089ef3fdd1b02497": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PK8.bin",
+        "Certificate": {
+            "serial_number": "5341e015c43af8a84836b9a5ff691488",
+            "issued_to": "CN=ASUSTeK MotherBoard PK Certificate",
+            "issued_by": "CN=ASUSTeK MotherBoard PK Certificate"
+        }
+    },
+    "b3840dfcf8ab23704e6c5e51ce6f3e38459ef9ac": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PKB3840DFC.bin",
+        "Certificate": {
+            "serial_number": "6c679148f8ae798342fc15ac4ed3bef1",
+            "issued_to": "CN=DO NOT TRUST - OEM PK",
+            "issued_by": "CN=DO NOT TRUST - OEM PK"
+        }
+    },
+    "eabcb3d43c0f3353f6396e297a8cbc4ef5f2ad39": {
+        "KEKUpdate": "ASUS/KEKUpdate_ASUS_PKEABCB3D4.bin",
+        "Certificate": {
+            "serial_number": "c3c0a8e726f29aa2476e76e6a263e81e",
+            "issued_to": "CN=HQ NBD1 PlatformKey Certificate",
+            "issued_by": "CN=HQ NBD1 PlatformKey Certificate"
+        }
+    },
+    "be4a1ac7ff36c0faf0c643274a80a5e78d0b2551": {
+        "KEKUpdate": "Aava Mobile Oy/KEKUpdate_Aava_Mobile_Oy_PK1.bin",
+        "Certificate": {
+            "serial_number": "82186208b7486373",
+            "issued_to": "CN=UEFI PK Aava test",
+            "issued_by": "CN=UEFI PK Aava test"
+        }
+    },
+    "f2b275e88a170fea01364af397baf44b7f6af804": {
+        "KEKUpdate": "Aava Mobile Oy/KEKUpdate_Aava_Mobile_Oy_PK3.bin",
+        "Certificate": {
+            "serial_number": "dd68b91d4b23f3c1",
+            "issued_to": "CN=uefi_pk",
+            "issued_by": "CN=uefi_pk"
+        }
+    },
+    "97b12a139d3858e70de4dc785d4c24767914af04": {
+        "KEKUpdate": "Acer/KEKUpdate_Acer_PK1.bin",
+        "Certificate": {
+            "serial_number": "5c43f0519fbeb3ae47d3d46e347411d4",
+            "issued_to": "CN=Acer Platform Key,O=Acer,L=Taipei,ST=TW,C=Taiwan",
+            "issued_by": "CN=Acer Root CA,O=Acer,L=Taipei,ST=TW,C=Taiwan"
+        }
+    },
+    "6cd7005bdf38b270649ae6ad19ee46c7b040f8c2": {
+        "KEKUpdate": "Acer/KEKUpdate_Acer_PK6CD7005B.bin",
+        "Certificate": {
+            "serial_number": "fad95b59cd8a3bd5",
+            "issued_to": "CN=Acer India,OU=HEAD OFFICE,O=Acer India Private Limited,L=BANGALORE,ST=KARNATAKA,C=IN",
+            "issued_by": "CN=Acer India,OU=HEAD OFFICE,O=Acer India Private Limited,L=BANGALORE,ST=KARNATAKA,C=IN"
+        }
+    },
+    "9dbdabc291fb598cb61ac0826b3273b37648b9f4": {
+        "KEKUpdate": "Acer/KEKUpdate_Acer_PK9DBDABC2.bin",
+        "Certificate": {
+            "serial_number": "b023c7b2fa4763cb",
+            "issued_to": "OU=RD,O=BIOSTAR Microtech International Corp,L=TAIPEI,ST=TAIWAN,C=TW",
+            "issued_by": "OU=RD,O=BIOSTAR Microtech International Corp,L=TAIPEI,ST=TAIWAN,C=TW"
+        }
+    },
+    "2f005cebcf48ecc720406c24350113298328f044": {
+        "KEKUpdate": "Adlink/KEKUpdate_Adlink_PK1.bin",
+        "Certificate": {
+            "serial_number": "8fb14a09c371be7a",
+            "issued_to": "CN=Dell secure boot platform key 2022,O=Dell Technologies Inc.,L=Portland,ST=California,C=US",
+            "issued_by": "CN=Dell secure boot platform key 2022,O=Dell Technologies Inc.,L=Portland,ST=California,C=US"
+        }
+    },
+    "5221a9531628347c8ab59a4724b0990874ced8ff": {
+        "KEKUpdate": "Adlink/KEKUpdate_Adlink_PK5221A953.bin",
+        "Certificate": {
+            "serial_number": "574d860c1d33e9f474aeef6e3cfc557",
+            "issued_to": "CN=ADLINK PK Certificate",
+            "issued_by": "CN=ADLINK PK Certificate"
+        }
+    },
+    "5ecf2d6a6727b27ab195498d9c10d8ae88d3d606": {
+        "KEKUpdate": "Adlink/KEKUpdate_Adlink_PK5ECF2D6A.bin",
+        "Certificate": {
+            "serial_number": "86a97d2c010f0059",
+            "issued_to": "CN=Adlink Platform Key,O=Adlink Technology Inc.,L=Taipei,ST=Taiwan,C=TW",
+            "issued_by": "CN=Adlink Platform Key,O=Adlink Technology Inc.,L=Taipei,ST=Taiwan,C=TW"
+        }
+    },
+    "f77be268ff7cd9691721db46df7405b93fc4ee89": {
+        "KEKUpdate": "Attis/KEKUpdate_Attis_PK1.bin",
+        "Certificate": {
+            "serial_number": "6c2d3d56189f89e4f809035cc5a3d7c",
+            "issued_to": "CN=QCI_2017",
+            "issued_by": "CN=Root Agency"
+        }
+    },
+    "4ee9678b0484faad48be51753f07b6ae8a41909c": {
+        "KEKUpdate": "BIOSTAR/KEKUpdate_BIOSTAR_PK4EE9678B.bin",
+        "Certificate": {
+            "serial_number": "897e9e44e98c5075",
+            "issued_to": "CN=www.biostar.com.tw,OU=BIOS,O=BIOSTAR Microtech International Corp,L=TAIPEI,ST=TAIWAN,C=TW",
+            "issued_by": "CN=www.biostar.com.tw,OU=BIOS,O=BIOSTAR Microtech International Corp,L=TAIPEI,ST=TAIWAN,C=TW"
+        }
+    },
+    "06abf5601931233f0b12425e95d466917bf745f2": {
+        "KEKUpdate": "CVTE/KEKUpdate_CVTE_PK06abf5.bin",
+        "Certificate": {
+            "serial_number": "59fa608e8671801578420362977aa310012b7c01",
+            "issued_to": "CN=CVTE_PK,OU=SW,O=YK,ST=JS,C=CN",
+            "issued_by": "CN=CVTE_PK,OU=SW,O=YK,ST=JS,C=CN"
+        }
+    },
+    "1ce8e5e9f0674a7e2b6967bcf9dc84116b5b7a69": {
+        "KEKUpdate": "Casper Bilgisayar Sistemleri/KEKUpdate_Casper_Bilgisayar_Sistemleri_PK1.bin",
+        "Certificate": {
+            "serial_number": "5f49cbc985aa89944347e876f12a59a2",
+            "issued_to": "CN=CASPER",
+            "issued_by": "CN=CASPER"
+        }
+    },
+    "6a936cdbaf119b4b8ecc3f39fe34c2c19a0cc46a": {
+        "KEKUpdate": "Epson/KEKUpdate_Epson_PK2.bin",
+        "Certificate": {
+            "serial_number": "1fa72092aa9f37964da2326250b354cd",
+            "issued_to": "CN=Notebook Certificate",
+            "issued_by": "CN=Notebook Certificate"
+        }
+    },
+    "5e5a676bcf908192f18d6d8ad363d34a4a95e6d5": {
+        "KEKUpdate": "Epson/KEKUpdate_Epson_PK4.bin",
+        "Certificate": {
+            "serial_number": "f4146bf4351734b94f6f89fc6b63f85a",
+            "issued_to": "CN=Test Certificate",
+            "issued_by": "CN=Test Certificate"
+        }
+    },
+    "4a84ba89ab91c3c3168ffb5756add18bc0d78b6e": {
+        "KEKUpdate": "Clevo/KEKUpdate_Clevo_PK7.bin",
+        "Certificate": {
+            "serial_number": "80dc244b305eb289452cedf78f329ec8",
+            "issued_to": "CN=Test Certificate",
+            "issued_by": "CN=Test Certificate"
+        }
+    },
+    "fcd223f7d6e25423ded421473b5a6a5a6fed6f5c": {
+        "KEKUpdate": "Clevo/KEKUpdate_Clevo_PK6.bin",
+        "Certificate": {
+            "serial_number": "96a0d386c6a96db449cbc0fa7f3ff0a2",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK CO",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK CO"
+        }
+    },
+    "1b5a9604d8dc7e9df58672e45f7fa8ba03d981e6": {
+        "KEKUpdate": "Clevo/KEKUpdate_Clevo_PK8.bin",
+        "Certificate": {
+            "serial_number": "d434cfa85c260fa54217a7ee9e892844",
+            "issued_to": "CN=Test Certificate",
+            "issued_by": "CN=Test Certificate"
+        }
+    },
+    "1dc0d641169a82c6de4bed4849be14b0611ea212": {
+        "KEKUpdate": "Colorful/KEKUpdate_Colorful_PK1.bin",
+        "Certificate": {
+            "serial_number": "8ff5af92a3e81cbf4c9238e5c946b8ef",
+            "issued_to": "CN=BYD Certificate PK",
+            "issued_by": "CN=BYD Certificate PK"
+        }
+    },
+    "38a346b84c0e230ca4f235e7355b872460770264": {
+        "KEKUpdate": "Dell/KEKUpdate_Dell_PK1.bin",
+        "Certificate": {
+            "serial_number": "1be73a41f9b608894dd8487996936fd0",
+            "issued_to": "CN=Dell Technologies Inc. Platform Key,OU=Dell PowerEdge BIOS,O=Dell Technologies Inc.,L=Round Rock,ST=Texas,C=US",
+            "issued_by": "CN=Dell Technologies Inc. Platform Key,OU=Dell PowerEdge BIOS,O=Dell Technologies Inc.,L=Round Rock,ST=Texas,C=US"
+        }
+    },
+    "ff7116ca01ea3196718a9e785179a0e553ace1ee": {
+        "KEKUpdate": "Dell/KEKUpdate_Dell_PK2.bin",
+        "Certificate": {
+            "serial_number": "31771969e09798ad4888b6416c50f2e0",
+            "issued_to": "CN=Dell Technologies Inc. Platform Key Gen16 3K,OU=Dell Infrastructure Solutions Group,O=Dell Technologies Inc.,L=Round Rock,ST=Texas,C=US",
+            "issued_by": "CN=Dell Technologies Inc. Platform Key Gen16 3K,OU=Dell Infrastructure Solutions Group,O=Dell Technologies Inc.,L=Round Rock,ST=Texas,C=US"
+        }
+    },
+    "44d641caca0809002398b4877b8e982ed26f7b76": {
+        "KEKUpdate": "Dell/KEKUpdate_Dell_PK4.bin",
+        "Certificate": {
+            "serial_number": "50a1bd858ae7b6bc402dca78cdd268a1",
+            "issued_to": "CN=Dell Inc. Platform Key,O=Dell Inc.,L=Round Rock,ST=Texas,C=US",
+            "issued_by": "CN=Dell Inc. Platform Key,O=Dell Inc.,L=Round Rock,ST=Texas,C=US"
+        }
+    },
+    "77817b50c187d6453c41add4a45a8ac94e1910d6": {
+        "KEKUpdate": "Diebold Nixdorf/KEKUpdate_Diebold_Nixdorf_PK1.bin",
+        "Certificate": {
+            "serial_number": "1",
+            "issued_to": "C=DE,O=Diebold Nixdorf,OU=DN Systems,CN=DN Platform Key",
+            "issued_by": "C=DE,O=Diebold Nixdorf,OU=DN Systems,CN=DN Platform Key"
+        }
+    },
+    "98a3fc94369c61d2544e7a8c327576ac21a4c5c6": {
+        "KEKUpdate": "Diebold Nixdorf/KEKUpdate_Diebold_Nixdorf_PK2.bin",
+        "Certificate": {
+            "serial_number": "3bf1af6b6d85068c49dbb8913498192e",
+            "issued_to": "CN=DN Retail ADL Platform Key,O=Diebold Nixdorf,OU=DN Systems,C=DE",
+            "issued_by": "CN=DN Retail ADL Platform Key,O=Diebold Nixdorf,OU=DN Systems,C=DE"
+        }
+    },
+    "d48cb7ba757f8c27c3e30287f51f9e9b24be714f": {
+        "KEKUpdate": "Dynabook/KEKUpdate_Dynabook_PK1.bin",
+        "Certificate": {
+            "serial_number": "98da32e84f4648a8430f464e6db1bdaa",
+            "issued_to": "CN=Toshiba Client Solutions Co.\\, Ltd. Platform Root 2016,O=Toshiba Client Solutions Co.\\, Ltd.,L=Ome,ST=Tokyo,C=JP",
+            "issued_by": "CN=Toshiba Client Solutions Co.\\, Ltd. Platform Root 2016,O=Toshiba Client Solutions Co.\\, Ltd.,L=Ome,ST=Tokyo,C=JP"
+        }
+    },
+    "ac0f667f8600551f432e9a1b97f26997b5aea656": {
+        "KEKUpdate": "Dynabook/KEKUpdate_Dynabook_PK2.bin",
+        "Certificate": {
+            "serial_number": "d2db6e686bca859f42e85a64a43701d8",
+            "issued_to": "CN=Dynabook Inc. Platform Root 2019,O=Dynabook Inc.,L=Tachikawa,ST=Tokyo,C=JP",
+            "issued_by": "CN=Dynabook Inc. Platform Root 2019,O=Dynabook Inc.,L=Tachikawa,ST=Tokyo,C=JP"
+        }
+    },
+    "f4fd6b9b66cd63173ca512e97ec0a97224163eae": {
+        "KEKUpdate": "Dynabook/KEKUpdate_Dynabook_PK3.bin",
+        "Certificate": {
+            "serial_number": "ebe518542d17239148e9fb27608992f6",
+            "issued_to": "CN=Toshiba Corporation Platform Root 2012,O=Toshiba Corporation,L=Ome,ST=Tokyo,C=JP",
+            "issued_by": "CN=Toshiba Corporation Platform Root 2012,O=Toshiba Corporation,L=Ome,ST=Tokyo,C=JP"
+        }
+    },
+    "66489621a433e8f8758a90639f709ffa633b16e8": {
+        "KEKUpdate": "ECS/KEKUpdate_ECS_PK1.bin",
+        "Certificate": {
+            "serial_number": "a1e1d1aae7c68c8f4853a938972cf6d2",
+            "issued_to": "CN=ECS",
+            "issued_by": "CN=ECS"
+        }
+    },
+    "9e53d6f005e08e53ca8ae14f148ed0addc5fa36a": {
+        "KEKUpdate": "ECS/KEKUpdate_ECS_PK2.bin",
+        "Certificate": {
+            "serial_number": "37f771d7d914d3a24872c2f68913bbe9",
+            "issued_to": "CN=Channel Secure Boot - PK",
+            "issued_by": "CN=Root Agency"
+        }
+    },
+    "f7cae751ea80c34a89a79b04d6e4f04cb19baf38": {
+        "KEKUpdate": "Emdoor/KEKUpdate_Emdoor_PK1.bin",
+        "Certificate": {
+            "serial_number": "356c83e2fc36f7b74ff8e378d377f842",
+            "issued_to": "CN=Emdoor",
+            "issued_by": "CN=Emdoor"
+        }
+    },
+    "38d2d05c4e4c51edd37050bed7389819772fd8f2": {
+        "KEKUpdate": "Epson/KEKUpdate_Epson_PK1.bin",
+        "Certificate": {
+            "serial_number": "c9c7224cf2c1a84b1ef0a809c4f43d",
+            "issued_to": "CN=Pegatron Eagle PK",
+            "issued_by": "CN=Pegatron Eagle PK"
+        }
+    },
+    "9cdeec73fca82fcfdca097d3b764c86455d4f3ab": {
+        "KEKUpdate": "Epson/KEKUpdate_Epson_PK3.bin",
+        "Certificate": {
+            "serial_number": "694015f2ad6362a84720fa3c3c453a19",
+            "issued_to": "CN=PEGA_PK",
+            "issued_by": "CN=PEGA_PK"
+        }
+    },
+    "2170250deb716684d57086da4e1edaabfe7bfce3": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK1.bin",
+        "Certificate": {
+            "serial_number": "9d6560c54b2a0f61",
+            "issued_to": "CN=Fujitsu BIOS PK 2022 Certificate,OU=FWPJ.Core Tech.,O=FUJITSU CLIENT COMPUTING LIMITED,C=JP",
+            "issued_by": "CN=Fujitsu BIOS PK 2022 Certificate,OU=FWPJ.Core Tech.,O=FUJITSU CLIENT COMPUTING LIMITED,C=JP"
+        }
+    },
+    "95f0221938052be21b7e3c4d9af7bf4b567d7f72": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK10.bin",
+        "Certificate": {
+            "serial_number": "6df729cbb34f5f964295cdcc1a4cc29b",
+            "issued_to": "CN=PK,OU=Fujitsu Limited Platform Key CA 4K2023,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP",
+            "issued_by": "CN=PK,OU=Fujitsu Limited Platform Key CA 4K2023,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP"
+        }
+    },
+    "b2b363ccff40abc50f6818e70a3471e6399bc425": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK11.bin",
+        "Certificate": {
+            "serial_number": "6529fad8918de3bfdbd23a3e54d3744f57c44826",
+            "issued_to": "CN=PQ2000T2,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP",
+            "issued_by": "CN=Fujitsu Firmware Private Intermediate CA 2023,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP"
+        }
+    },
+    "77cb9ac3a6f547839110100140ba76ca5526185a": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK12.bin",
+        "Certificate": {
+            "serial_number": "54f516e239b80242550b3cfa19a9af5431c222bd",
+            "issued_to": "CN=PQ2000T3,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP",
+            "issued_by": "CN=Fujitsu Firmware Private Intermediate CA 2023,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP"
+        }
+    },
+    "b6a11efda298b858c20272b1144e695c07a4dcf1": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK13.bin",
+        "Certificate": {
+            "serial_number": "59a4562ca98fd5e956841f777da8bebb9e64050a",
+            "issued_to": "CN=PQ/PY M4,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP",
+            "issued_by": "CN=Fujitsu Firmware Private Intermediate CA 2023,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP"
+        }
+    },
+    "62d8b9c65a0dae7997d66cd16c2692836f4e7ced": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK14.bin",
+        "Certificate": {
+            "serial_number": "73d6441dea181cf01f60c018cbf41bfc39fa519d",
+            "issued_to": "CN=PQ/PY M5,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP",
+            "issued_by": "CN=Fujitsu Firmware Private Intermediate CA 2023,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP"
+        }
+    },
+    "3213dda6daae6898ee87ba4a16ea56ccb2b9217c": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK15.bin",
+        "Certificate": {
+            "serial_number": "2f3274147d728d5ebfd12269b66e395229b5e260",
+            "issued_to": "CN=PQ/PY M7,OU=bios/bmc firmware,O=fujitsu,L=kawasaki,ST=kanagawa,C=JP",
+            "issued_by": "CN=PQ/PY M7,OU=bios/bmc firmware,O=fujitsu,L=kawasaki,ST=kanagawa,C=JP"
+        }
+    },
+    "c14aa7b059eb384db56a70c11542581e595aff3b": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK16.bin",
+        "Certificate": {
+            "serial_number": "1010e50644a6e95a84be27bf985222cd755044fb",
+            "issued_to": "CN=PY M6,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP",
+            "issued_by": "CN=Fujitsu Firmware Private Intermediate CA 2023,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP"
+        }
+    },
+    "f5d4bf68688fc71474e97c79c183a4ed877bff89": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK17.bin",
+        "Certificate": {
+            "serial_number": "31c8581b96956fa24b32bd62b4cd5a49",
+            "issued_to": "CN=Fujitsu ODM Gigabyte BIOS PK Certificate",
+            "issued_by": "CN=Fujitsu ODM Gigabyte BIOS PK Certificate"
+        }
+    },
+    "4bd956b3b6f124d67154b421485f0057ede51ccb": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK18.bin",
+        "Certificate": {
+            "serial_number": "83189d294f8920a846a643390a1741da",
+            "issued_to": "CN=Fujitsu ODM Pegatron BIOS PK Certificate",
+            "issued_by": "CN=Fujitsu ODM Pegatron BIOS PK Certificate"
+        }
+    },
+    "220c3c5cdde89ff48b32bedc740c23360651fa63": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK2.bin",
+        "Certificate": {
+            "serial_number": "4733e00078d8fda344f0249e0fb35e89",
+            "issued_to": "CN=Fujitsu BIOS PK Certificate",
+            "issued_by": "CN=Fujitsu BIOS PK Certificate"
+        }
+    },
+    "2f11679789edfdbc29808b94b599b47913ffebad": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK3.bin",
+        "Certificate": {
+            "serial_number": "2d686658684ac1ab4743d8cc88c5e051",
+            "issued_to": "CN=Fujitsu ODM Inventec BIOS PK Certificate",
+            "issued_by": "CN=Fujitsu ODM Inventec BIOS PK Certificate"
+        }
+    },
+    "ce3c4e83820649407ca6ea929b0a2b3b2ac9d2b4": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK4.bin",
+        "Certificate": {
+            "serial_number": "4df758cff9c2b19f4a29c595deb47e90",
+            "issued_to": "CN=Fujitsu ODM LCFC BIOS PK Certificate",
+            "issued_by": "CN=Fujitsu ODM LCFC BIOS PK Certificate"
+        }
+    },
+    "4cd2bdb798b83352ecc9cc898b3a562b0761e7c2": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK5.bin",
+        "Certificate": {
+            "serial_number": "eb76e1162d5ffe2d",
+            "issued_to": "CN=Fujitsu ODM Quanta BIOS PK 2022 Certificate,OU=FWPJ.Core Tech.,O=FUJITSU CLIENT COMPUTING LIMITED,C=JP",
+            "issued_by": "CN=Fujitsu ODM Quanta BIOS PK 2022 Certificate,OU=FWPJ.Core Tech.,O=FUJITSU CLIENT COMPUTING LIMITED,C=JP"
+        }
+    },
+    "355ff702a19b03bef9e8ed1c50d7069c58b39262": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK6.bin",
+        "Certificate": {
+            "serial_number": "8b69e3da06aee3a14a3681198ea0a35e",
+            "issued_to": "CN=Fujitsu ODM Quanta BIOS PK Certificate",
+            "issued_by": "CN=Fujitsu ODM Quanta BIOS PK Certificate"
+        }
+    },
+    "6f02e62d09c2b529c3d41f3a525ed8e212e499be": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK7.bin",
+        "Certificate": {
+            "serial_number": "97028b7b55301990",
+            "issued_to": "CN=Fujitsu ODM Wistron BIOS PK 2022 Certificate,OU=FWPJ.Core Tech.,O=FUJITSU CLIENT COMPUTING LIMITED,C=JP",
+            "issued_by": "CN=Fujitsu ODM Wistron BIOS PK 2022 Certificate,OU=FWPJ.Core Tech.,O=FUJITSU CLIENT COMPUTING LIMITED,C=JP"
+        }
+    },
+    "23418edf30a986c275808aae30ac56d8774634c4": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK8.bin",
+        "Certificate": {
+            "serial_number": "619f57e2d14ef895473549458c707aad",
+            "issued_to": "CN=Fujitsu ODM Wistron BIOS PK Certificate",
+            "issued_by": "CN=Fujitsu ODM Wistron BIOS PK Certificate"
+        }
+    },
+    "4187b547978301d80fb338b9d30b30eb7b179824": {
+        "KEKUpdate": "Fujitsu (& FCCL)/KEKUpdate_Fujitsu_(&_FCCL)_PK9.bin",
+        "Certificate": {
+            "serial_number": "65b43cefd40ef8af4b67c969473b1ca7",
+            "issued_to": "CN=PK,OU=Fujitsu Limited Platform Key CA 2022,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP",
+            "issued_by": "CN=PK,OU=Fujitsu Limited Platform Key CA 2022,O=Fujitsu Limited,L=Kawasaki,ST=Kanagawa,C=JP"
+        }
+    },
+    "882f696954b86cf29108ccd5248eda936406ea2c": {
+        "KEKUpdate": "Getac/KEKUpdate_Getac_PK1.bin",
+        "Certificate": {
+            "serial_number": "9f189a92acf3ad3a",
+            "issued_to": "CN=Getac Platform CA 2012,OU=IBU\\, Software,O=Getac Technology Corporation,L=Taipei,ST=Taipei,C=TW",
+            "issued_by": "CN=Getac Software Certificate Authority,OU=IBU\\, Software,O=Getac Technology Corporation,L=Taipei,ST=Taipei,C=TW"
+        }
+    },
+    "6200912afa8eb958ba68ed841fb3d710e21d5599": {
+        "KEKUpdate": "Gigabyte/KEKUpdate_Gigabyte_PK1.bin",
+        "Certificate": {
+            "serial_number": "2decafd84908d7bf48ae6d65352ef9e6",
+            "issued_to": "CN=GIGABYTE",
+            "issued_by": "CN=GIGABYTE"
+        }
+    },
+    "fcfc537049ff5260ef60b640c18d994236d60280": {
+        "KEKUpdate": "Gigabyte/KEKUpdate_Gigabyte_PK2.bin",
+        "Certificate": {
+            "serial_number": "bdc67056de877e8247ac699c054fee44",
+            "issued_to": "CN=GIGABYTE",
+            "issued_by": "CN=GIGABYTE"
+        }
+    },
+    "d52ac7db954c167a386e1aa955249a4d9bdadedd": {
+        "KEKUpdate": "HP/KEKUpdate_HP_PK1.bin",
+        "Certificate": {
+            "serial_number": "5fb660d4c2fb166b6576b7257a4c37ab",
+            "issued_to": "O=HP Inc.,C=US,OU=CODE-SIGN,CN=HP UEFI Secure Boot PK 2017",
+            "issued_by": "CN=HP Inc. PK 2016 CA,O=HP Inc.,C=US"
+        }
+    },
+    "ef40e88b7f2cc718a087051db5d5d4c26043c5aa": {
+        "KEKUpdate": "HP/KEKUpdate_HP_PK5.bin",
+        "Certificate": {
+            "serial_number": "7758a5f8cb1dcfd32c6a7f8f03816b04",
+            "issued_to": "CN=HP UEFI Secure Boot 2013 PK Key,OU=Long Lived CodeSigning Certificate,O=Hewlett-Packard Company",
+            "issued_by": "CN=Hewlett-Packard Printing Device Infrastructure CA,O=Hewlett-Packard Company,C=US"
+        }
+    },
+    "bba4b07810638f77e1a86200e36ec1619df14e81": {
+        "KEKUpdate": "HP/KEKUpdate_HP_PK3.bin",
+        "Certificate": {
+            "serial_number": "1b6aef498cfb7f90b681321ae89ec2ef",
+            "issued_to": "CN=Hewlett-Packard UEFI Secure Boot Platform Key,OU=Long Lived CodeSigning Certificate,O=Hewlett-Packard Company",
+            "issued_by": "CN=Hewlett-Packard Printing Device Infrastructure CA,O=Hewlett-Packard Company,C=US"
+        }
+    },
+    "30c1554337e11377a52bf3b111bfd42ca1a5c4cd": {
+        "KEKUpdate": "HP/KEKUpdate_HP_PK4.bin",
+        "Certificate": {
+            "serial_number": "77378497e4baff8b4aabb90ca4003af8",
+            "issued_to": "O=Hewlett Packard Enterprise Company,C=US,OU=CODE-SIGN,CN=HPE UEFI Secure Boot 2016 PK Key",
+            "issued_by": "CN=Hewlett Packard Enterprise Private Code Signing Intermediate CA,O=Hewlett Packard Enterprise Company,C=US"
+        }
+    },
+    "fbf45fd17e6fa21ab21ac1fd7b760fee70f78002": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK1.bin",
+        "Certificate": {
+            "serial_number": "f1dd91d3a6d22bb341dc9d7a4e3d94d3",
+            "issued_to": "CN=Fermi_Born_G_PK",
+            "issued_by": "CN=Fermi_Born_G_PK"
+        }
+    },
+    "cbfaa626bdd65fe5fd245176513951fcfc5cf3bd": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK10.bin",
+        "Certificate": {
+            "serial_number": "d2ca45452d47fc9d4019b77b7762b26a",
+            "issued_to": "CN=GalileoN2021_PK",
+            "issued_by": "CN=GalileoN2021_PK"
+        }
+    },
+    "dd250ac204f708aeaf31bf68e68a9402a2442fb3": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK11.bin",
+        "Certificate": {
+            "serial_number": "703920eb3e4364b84f55aca052728daf",
+            "issued_to": "CN=BornF_SE_PK",
+            "issued_by": "CN=BornF_SE_PK"
+        }
+    },
+    "de9048643c6f2962bba901aaabb131fd2b54b47f": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK2.bin",
+        "Certificate": {
+            "serial_number": "c716b1bba577618f47fbe67de9b20873",
+            "issued_to": "CN=FB_H_PK",
+            "issued_by": "CN=FB_H_PK"
+        }
+    },
+    "9385a73282f37f295e1e49387907e19765c3083c": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK3.bin",
+        "Certificate": {
+            "serial_number": "41e84cd7f2e426b14b129020f92c657a",
+            "issued_to": "CN=Fermi_Born_Platform_Key",
+            "issued_by": "CN=Fermi_Born_Platform_Key"
+        }
+    },
+    "6dcd9928680c1a993508ae12354a026b660916ab": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK4.bin",
+        "Certificate": {
+            "serial_number": "b449f662af91a84594c67ead5d1df3",
+            "issued_to": "CN=HQRoot",
+            "issued_by": "CN=HQRoot"
+        }
+    },
+    "b1b70dba8d3b82d1df3048012b711067edd23dd5": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK5.bin",
+        "Certificate": {
+            "serial_number": "dd1c0010b7a667ae441bd9af94538b1e",
+            "issued_to": "CN=HQTGLRoot",
+            "issued_by": "CN=HQTGLRoot"
+        }
+    },
+    "29272bd3ab586a09f87b14bc61e6824c89b67169": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK6.bin",
+        "Certificate": {
+            "serial_number": "f27bb4e8a304d3914c1854abb353b66e",
+            "issued_to": "CN=HiggsF_PK",
+            "issued_by": "CN=HiggsF_PK"
+        }
+    },
+    "549ce87cf422dfe62fcd82e33328c333eeb16b59": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK8.bin",
+        "Certificate": {
+            "serial_number": "6cc90862759d6b82407e3a003043e463",
+            "issued_to": "CN=GalileoF2021_PK",
+            "issued_by": "CN=GalileoF2021_PK"
+        }
+    },
+    "3365999d7ce2d0e794dcf9c831dea68b6fcfb089": {
+        "KEKUpdate": "Honor/KEKUpdate_Honor_PK9.bin",
+        "Certificate": {
+            "serial_number": "1c4e21dbbf03c49d4f9c1dd566bc1a2d",
+            "issued_to": "CN=GalileoG platform key：",
+            "issued_by": "CN=GalileoG platform key："
+        }
+    },
+    "04c4adbcde6eebd0e940cf18f5546c9eb403a523": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK1.bin",
+        "Certificate": {
+            "serial_number": "2415e76f75355e9f42d8a559191dfc82",
+            "issued_to": "CN=HWIAlderLake",
+            "issued_by": "CN=HWIAlderLake"
+        }
+    },
+    "d29208632ac2a728c454d7d2a7bb872978496dfc": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK3.bin",
+        "Certificate": {
+            "serial_number": "fb5a13edbcb76d954d40fef5c8007e5e",
+            "issued_to": "CN=hubbleb",
+            "issued_by": "CN=hubbleb"
+        }
+    },
+    "a506a5fb1aa2ce57c2441ce70c4754ccf514327d": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK11.bin",
+        "Certificate": {
+            "serial_number": "68253f2e35ef828e4def06239ed46f6f",
+            "issued_to": "CN=HWARenoir",
+            "issued_by": "CN=HWARenoir"
+        }
+    },
+    "867fe5655a941026e54f3e76c7230f9033d95787": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK2.bin",
+        "Certificate": {
+            "serial_number": "a3b68749ec57a7b04d0128fe28903879",
+            "issued_to": "CN=HWIRaptor",
+            "issued_by": "CN=HWIRaptor"
+        }
+    },
+    "143682d7a4bedc6feb3c2d4b855d8bfdd825abb4": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK4.bin",
+        "Certificate": {
+            "serial_number": "5462fbe50d8b8ab841df3e3bc219630c",
+            "issued_to": "CN=HWITigerLake",
+            "issued_by": "CN=HWITigerLake"
+        }
+    },
+    "74b98a9dae80b60ccc6e2424971cd6844b2eb88b": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK5.bin",
+        "Certificate": {
+            "serial_number": "e0d7eb8b547d9944f47bf63bbdca72d",
+            "issued_to": "CN=HWIRockLake",
+            "issued_by": "CN=HWIRockLake"
+        }
+    },
+    "b8857a79368d3d40d773a1c81654924da21c6fe0": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK6.bin",
+        "Certificate": {
+            "serial_number": "482b435fab823dbb4f189041bb2737f2",
+            "issued_to": "CN=HWARenoir",
+            "issued_by": "CN=HWARenoir"
+        }
+    },
+    "a7b0b2a7e6493d676cd5b68fe6d3a66b8699c2b1": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK7.bin",
+        "Certificate": {
+            "serial_number": "879b00c048dac89e41456d131f0aa6b0",
+            "issued_to": "CN=HWACezanne",
+            "issued_by": "CN=HWACezanne"
+        }
+    },
+    "177d1a65e54d137955630b3a311715bcf047ef68": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK8.bin",
+        "Certificate": {
+            "serial_number": "a5180c29616f309443d788bae02cce06",
+            "issued_to": "CN=HWALucienne",
+            "issued_by": "CN=HWALucienne"
+        }
+    },
+    "3ddfeeea3c3674d4ef7ee770478e9b8e3e76297e": {
+        "KEKUpdate": "Huawei/KEKUpdate_Huawei_PK9.bin",
+        "Certificate": {
+            "serial_number": "fbbc06e7bdc5d19c473164e95d3714c3",
+            "issued_to": "CN=HUAWEI",
+            "issued_by": "CN=HUAWEI"
+        }
+    },
+    "caadec03a7c81fe296ded88c19274d66ccf9e614": {
+        "KEKUpdate": "Infinix/KEKUpdate_Infinix_PK1.bin",
+        "Certificate": {
+            "serial_number": "c9ae200aa04d29bc4b791aa13d90bd5a",
+            "issued_to": "CN=Infinix",
+            "issued_by": "CN=Infinix"
+        }
+    },
+    "ea9f36eed1ce5326e028769d72d0c13de25c57aa": {
+        "KEKUpdate": "Intel/KEKUpdate_Intel_PK1.bin",
+        "Certificate": {
+            "serial_number": "3c5dee3968c53f8c4288d887b3e58625",
+            "issued_to": "CN=Foo",
+            "issued_by": "CN=Foo"
+        }
+    },
+    "62900d9144c32aaaba368b7131bfee7353dc255e": {
+        "KEKUpdate": "Intel/KEKUpdate_Intel_PK4.bin",
+        "Certificate": {
+            "serial_number": "1068",
+            "issued_to": "CN=SBoot1,O=Intel Corporation,L=Santa Clara,ST=CA,C=US",
+            "issued_by": "CN=azsdssprd04.ch.intel.com,OU=EDSS,O=Intel Corporation,L=Chandler,ST=Arizona,C=US"
+        }
+    },
+    "18214beef30b7a8eea945c9068376595ec51d4ed": {
+        "KEKUpdate": "J.P. Sá Couto SA/KEKUpdate_J.P._Sá_Couto_SA_PK1.bin",
+        "Certificate": {
+            "serial_number": "8918145b11e5a69044109544448d02b0",
+            "issued_to": "CN=JPik",
+            "issued_by": "CN=JPik"
+        }
+    },
+    "9f9c14b59d14ba2be810c697402643809e888e28": {
+        "KEKUpdate": "JDL/KEKUpdate_JDL_PK9F9C14B5.bin",
+        "Certificate": {
+            "serial_number": "172347c60d25f7a7414bec46aa3d1db3",
+            "issued_to": "CN=JDL PK 2021,O=Japan Digital Laboratory Co.\\, Ltd.,C=JP",
+            "issued_by": "CN=JDL PK 2021,O=Japan Digital Laboratory Co.\\, Ltd.,C=JP"
+        }
+    },
+    "c1604e286d306f082fc289ac121c480fb85b4bdf": {
+        "KEKUpdate": "Juniper/KEKUpdate_Juniper_PK1.bin",
+        "Certificate": {
+            "serial_number": "58721c6e206b3018e65d062adeae23822a8150db",
+            "issued_to": "CN=Juniper Systems\\, Inc. ST1 PK,O=Juniper Systems\\, Inc.,L=Logan,ST=Utah,C=US",
+            "issued_by": "CN=Juniper Systems\\, Inc. ST1 PK,O=Juniper Systems\\, Inc.,L=Logan,ST=Utah,C=US"
+        }
+    },
+    "497dc889965d8bdd6b66710e3de70857649e7743": {
+        "KEKUpdate": "Kontron/KEKUpdate_Kontron_PK1.bin",
+        "Certificate": {
+            "serial_number": "63809e947df075aa97378c0655c74ceaf982ee24",
+            "issued_to": "CN=Kontron EPC-Boards PK,OU=EPC-Boards,O=Kontron Europe GmbH,C=DE",
+            "issued_by": "CN=Kontron EPC-Boards PK,OU=EPC-Boards,O=Kontron Europe GmbH,C=DE"
+        }
+    },
+    "940708c942905ed073ac47f3bd67397dd6560532": {
+        "KEKUpdate": "LG/KEKUpdate_LG_PK1.bin",
+        "Certificate": {
+            "serial_number": "67eb6476fbb5069b42ca733f9dcd6aae",
+            "issued_to": "CN=LG Electronics inc.",
+            "issued_by": "CN=LG Electronics inc."
+        }
+    },
+    "f44a2967222909b8d97b731c83b762271919eee5": {
+        "KEKUpdate": "LG/KEKUpdate_LG_PK2.bin",
+        "Certificate": {
+            "serial_number": "4bad88265909f29eb7827157954a75a5",
+            "issued_to": "CN=LG Electronics Inc.,O=LG Electronics Inc.,L=경기도 평택시,ST=경기도 평택시,C=KR",
+            "issued_by": "CN=VeriSign Class 3 Code Signing 2010 CA,OU=Terms of use at https://www.verisign.com/rpa (c)10,OU=VeriSign Trust Network,O=VeriSign\\, Inc.,C=US"
+        }
+    },
+    "bdeab99f8bf89c3d5b4f98433503e29bc7fcb416": {
+        "KEKUpdate": "LG/KEKUpdate_LG_PK3.bin",
+        "Certificate": {
+            "serial_number": "6899b994460771561324368e930e04e99e053be1",
+            "issued_to": "CN=LGE Linux PK Certificate",
+            "issued_by": "CN=LGE Linux PK Certificate"
+        }
+    },
+    "46c73daf3047d1ece967d093edf72ac5ffc86586": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK1.bin",
+        "Certificate": {
+            "serial_number": "d6002fb8e15b2459",
+            "issued_to": "1.2.840.113549.1.9.1=SWQAGENT@LENOVO.COM,CN=PSD_CDC-KEK,OU=PSD_CDC,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN",
+            "issued_by": "1.2.840.113549.1.9.1=SWQAGENT@LENOVO.COM,CN=PSD_CDC-KEK,OU=PSD_CDC,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN"
+        }
+    },
+    "90eb7eae089eb05686f2ae3316f483f87d2585e2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK10.bin",
+        "Certificate": {
+            "serial_number": "ad859bde20593a9744d1c94069c8d8d3",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "c788d999f238ec8a781e8ac579d09ed2c4c2fd3e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK100.bin",
+        "Certificate": {
+            "serial_number": "92942bd14e9781b64261d60e365803cb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5554c1c04fefb3db516de239af72680c3cdfae5a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK101.bin",
+        "Certificate": {
+            "serial_number": "e09f1e8f60df33a84c2e991260d56099",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9e09b375967a8f46f9f9c5720d548c6f28c850d2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK102.bin",
+        "Certificate": {
+            "serial_number": "36f7a72c02c5989146b41b5cdfc617c2",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7e33d68a9141d16f2962fa658a1ce14a90cbe10d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK103.bin",
+        "Certificate": {
+            "serial_number": "2284d37c9b2c27a64ba41854d0e07421",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "2d123ce60cb3c4399f90efac6b8be22fbf1ba91b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK104.bin",
+        "Certificate": {
+            "serial_number": "79ab1cf97af50592481e31471665996f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9fae9ea35241513c75ab3dd0381ba61a3eb27b2b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK105.bin",
+        "Certificate": {
+            "serial_number": "e2f002e2ed39e0aa49c35ce54d653a10",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d8ca73198f051b315f2900be78c02a59836d28c1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK106.bin",
+        "Certificate": {
+            "serial_number": "8b8ee1454702d5bd40fc47961e5efa4d",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "594582e9320a786c3c662ff86a5f3358271e4a4c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK107.bin",
+        "Certificate": {
+            "serial_number": "afcad2ef5222099a429398db4ac71301",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "0f64eea2b32bb65bf82d30fc7e8fdaac2f4163ee": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK108.bin",
+        "Certificate": {
+            "serial_number": "8aaf3948ff18d8874edb10b222d38cb6",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7065b7b50f9d595f433429ae23e73ba6a9ec0c2c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK109.bin",
+        "Certificate": {
+            "serial_number": "5762ed51c61c668f43f9a6c037ca3fee",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "470d90ab03c032c390dc7b62f031d9e5b60fdd28": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK11.bin",
+        "Certificate": {
+            "serial_number": "41085c06d50a11ba4fb19b2b3808fd25",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "d0108569935f061a3079053e5f544bc4259ec6c9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK110.bin",
+        "Certificate": {
+            "serial_number": "24ebcc658b2db1af4c2dcf3d9c9acb6e",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ea98b067f62f5bd0051836d1a6d9f20113a9476b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK111.bin",
+        "Certificate": {
+            "serial_number": "bed354b9d563e19b4852468705ddcd29",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f91552f96cda0bd35d2f2838ba34dd8f18ec52f7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK112.bin",
+        "Certificate": {
+            "serial_number": "8dc6bf36cdaf499d4b217bd08c44605c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "3d07d09a174bc8a484a8db6b57a10da499e5bc2b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK113.bin",
+        "Certificate": {
+            "serial_number": "789496c7c8621e8149aac51052957b42",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5c87c3aba87c157ae05895bb976b49afed228f5f": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK114.bin",
+        "Certificate": {
+            "serial_number": "9f1c1754c3a691ab4b3a6fcf5d0b40ce",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f42b6a34c301e3d7682fd82644a47fee337b012c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK115.bin",
+        "Certificate": {
+            "serial_number": "4361a8ac20fa12b142f33459880d8326",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "bdb32086f3e526c94c5ffbd7fbe56e956d286600": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK116.bin",
+        "Certificate": {
+            "serial_number": "ee1d295fb9e1dcae417a8f494aed3aeb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "4c913ff75e0045d9801b120edba595257da6c57c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK117.bin",
+        "Certificate": {
+            "serial_number": "91e1a7f11b8948964e6f2af5c4fcf14f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f6c5945bb84e1296c6fc147679d5cf70c9bac65e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK118.bin",
+        "Certificate": {
+            "serial_number": "4f3f961b62d2039e4bef1171ec33b017",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8f349b3f9a5d0195080498b7200d92f773687bad": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK119.bin",
+        "Certificate": {
+            "serial_number": "cacc845edb8c278a41b5c60fa80ce287",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f3aa33ee8173f80ce2720ef5870bd7da87323fa6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK12.bin",
+        "Certificate": {
+            "serial_number": "5bf075a69dde6daf468ac5a9574edab0",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "009c2135db2de91dd9f50989dea0dfc0931dd774": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK120.bin",
+        "Certificate": {
+            "serial_number": "f29fa0eeb7b6e58244c3b14d73f7b2ee",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "bc22754a1c71d5c42ab573feb66b55224fb577b7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK121.bin",
+        "Certificate": {
+            "serial_number": "6300d5f130a755bb4b4bac87b8180591",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8964b2a4342bb10d0794e793fd5c341820398ec2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK122.bin",
+        "Certificate": {
+            "serial_number": "4bb000ef9fcbbf984da2f6049e91cf30",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "59192ca2f6a6bf6d62d0b2afd84f95144d4c2a27": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK282.bin",
+        "Certificate": {
+            "serial_number": "89bebcc0745f548747c0b4a11e8cab25",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b26b25a1ac09eb6f4fe1178d1e1f706c6db2f8a6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK124.bin",
+        "Certificate": {
+            "serial_number": "347850ada9d6b98648ab34a0a3a9a151",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5cd3eed294b66a114140cde15193fa559bd2a643": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK125.bin",
+        "Certificate": {
+            "serial_number": "9459c3fa7f8f249b4165577c5b8a9d18",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "fd0c9d1fe0233211d01e9593f6d91faff2102d27": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK286.bin",
+        "Certificate": {
+            "serial_number": "5ad42c3cb458598a43fcee1c977b862c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b6a696cb0a9c7dc4e37980a5db0e35bc07ebee59": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK127.bin",
+        "Certificate": {
+            "serial_number": "eb36aa079778b493489127ff2c432447",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "02f76b7683fb683b90e7cf7d2543d26bf618dc96": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK128.bin",
+        "Certificate": {
+            "serial_number": "be542c25627c96ac4af0ad2f7608703c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1b5649db7b8a5361eeb86aadf334a326f7e63d43": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK129.bin",
+        "Certificate": {
+            "serial_number": "8986f146e93d529d4939cdb04d65b937",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "fbd0f36f7124729e35cdc74632a2ad1eb5963c54": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK13.bin",
+        "Certificate": {
+            "serial_number": "f4b41a0d904eda80440d9527b9ea5214",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "c9f9feacec772cda2d71178751b35d59eeeb5537": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK130.bin",
+        "Certificate": {
+            "serial_number": "4ab59218f4dc72b14f1bf36f127068e8",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "4b46a1e4c889844b281a3ac8d99de6d4933cdebc": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK131.bin",
+        "Certificate": {
+            "serial_number": "af1e4c4ad12c6ca54d2d365ae990b0db",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "6d61659ed0184c5ec678c9c5080f0a9a26901efd": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK132.bin",
+        "Certificate": {
+            "serial_number": "90265254ae3194a04bbae253e28e174a",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "fc6db8147dc4bae78a0b483f7a27deff284afc06": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK133.bin",
+        "Certificate": {
+            "serial_number": "fa838516a13c779440f3522be3a1931b",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "5bdd2a8ea21fd4d3135d84e609f639542375758b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK134.bin",
+        "Certificate": {
+            "serial_number": "ebf879c478f42baa4bbf4a37442f68fb",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "b6f441ffc795086ba78d3ddb05ce825ce73b0134": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK135.bin",
+        "Certificate": {
+            "serial_number": "61bacdb8859591b14f1b67e57efeea2d",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "901bcfc4138ac79b70b7eeec56f739ecc5558404": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK136.bin",
+        "Certificate": {
+            "serial_number": "2a813dd98256bd9d45156ce4c224e108",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "de4f05f4e2bdeddfc5dbd13a43c4856c6f0a42f0": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK137.bin",
+        "Certificate": {
+            "serial_number": "cffe8a56a00bac9d41ac70859aac1407",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "424582bd216feb64d117a3301ba917e6207bc4ad": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK138.bin",
+        "Certificate": {
+            "serial_number": "11c41eacebe1dfab402f2bdb3c418af2",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "73c23893c61a530d1d9837455ea4b4d30b1a0823": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK139.bin",
+        "Certificate": {
+            "serial_number": "9012e9ac76c4aea1451e16eb1a779bc5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "512af0b28cc5fd471a6d691c0063691333891bc7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK14.bin",
+        "Certificate": {
+            "serial_number": "992e32f7aa456c9945a4d6ba484abccf",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f7eb983c91d67f92df0b0703d70883c2f22e6a26": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK140.bin",
+        "Certificate": {
+            "serial_number": "a27f8350447fb89c470b63b2f1395c20",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "cfa8dfc1e188a14ecb3762601486eeecb458184a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK141.bin",
+        "Certificate": {
+            "serial_number": "5e009fd52798da844710d8f6bd9994f0",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "e8c1d02832b39c0a4a5eca27ef5f7b75453a52a5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK142.bin",
+        "Certificate": {
+            "serial_number": "17f7b108f6e2b8804cde66c51e789927",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "737faa675de1b40597b21da3970c58ed90f49146": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK143.bin",
+        "Certificate": {
+            "serial_number": "3590acd67558b8b842c8f10db86ae3e1",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "f73abc0418ae5e897d1e0bd2599b88d41633de10": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK144.bin",
+        "Certificate": {
+            "serial_number": "7c30ec485891cfb949bfcfefb8e29ce4",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "fef8ef45f14464f41ed9d4deeaac58c81275861c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK145.bin",
+        "Certificate": {
+            "serial_number": "4dcea02eb0bfb48c454c16da3738f871",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "811cef4da1280d572016c600c94190562ae234da": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK146.bin",
+        "Certificate": {
+            "serial_number": "ed10cba97c47c5ac4c45bb27c1c260f5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d66120bf251495dd71145f0d30de8f70565a1299": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK147.bin",
+        "Certificate": {
+            "serial_number": "b47bc02ef38f3b8d4a45234bcb822811",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "c538e85a06aeaccf5e7dca18b807b8d0b1cab4d7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK148.bin",
+        "Certificate": {
+            "serial_number": "c78ed4a2fb8f1bb440ebb906741102f5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "db47ad917a5da43146d971a8b7aa3d034e5612f1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK149.bin",
+        "Certificate": {
+            "serial_number": "c929e120b082df8749eb7ab8da3d0072",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9181095f8e26c8d48a8d074efd7c716b1361b439": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK15.bin",
+        "Certificate": {
+            "serial_number": "594857f492c976b54df60976318c9ad0",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "78d7f3dc5e7522158b405df56d347d5d5baf93b8": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK150.bin",
+        "Certificate": {
+            "serial_number": "bdcf530438199a9543e48b6fba5670cf",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5ae68fc8196b8943bb508c09e33e4f0dfc5be8b3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK151.bin",
+        "Certificate": {
+            "serial_number": "6c4134b117bf87a043262961f0d84d68",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a4461dc0076e0d651488cb916c876a3ec194d3b6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK152.bin",
+        "Certificate": {
+            "serial_number": "19379df6e8dc20814218ab7294d919f1",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "fe29adea8f28e087fcef92f4a69da54242de2e10": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK153.bin",
+        "Certificate": {
+            "serial_number": "535f00a5a94053a7443a5fcf25648339",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8b70af33ff1c6c7d4bb8d4fb9319314efc941536": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK154.bin",
+        "Certificate": {
+            "serial_number": "ea471aaacd566a9544d9ceac1ba72397",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f8c737f9c6bd6302eb0afd7a4f63c9a601bea696": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK155.bin",
+        "Certificate": {
+            "serial_number": "4bc4ed49352e05864b3ce5011c8c7ed4",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b2035254a6c39e33e86006e921d445fda66a6373": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK156.bin",
+        "Certificate": {
+            "serial_number": "916d5f1fb1db60ba45c55040a2940d5c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "712fdda33b78e97a3370d5293e27c8e2828d221b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK157.bin",
+        "Certificate": {
+            "serial_number": "f2c3fe4691400aa5442824d909471e94",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "68e43b64cb48e3ec39eee80d37117d96a8afd72a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK158.bin",
+        "Certificate": {
+            "serial_number": "455df6907f7221a34ff8d45e6fd955ab",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "97fef08b2ddcf46d90e4df3a3df1a4ba838f577c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK159.bin",
+        "Certificate": {
+            "serial_number": "a253efd7dbc3a0a64658f216b006c563",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d7ee0ac4aba6c03f1bb5b0866b99433861ba7ca5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK16.bin",
+        "Certificate": {
+            "serial_number": "b7976ee0f20149be4c4e0e504a32119f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "aebfa17f2bdada1fccca0a36ec42cca195ea26f2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK160.bin",
+        "Certificate": {
+            "serial_number": "816dd2143f62359147cd3fe88ba5b48c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "88c688dfd79f474ad89243c80cc95a9ca7bc6383": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK161.bin",
+        "Certificate": {
+            "serial_number": "a47fb692101675bf4e992d5d264c3595",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "e6ba42852054c7e0b85e3bb7e482f646933c4544": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK162.bin",
+        "Certificate": {
+            "serial_number": "677c7bbe40b45f8743f7bb8fe2bba6c6",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "e4a56c654866c20bf16b0b8374ee0ee5dcd4c9bb": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK163.bin",
+        "Certificate": {
+            "serial_number": "ae00e0b7ad5d8e864d6e586d96f13511",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "fdec21a3087cc0a6bacdedb68ea80c5164cbe1a4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK164.bin",
+        "Certificate": {
+            "serial_number": "fd7ca91d0b81f99148987aaa82012b61",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "aa18fc29e271ef31c6f8ef4aecc562c12161e0a7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK165.bin",
+        "Certificate": {
+            "serial_number": "44f2e2e84b6aeaae4ef0f281d1461319",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cc92ffaf33b827941c566e4ee000231afe5a28ce": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK166.bin",
+        "Certificate": {
+            "serial_number": "91d09e51a048d6ab4e90afbb563fbc41",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "09b9824229da65df57601e7387694e63c5a2b297": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK167.bin",
+        "Certificate": {
+            "serial_number": "99df0dffadcd89bc46108cc4e12c20c9",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d7914da3e05b1d4300b6b3e95da0436c8a70064e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK168.bin",
+        "Certificate": {
+            "serial_number": "c24864ef3864f98949a7a8a407325398",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "4378c3565d6b054858e4d011cb51e5e86b1aebfd": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK169.bin",
+        "Certificate": {
+            "serial_number": "9f174846b5da3587478478e52bff7731",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "82245714ce3f426c191438088918695ee3d20c90": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK17.bin",
+        "Certificate": {
+            "serial_number": "663fc06a880812bb4d4de1d45b4345a8",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "6c064a3bb2a6464bc4a10e9c9378c1e6336a12eb": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK170.bin",
+        "Certificate": {
+            "serial_number": "a6d026a4e4400d964bfb9803cd1d78ed",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d4db3f5c4ef6fdcd96562419c023b19972312462": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK171.bin",
+        "Certificate": {
+            "serial_number": "1f2eb95f601368b24dc558df42f510e5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "4859bbe7343b0126f2270e18b6a53aa6983d6410": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK172.bin",
+        "Certificate": {
+            "serial_number": "a0954cd84c232e8644db2112dca9bf9b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "53c7f18e060601a9edfd03a091a49fc0f6972d32": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK173.bin",
+        "Certificate": {
+            "serial_number": "235e7a382bfb468f4259fe0ac3a3a784",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "455b4fde063bfce906d77731e520aa8c51b3257f": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK174.bin",
+        "Certificate": {
+            "serial_number": "348b251601b82e8241377caf2f63e02a",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "6333a5e62f60c78bf2b876468544dc4d35381049": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK175.bin",
+        "Certificate": {
+            "serial_number": "7fbb09d4d95b259c4a0356a05f796893",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "0518317d431b34af9148cbcf81feaaff34000680": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK176.bin",
+        "Certificate": {
+            "serial_number": "888ea30c719740aa403d6e2b70334d8c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a83935792289668e48ff5a38abd2a13b5fed6bf5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK177.bin",
+        "Certificate": {
+            "serial_number": "5b4699a45a72fa9e4a0865b7046ca023",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "3a72e39f0df8d3cb1281aa9c0ef526663470c2fa": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK178.bin",
+        "Certificate": {
+            "serial_number": "2f12fdcfeffbdc83410f215d79405091",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1f2139be9754f96288367f3f8c16fea581395894": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK179.bin",
+        "Certificate": {
+            "serial_number": "e38ad5c2375142a14919c2e6e6aeaa27",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "00aa9031c609b2b196f7d1305bbf8e25d1287512": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK18.bin",
+        "Certificate": {
+            "serial_number": "c5c93e19a1090ca840bb68566634d5a4",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1dd0a4cd107be5257b411b61538edd1c79efff13": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK180.bin",
+        "Certificate": {
+            "serial_number": "27999504aa27529749c84d30abe131a3",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8e1d841f1a05b5722b7f80cab98609c8b9444cf6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK181.bin",
+        "Certificate": {
+            "serial_number": "919531e5dcedf8b94cd36548050bfc12",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "37965449c7b0ad5f6b8cd6b47deb610ed48006e0": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK182.bin",
+        "Certificate": {
+            "serial_number": "e7b764461230459344a47b8e0995d1a4",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "636fc4532cd2d16b0c5036bb14b7e840180c4242": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK183.bin",
+        "Certificate": {
+            "serial_number": "1ba96c3f06710af479efb24db577525",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cc07c17e48bd23c15360598127390bdcc3d22370": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK184.bin",
+        "Certificate": {
+            "serial_number": "2b17a8f594ec16a44897992c66d694f3",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "0994c699ad01947d694018527178e46829c45624": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK185.bin",
+        "Certificate": {
+            "serial_number": "3544433b94f033b6443fe56ab41c956f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f9768f1d83571e087f4868cc7d3b7fe7beb29c85": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK186.bin",
+        "Certificate": {
+            "serial_number": "f38ae6da773d0a8748ecd7032f4dd059",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "2194ee0a0dfd962184a750b2f0b7b420b0b0d9c8": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK187.bin",
+        "Certificate": {
+            "serial_number": "938cb565f547ce974af7af857e3c9735",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "6f8568a59464660eff0faaf3b9f4a10418f91713": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK188.bin",
+        "Certificate": {
+            "serial_number": "5255f170cfd0de9245f42782ca5c6769",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "2c1a260ee50b0577f9988715ffdc1afa0101f873": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK189.bin",
+        "Certificate": {
+            "serial_number": "54047d5fd4836d894cc033dab55f663d",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7273dcfa9c5430b5a468dde1367646504dd0f91f": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK19.bin",
+        "Certificate": {
+            "serial_number": "e4b519a53e2a21bc452cfd823c1de377",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "74a75c323054b2edab07754065a8e1b91e2300d0": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK190.bin",
+        "Certificate": {
+            "serial_number": "381c01ac8133068b4464cee41cce6f80",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "49878da901312281e2064ce6323972461f651531": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK191.bin",
+        "Certificate": {
+            "serial_number": "862a02d8cf94398f48b2fe1b719c68db",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "3ba7162a9b375ab82887cec1562d19e94f2fabe9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK192.bin",
+        "Certificate": {
+            "serial_number": "39f2ffaaf0606804d9dff3ec0cb6d29",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "75dcf400f73789b6184a8cee490827c1039db62e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK193.bin",
+        "Certificate": {
+            "serial_number": "bcaeb2389e03668443da706588db38b6",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "36f0683224e3a8d152306967d2b8a27c19581be0": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK194.bin",
+        "Certificate": {
+            "serial_number": "52eace13da017ebe4876ae9eae52e5eb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b7d4a2d68376a66a9e28a227a3cc016302c15e2e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK195.bin",
+        "Certificate": {
+            "serial_number": "c8f9070658672d8649fc4aa0dced18b5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "4bb11ded84ed3b605414fcea4a16b8c0e1ff49b2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK196.bin",
+        "Certificate": {
+            "serial_number": "c9abead160986791400b10b6f9216274",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "c771d375febed6097f79d34f654a418d9d12cbc8": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK197.bin",
+        "Certificate": {
+            "serial_number": "db9eab4140b193914df65894314cb2f0",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "428590a716733e16670cfd1b34d91cfd698824c3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK198.bin",
+        "Certificate": {
+            "serial_number": "c707e2f4a9b417814a1db235317db4c0",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d8453cad66c8a5616983128563f6b8e52c2149c1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK199.bin",
+        "Certificate": {
+            "serial_number": "588359dec7ccc59240deaf235d87f045",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7b4d9735151cb81afdc09531ebbff2f0e3588775": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK2.bin",
+        "Certificate": {
+            "serial_number": "91dafcdb9605b0d8",
+            "issued_to": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=TPCDL-KEK,OU=TPCDL,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN",
+            "issued_by": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=TPCDL-KEK,OU=TPCDL,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN"
+        }
+    },
+    "aca176b593206a4128a02247935ae88706f4076e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK20.bin",
+        "Certificate": {
+            "serial_number": "cd94ad8a5324f29149d46bea0cc751ab",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f4157a0b604bcb96aea8084deb0aaaa6677efa5d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK200.bin",
+        "Certificate": {
+            "serial_number": "c05c84b62681ab54c8bcbae230bee40",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cfecae4e8f2ebed2e6d54d590201e726f72a5051": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK201.bin",
+        "Certificate": {
+            "serial_number": "a69afdb219ad868b4fafe8bff5d963cb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "37e5574f1992988ac86addc4cbeac7363c68cd37": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK202.bin",
+        "Certificate": {
+            "serial_number": "5a4cbc51412af6a04f4c4c25ef2fc191",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b099c76cb270f9fae504f7004c9c22177af315ff": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK203.bin",
+        "Certificate": {
+            "serial_number": "bcfc8ab5cbef72a046fb547ca07a9edc",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9637fc6a13266b22a6852e114db5f8cc6f2d34e0": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK204.bin",
+        "Certificate": {
+            "serial_number": "99d982955897d48c4dea8761c1ede43c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "59eee5d69e7d3233767aa8487d28808dc3a641af": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK205.bin",
+        "Certificate": {
+            "serial_number": "1199dbd9a6a2ddab44096353a67d7790",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "07382e86314b5437d8554e0dcc853cb6a82d50b7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK206.bin",
+        "Certificate": {
+            "serial_number": "c6f549423fe9e3884c8229cd2ed46793",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "874b13c5f2eb1d3e98a55134a83b6d8cce8e5a80": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK207.bin",
+        "Certificate": {
+            "serial_number": "af98c7bafc2ecda44f5caaf7a0fbf202",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5df078e0f2c7a612ec37704d89ffc38bea469095": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK208.bin",
+        "Certificate": {
+            "serial_number": "9382d1905601874e308edea78ef73a",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f883f7e6271e904854485148410355bae4898392": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK209.bin",
+        "Certificate": {
+            "serial_number": "b3140a3cf7061db743ea3ebc6e0ab31c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a75aaf90e75de4c9a713aca5a282cec049071ff5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK21.bin",
+        "Certificate": {
+            "serial_number": "d333fbfc5668b834ef7d7ed434fdcb6",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f52ce5560743f71489c73126394f306027e1643a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK210.bin",
+        "Certificate": {
+            "serial_number": "a94957f2f5ac9881416e1f4aa83d22f3",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7579a8333a2bc94655b3ad02931dfcacb00f30b4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK211.bin",
+        "Certificate": {
+            "serial_number": "d462c85a26cc96bc493b726985b52615",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "e965825480086fc83a8d149071344b836dfcca46": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK212.bin",
+        "Certificate": {
+            "serial_number": "6ceeea8a4fa1fd8d41cbfa8f1cefc6dc",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "4e4520b84a9df036e03463d4a226ae36437fa2fc": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK213.bin",
+        "Certificate": {
+            "serial_number": "d3a474382cc4719343cc907ff34b950a",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f30fb2eda15f839197bee2fce8723e9fb9f6cea4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK214.bin",
+        "Certificate": {
+            "serial_number": "e3d111c5844ece85471cf37f996ef8fc",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a5b82801222497b6454a15886acafccc022cf0b9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK215.bin",
+        "Certificate": {
+            "serial_number": "2bd4df97d1059f884924bd5ef3e14d44",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a2867ef211dec0fa997e7d7709302308e847d7e3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK216.bin",
+        "Certificate": {
+            "serial_number": "42c1d8eae2c091ae40d188cb298e8dcd",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "e8b15382b70749a9065fae93a95bfb9b6722beb9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK217.bin",
+        "Certificate": {
+            "serial_number": "c9bd7bd4dfd5bfb6494e071f5e9cc44c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "711a8885f6c1245e218111a289eca79e126eee0d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK218.bin",
+        "Certificate": {
+            "serial_number": "5f566427a9714fbb4aea1d0338a7fa7e",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "953c7e2331dcd09df11efebd39aeb1432d4e7f6c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK219.bin",
+        "Certificate": {
+            "serial_number": "2b35d6c519a5339f456c886e0fb35ea5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d3e26c3b79a762285e4a5e431361b0409e978d89": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK22.bin",
+        "Certificate": {
+            "serial_number": "647fa3598a3f539a471e5f372480c0bd",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b1eda3b4a6963079144d99dbc78295125d1587cf": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK220.bin",
+        "Certificate": {
+            "serial_number": "633c4879ca25de8d4ad244fb7a2f3d16",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "2e66bff79d5f14b7d94735eb6d602cb5cf8a54af": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK221.bin",
+        "Certificate": {
+            "serial_number": "b692377e88433a949a2ee5210322fc3",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "c11c89b8f79f1b368c48c2e3e7a3ba461d8bbba5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK222.bin",
+        "Certificate": {
+            "serial_number": "e0e221aa3374ceb14313997ad665c64c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "c15a48303612afb1885f6176cd0dec30357c013d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK223.bin",
+        "Certificate": {
+            "serial_number": "b28a9846d79b10bf406b9da4d49aff33",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cffdd46e0a70b8158fb8d879e13787edf7e8e827": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK224.bin",
+        "Certificate": {
+            "serial_number": "d3003f7214f16880456b07586ad37c9b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "53ce3c7a641cd03d2020e4ae42c769a8c6d353df": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK225.bin",
+        "Certificate": {
+            "serial_number": "20a718d19f089db04a8e2c1f162da905",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "61c446ae133d5cc220f154873b876abda4672770": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK226.bin",
+        "Certificate": {
+            "serial_number": "b45906da5f58bd94418b8e530ac8f5b6",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ac56435c63b80eb7dcb43c6ddbe4f4e4e0faaaf9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK227.bin",
+        "Certificate": {
+            "serial_number": "a5e4229b17d3bab5495d5767676f4621",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "92857c91364c6dd5ec16ea11d913c1f1d96d0c4e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK228.bin",
+        "Certificate": {
+            "serial_number": "5084d0f7054a91bb42ca7bb6bb6b2434",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "56fedb0a9ddc898e514b045486d1a4bc9253f142": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK229.bin",
+        "Certificate": {
+            "serial_number": "daa79e8e858056b640ec2693fa73928c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "36cb17380c71bc5cfb000a8bbbc801c24484bef7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK23.bin",
+        "Certificate": {
+            "serial_number": "49475bdf6aac25bb491dcf99ec8b1111",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "3be3a2e862b956a1fe2bda1083eceb92da995b82": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK230.bin",
+        "Certificate": {
+            "serial_number": "a7622fcaffb17bbf4568c5130d55d87b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f6484061087d2ea5bd64361918cb6a4cf0e71833": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK231.bin",
+        "Certificate": {
+            "serial_number": "e42316b2f88fb7894c0c188e77ec7a85",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "56e533bec9fad69d29c677cd46dee9aea8853262": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK232.bin",
+        "Certificate": {
+            "serial_number": "7444e7bb97d277824a39f65af13ef547",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cd2fdebc1a64b60f6a8c9c9120ac98ae86755932": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK233.bin",
+        "Certificate": {
+            "serial_number": "3e3b336e683b4d9e4d39f0214a9e33a2",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "61acef140425176fb81598c59187a3e66ac6ac8a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK299.bin",
+        "Certificate": {
+            "serial_number": "50401d8fa3db63a5498848df25f3f9bb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ab4ec663a9a129eb656b4276578ac422a6efc109": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK235.bin",
+        "Certificate": {
+            "serial_number": "3b8476cbcd6d71ac4f69b48cbee132d4",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "40ea0930c8cb6837ccf6a413591eb0d0c06995b6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK236.bin",
+        "Certificate": {
+            "serial_number": "f2ea8f0c3732678f47eb51905458c9f1",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "67c4e67a36341371cdb408aaba93c518a16a8025": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK296.bin",
+        "Certificate": {
+            "serial_number": "db296e4a6e8380914b6205884819ec1c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b146e020f5b50fc3f3d934097e4c446fad34fb01": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK238.bin",
+        "Certificate": {
+            "serial_number": "9214bdca8183b4884153ca8076e1fd3f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "763d4618a6e38efa97f7981b20eb8028a2f81e96": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK297.bin",
+        "Certificate": {
+            "serial_number": "6b4929cd3158c7ad4953abb88e1a499e",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7aa5faf496fa7187f6aa8519f09958dc64c0b9f0": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK24.bin",
+        "Certificate": {
+            "serial_number": "fcbdd6865919e8ad4e66a31e3fbd3afa",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "1cb613c4d328efb82a05a487ed478180e14ebd6d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK240.bin",
+        "Certificate": {
+            "serial_number": "95c64743430f6baf424a31d3f1505c38",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "781c2f108d4288abbde56449d3423a95dd65e6f2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK305.bin",
+        "Certificate": {
+            "serial_number": "5d45503d0896b99347deff7dd2aea1cd",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1d94f2cad3b762970d9f5dbdf11a7531d85ecdd1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK304.bin",
+        "Certificate": {
+            "serial_number": "cf84f32e6313189a425fe54a54c360ab",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f6ed06653ca6da1a9cbf6f3e5fbf43ca6eb5caa2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK301.bin",
+        "Certificate": {
+            "serial_number": "7640b9bae602e9a7446e30d4c1cf9ad9",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5a32745c32da00dade89facf47b3c4cfd247615e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK302.bin",
+        "Certificate": {
+            "serial_number": "49e250db013c2584442f8b10d705f62f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "2783e79cb571f9cea672a3202844f868a4936169": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK303.bin",
+        "Certificate": {
+            "serial_number": "576da1259d5dec89462b7147e9df8573",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "bdcc83dcf7edb2709f37ce4e04268deb6288593e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK307.bin",
+        "Certificate": {
+            "serial_number": "92f57b2ae20d4cb64d6c046d376f7513",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ae0d9c9dbb888f1be593967bd402d379188717d1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK247.bin",
+        "Certificate": {
+            "serial_number": "16fee65dafcb63894000fcb69be439e2",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "793ea31212b4898d4b04f25414d7035d8e2924eb": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK248.bin",
+        "Certificate": {
+            "serial_number": "c651f5b982fdb9944a452ebdb168a72d",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "dbb6be913c548b3ae61a2bbdd5ec617682a567f3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK249.bin",
+        "Certificate": {
+            "serial_number": "9fb2d31761f8f08e4babb9822bf0da2f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "48909899fa9acb5329f534efdd406dd2e2b94eba": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK25.bin",
+        "Certificate": {
+            "serial_number": "ac79282547a756834125e3225837d01a",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "531c9081ac017ffebd280690a4f326bee94365f7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK250.bin",
+        "Certificate": {
+            "serial_number": "cbf81a2d41b793a7403e2681390c6b67",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d3aa7041d81188d1888d5bb9635cf363b18efa56": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK251.bin",
+        "Certificate": {
+            "serial_number": "3795b364104fb8b74d31d14f51ecd6c0",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7696aefa450bd31667bc2b2b06fe8e135359d58e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK252.bin",
+        "Certificate": {
+            "serial_number": "b39c7d3958331686456ef627a03fd8d5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "76d9e6a0e20a905f055432554a936f9a15d38d20": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK253.bin",
+        "Certificate": {
+            "serial_number": "c60e611c26657be4d042d27f019070e",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8dd780cee1b84afc10e986ca8685901e8775a552": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK254.bin",
+        "Certificate": {
+            "serial_number": "8631955619e1d185486000b80887f915",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5f11eeccb10336e653088cba0abc62f2533271a6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK255.bin",
+        "Certificate": {
+            "serial_number": "994f8b12db0c8db2496ed70ffb2dd913",
+            "issued_to": "CN=Ideapad Products",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "dbec83469fcf583cd7b61690744ce321d3c46510": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK256.bin",
+        "Certificate": {
+            "serial_number": "8e8383831d02840c",
+            "issued_to": "CN=Lenovo UEFI Whitley PK,O=Lenovo,L=Raleigh,ST=NC,C=US",
+            "issued_by": "CN=Lenovo UEFI Whitley PK,O=Lenovo,L=Raleigh,ST=NC,C=US"
+        }
+    },
+    "30e8b2877678e1f8605535ad4f5e2840d63571b8": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK257.bin",
+        "Certificate": {
+            "serial_number": "c6b285ab3d2d2799",
+            "issued_to": "CN=Lenovo UEFI AMD PK,OU=DCG,O=Lenovo,L=Morrisville,ST=NC,C=US",
+            "issued_by": "CN=Lenovo UEFI AMD PK,OU=DCG,O=Lenovo,L=Morrisville,ST=NC,C=US"
+        }
+    },
+    "428c2b176518898ac2e093f729b9c9df1dc6c96a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK258.bin",
+        "Certificate": {
+            "serial_number": "aaaffa3d01cd7ae3",
+            "issued_to": "CN=Lenovo,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US",
+            "issued_by": "CN=Lenovo,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US"
+        }
+    },
+    "5e84afcc7127c4e7c78bc24b757c8a7a27240cd2": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK259.bin",
+        "Certificate": {
+            "serial_number": "99e9d5871461bf79",
+            "issued_to": "CN=Lenovo,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US",
+            "issued_by": "CN=Lenovo,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US"
+        }
+    },
+    "1b6648716004895e27e53ed665eca63b7f91e1a5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK26.bin",
+        "Certificate": {
+            "serial_number": "21b2d552f98f44b04ba2238bb015d4a8",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "2c731d0aa43ea0a26dc3d5d411ee90cd79ae5ef9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK260.bin",
+        "Certificate": {
+            "serial_number": "ecf4a5d39817e0ee",
+            "issued_to": "CN=\\ Lenovo UEFI Idaville PK,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US",
+            "issued_by": "CN=\\ Lenovo UEFI Idaville PK,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US"
+        }
+    },
+    "43992837612fc135aeb3594fbec5e7cc17016e32": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK261.bin",
+        "Certificate": {
+            "serial_number": "be58f5a8c01415bd",
+            "issued_to": "CN=\\ Lenovo UEFI Siena PK,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US",
+            "issued_by": "CN=\\ Lenovo UEFI Siena PK,OU=ISG,O=Lenovo,L=Morrisville,ST=North Carolina,C=US"
+        }
+    },
+    "b72ec1f8eaeecad025a8e46fba1e74083e34c5f1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK262.bin",
+        "Certificate": {
+            "serial_number": "6b060f310fb9f9864f07787135dd70b4",
+            "issued_to": "CN=Fujitsu Client Computing Limited PK Certificate CA 2020",
+            "issued_by": "CN=Fujitsu Client Computing Limited PK Certificate CA 2020"
+        }
+    },
+    "29ad09046f5c4ae5f40afa9ecf22a07ae3587bf3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK263.bin",
+        "Certificate": {
+            "serial_number": "1",
+            "issued_to": "CN=PK,OU=Fujitsu Technology Solutions Code Signing CA,O=Fujitsu Technology Solutions GmbH,L=Munich,ST=Bavaria,C=DE",
+            "issued_by": "CN=PK,OU=Fujitsu Technology Solutions Code Signing CA,O=Fujitsu Technology Solutions GmbH,L=Munich,ST=Bavaria,C=DE"
+        }
+    },
+    "aeebf078103f455746efb0d67c5a864e0cd60dcc": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK264.bin",
+        "Certificate": {
+            "serial_number": "198d9207732d67a7edea3fc45a1f34d66a086e4",
+            "issued_to": "CN=Lenovo UEFI PK,O=Lenovo,L=Raleigh,ST=NC,C=US",
+            "issued_by": "CN=Lenovo UEFI PK,O=Lenovo,L=Raleigh,ST=NC,C=US"
+        }
+    },
+    "4e4ec063bfa084761214f55fe4ad0a404599f4d6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK265.bin",
+        "Certificate": {
+            "serial_number": "9ec6736fafd2e8548cbd812012e0843",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "182cb6b1b555d987d40315d9b04cedcbce6dd99f": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK82.bin",
+        "Certificate": {
+            "serial_number": "31e2c8a16bd4c6834517f13bcba58187",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "59f9c7c740c2f98e2dcd4643162eb8644e93f34f": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK267.bin",
+        "Certificate": {
+            "serial_number": "49b5b32e1f5c3498437b003226f0fa39",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "c4c1178f969d7b10774f0e62b2d8072f65b67367": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK268.bin",
+        "Certificate": {
+            "serial_number": "57d73385a403478047480469ce5058d5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1268fb893e50ff040d904d589a3690133c715c88": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK99.bin",
+        "Certificate": {
+            "serial_number": "27902bebbd10408648b3c4eca97e168c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "195b85e6f9a651bbf81dd21e30d276ddf9a6438e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK27.bin",
+        "Certificate": {
+            "serial_number": "37f81e3e363fc7b94f3ca7b67d8df9b6",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "964ec79cb896fe03ac69e9e109916539dcc7e0c3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK270.bin",
+        "Certificate": {
+            "serial_number": "ede8e095b7f78bf46df53a958b8a5b5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7244e70921cc54843e3c5f07580b91372851c154": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK271.bin",
+        "Certificate": {
+            "serial_number": "23da405c83ab9887468bfe453f515c05",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1e8299bcf63c74b93a7224f189f8f2a477c3ce5a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK272.bin",
+        "Certificate": {
+            "serial_number": "75127850e92faaf40b1bea4c1c8fd6f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ef95e29cce285d87734012ef940fb14ee0a7118b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK273.bin",
+        "Certificate": {
+            "serial_number": "5bf2ab96448a068e4f79706c1444b638",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "17d661a0ce6435e45ea437bc4c15a7db8867b9c4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK285.bin",
+        "Certificate": {
+            "serial_number": "113a5182ace883a94534440b410b08a6",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "79ee86fa9056716c6db30b91efdcc7707fe79550": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK275.bin",
+        "Certificate": {
+            "serial_number": "e415f90977c2cfb44376fb872fb161d9",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5e430cb124e928c0a9f3e268230d64f4c1416279": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK276.bin",
+        "Certificate": {
+            "serial_number": "849c235f03b276a5460db29fed241ede",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9cee85974079ea71411ad374ea99e50abaa4c03d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK281.bin",
+        "Certificate": {
+            "serial_number": "dac915b2348a36b64d5074ce00834dc9",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "24cf0744b9f47a0d22af2a9c315d60a6ac2ddc25": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK278.bin",
+        "Certificate": {
+            "serial_number": "245e787d3198c8ab404bbbdd252656cf",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cc516f7cdf05e9ff595df892e2dec6001c41ad81": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK280.bin",
+        "Certificate": {
+            "serial_number": "756480cbd09e01a74395ca368c137df5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a5a3cdecd3f8e9cabcf700a7e8c99f764669a7a9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK28.bin",
+        "Certificate": {
+            "serial_number": "13f5309caa3051aa4cd24485df20dcb7",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "f228c575a9de2a1540a4c74c99c3d0bda7ad0de4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK284.bin",
+        "Certificate": {
+            "serial_number": "848517e1a29d9db645ae77f8f7f7cfd4",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "6d92ef6a5020ae314ce8f09ae773be30bf18fa24": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK287.bin",
+        "Certificate": {
+            "serial_number": "e6e53c5efd67c5864ee5505a04075967",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "00722a6c02b506e58de6b46f0b4f35b100ad831a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK288.bin",
+        "Certificate": {
+            "serial_number": "6b252060bd753898440a44972fdb1019",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d51c18ea87d3c2177b88e60e097befefa110e955": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK289.bin",
+        "Certificate": {
+            "serial_number": "d4b294dc9d17ccb8473ac0fa6b643ce2",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "182c8f23df75661d8f506e76465bb6c2cf7417c1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK29.bin",
+        "Certificate": {
+            "serial_number": "a888bc4c689800b442710be1dda44b24",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "288fbed9acd7fdbb7fc87a1cd64c8c893d8d5a14": {
+        "KEKUpdate": "MEDION/KEKUpdate_PK1.bin",
+        "Certificate": {
+            "serial_number": "8742f4c8e657b4a44f303df3728573a7",
+            "issued_to": "CN=MEDION Certificate",
+            "issued_by": "CN=MEDION Certificate"
+        }
+    },
+    "c0f5f4f09ec708fb443b5719d884fdc682f01898": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK291.bin",
+        "Certificate": {
+            "serial_number": "fd0e8539ebecfbb243cf47c48fe15ee1",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "aabcd6b2e12f11daab01a98aff24f1f25d17b554": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK292.bin",
+        "Certificate": {
+            "serial_number": "6dbbcfd4f5273ab743d024c07c7ef93e",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7cd58d830062d198837ba00716606b3aaa17dfae": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK293.bin",
+        "Certificate": {
+            "serial_number": "cd5961b22a9dae914d101b5f3c02bdcb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "85b3a8a0c4f1d6d79a5483606ac71f89902413ee": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK306.bin",
+        "Certificate": {
+            "serial_number": "809fdd11cdd0aca84e61744d0a9a63d2",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "3846b24205ce00238a2e31270db639577e6d649a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK3.bin",
+        "Certificate": {
+            "serial_number": "ea61a0a5773ef5fc",
+            "issued_to": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=IDC-CDC -KEK,OU=IDC-CDC,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN",
+            "issued_by": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=IDC-CDC -KEK,OU=IDC-CDC,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN"
+        }
+    },
+    "3e994a16b9415d1d801e8fc4ff63686e68af3b19": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK30.bin",
+        "Certificate": {
+            "serial_number": "db183300014de6b346e3943dae3b900f",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "d0b089ce2f5b4dfefda59940f7fd852b2cb2a6cb": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK308.bin",
+        "Certificate": {
+            "serial_number": "bc19ccf68446c18b4a08dce9b1cb4deb",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "49c6331a4b581010fc63f80617c012f5e04f39fa": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK309.bin",
+        "Certificate": {
+            "serial_number": "ebb513d46bb1dc6e",
+            "issued_to": "CN=Lenovo Ltd. PK CA 2012,O=Lenovo Ltd.,L=Yokohama,ST=Kanagawa,C=JP",
+            "issued_by": "CN=Lenovo Ltd. PK CA 2012,O=Lenovo Ltd.,L=Yokohama,ST=Kanagawa,C=JP"
+        }
+    },
+    "b70ca7b5cc666ef1d4b9f14a4b41d9ffd98f5af6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK31.bin",
+        "Certificate": {
+            "serial_number": "534be028f9d779a748bec4b5174d8461",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "99399e8e394ad40915db84cc6795a08090da85dd": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK310.bin",
+        "Certificate": {
+            "serial_number": "81facc4d75299cb84280890848a85520",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b0de4e007bbda17bac26ef802e423be805f974c7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK71.bin",
+        "Certificate": {
+            "serial_number": "16ad3feb09704be44aebcc271332bd8",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "601bcd53e553aa529e43a501d583bf70b6dd61a7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK312.bin",
+        "Certificate": {
+            "serial_number": "e43682fbb8211c8c4286b59ac86c985f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cdc8c7f0d079f900df976519e16ac97b115b57da": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK313.bin",
+        "Certificate": {
+            "serial_number": "c422093827a5b34bdaac90bcc53b8d",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "fdbd28209caf122cd7cb223f1cb2e8366480caa5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK314.bin",
+        "Certificate": {
+            "serial_number": "bed4ebe53edacebc49e2af73fbb3251b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "4e8652e286dffe6032d9293e39bc7c696a47f6ef": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK315.bin",
+        "Certificate": {
+            "serial_number": "49f635016789a7a947a68b98ffdaf246",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f37cd660ca3153b6283eb2932c552956164a2f3a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK316.bin",
+        "Certificate": {
+            "serial_number": "991c6f2cf693e6934e9521400146eddb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ec8a6b176346ebff71aecde8c6294e7559d9c8f5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK317.bin",
+        "Certificate": {
+            "serial_number": "940250c66a6568a945921ca39a3f821b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9278a62e012ad1fe31b2c75e7603ac37969ac3fc": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK318.bin",
+        "Certificate": {
+            "serial_number": "4e9b2943904acd914cf5baf8380b6ec3",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "c571ee0ff9020d502323427ab71f7bdc8fa26aa4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK319.bin",
+        "Certificate": {
+            "serial_number": "24917f9e655a0a049cc7f436e1ca802",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "fc2468ca684e7c03e61470595d35017329edd8be": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK32.bin",
+        "Certificate": {
+            "serial_number": "5d236256a070b6ac49a78bae9db85782",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "64f528d9db252491df46153bc64ab2aff9359fcc": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK33.bin",
+        "Certificate": {
+            "serial_number": "35a3bd08bb4260b74ac406f885cc59eb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "15b8674981cfd505b56822b1b81e460edc2534b7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK34.bin",
+        "Certificate": {
+            "serial_number": "8f1ee5fb31d1009f4dbf0ea5986c9a3b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "81877956b87588233894da039baa69c4c71f2375": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK35.bin",
+        "Certificate": {
+            "serial_number": "566abe937917db348fcaed751a31b1a",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "91ba155812e8aff490636d938a0f54d6951ca623": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK36.bin",
+        "Certificate": {
+            "serial_number": "a62f9e7faeb7529a4c799ff70baff8b5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "b83592be779fa1ff1de5b55074c707236d0022b4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK37.bin",
+        "Certificate": {
+            "serial_number": "36b3392161bab68040fbab41a733534d",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "4d25773ba45d191bc718468b4d3b426cfee61995": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK38.bin",
+        "Certificate": {
+            "serial_number": "9e48e50f8f87e1884f0d0738c6c7fbca",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8f9217a8981715ef4608099c585010ff93f964a7": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK39.bin",
+        "Certificate": {
+            "serial_number": "51fbecd118a026af419c22606ee0bc1c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "94ac3654dbcbb59c8d0c92945aa588b20a6e7da5": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK4.bin",
+        "Certificate": {
+            "serial_number": "93ca32a9d87ab8e4",
+            "issued_to": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=PCSD_CDC-KEK,OU=PCSD_CDC,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN",
+            "issued_by": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=PCSD_CDC-KEK,OU=PCSD_CDC,O=Lenovo(Beijing) Ltd.,L=Beijing,ST=Beijing,C=CN"
+        }
+    },
+    "cc4010a6946284b6312d0a8beef3e0493d631855": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK40.bin",
+        "Certificate": {
+            "serial_number": "ac8792b8d7eb758741bd03641cb52eab",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "381477a13ff3139088f4c31379a6ff800dee0470": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK41.bin",
+        "Certificate": {
+            "serial_number": "e6687bce3252aba14dafd0a3fed28d40",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cd1b2f9e01fd81f38cb71228b9236e2089391eab": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK42.bin",
+        "Certificate": {
+            "serial_number": "5d87b4fa9d72d19241b121a2bf588a6c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "46e565ccfdd2041faa193367d18802bcbf81429d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK43.bin",
+        "Certificate": {
+            "serial_number": "bdca967346dd4a8341ba4a3451c232b9",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ddc8447cada1f408014b269f0a8d8fa6c2d35086": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK44.bin",
+        "Certificate": {
+            "serial_number": "5e21b5995b54d18a4f0bd7fc30a1befc",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ddc81bd19706ee64f1eef65eeb48b4ba0d22feef": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK45.bin",
+        "Certificate": {
+            "serial_number": "7d947e061f8f90bc400f00cf55ffa01e",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "581292d20085e4c0e928e41b59bf4bb9d5348508": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK46.bin",
+        "Certificate": {
+            "serial_number": "5e57c0a910b71b8f4a8ba7f4fe8f55e0",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "56f88d8ae89f66e6293495541303eeaebc32965b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK47.bin",
+        "Certificate": {
+            "serial_number": "ecb900af4449dc914bf0c991e40eaaf2",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "787fedaa8fcc050d1796b5c62fd534bc0c1e3d4a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK48.bin",
+        "Certificate": {
+            "serial_number": "6c88d196141a8e964f3a6b960b66fada",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ec22c5da616fb0657afe7dc772392cf52d47a6cb": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK49.bin",
+        "Certificate": {
+            "serial_number": "2aab50d67f0cdf9344424b32cd2d5093",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8f3f76cfeef8ed20c228e8f5204c8e85f719d703": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK5.bin",
+        "Certificate": {
+            "serial_number": "9bc01f3bafdb710e",
+            "issued_to": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=swqagent,OU=CCD,O=Lenovo(Beijing) Ltd,L=Beijing,ST=Beijing,C=CN",
+            "issued_by": "1.2.840.113549.1.9.1=swqagent@lenovo.com,CN=swqagent,OU=CCD,O=Lenovo(Beijing) Ltd,L=Beijing,ST=Beijing,C=CN"
+        }
+    },
+    "8e337cd49839d08055b6d1077357b54adf7cdee6": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK50.bin",
+        "Certificate": {
+            "serial_number": "c47bf4f9087c2cbb415095c5a69b98a7",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "bc786596daac49583eeb611728fa72abacf33141": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK51.bin",
+        "Certificate": {
+            "serial_number": "fd3966d9d5b122ad4313820f45b34315",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ce22a3b906844459f2998737ae8166ddf6aa0e3b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK52.bin",
+        "Certificate": {
+            "serial_number": "dd88789e5751098e49be6629beb4b4d6",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d29077fc4b53c9247da258ccf715c0cea927eb31": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK53.bin",
+        "Certificate": {
+            "serial_number": "c264ba116b91f49741dd1a101ba9726f",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "2fc1e96d4ccb3193a4c7ed0bb41a3631d104b196": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK54.bin",
+        "Certificate": {
+            "serial_number": "5281451871719c8e47391022937c02e3",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "232f4d5939143eb69a58ded45298d4e73daf1d52": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK55.bin",
+        "Certificate": {
+            "serial_number": "b2eda08413c0029144b5f4e632b845ce",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1ae095bdd403d8ab0ec955a94f8140a73c7e9ce0": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK56.bin",
+        "Certificate": {
+            "serial_number": "9352292934a63394462464ac590932ba",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5588d5386303f8bf83d3e58d7555d30068ce8b16": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK57.bin",
+        "Certificate": {
+            "serial_number": "83e677227e5edaa8452df6697b71a6d8",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "76811f6e08e0422d3207fc3fd9132b8795ab3804": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK58.bin",
+        "Certificate": {
+            "serial_number": "6ab171cac873a68b4ec00ae8a4989b23",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8a55e8381272172b2e1fd810012fc9c9e0619790": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK59.bin",
+        "Certificate": {
+            "serial_number": "fcb1ad163357718745bb8d9149778b1d",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1621a83141aa8c56698b8a40c5cb9340e22b9444": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK6.bin",
+        "Certificate": {
+            "serial_number": "4027475e4d811ab144ab4d0078f771e1",
+            "issued_to": "CN=Trust - Lenovo Certificate",
+            "issued_by": "CN=Trust - Lenovo Certificate"
+        }
+    },
+    "d078d189fd327ddb622b03a0c7afc332c8fa611c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK60.bin",
+        "Certificate": {
+            "serial_number": "b8d65a1081c6c0864a698281df695395",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d9fbe8ea40b882ec87fd4d4f9f443266b15b48dd": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK61.bin",
+        "Certificate": {
+            "serial_number": "9e5410dc12d52db54b28a8a0154dac35",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "7492574a186297f6a0ccab991d5db9822b557252": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK62.bin",
+        "Certificate": {
+            "serial_number": "85568d773350b78a4b8ee5b0ed427f34",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5c844dd4201265a0ac741ef3dd4ba803196f50e1": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK63.bin",
+        "Certificate": {
+            "serial_number": "b50be0ca23c200ae435fab555e8455ee",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "17e38a18043d596e79b66f8354d2a2e2a59419d8": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK64.bin",
+        "Certificate": {
+            "serial_number": "d0346dbfefc550994ca61b9311345757",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "50614e57fb67e4fc609fcbc23300359a400c9c52": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK65.bin",
+        "Certificate": {
+            "serial_number": "24cc92a1b47db6824fb33aaa9eaa6251",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ac340da0ac140edec7e687c29c956ae3215145cc": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK66.bin",
+        "Certificate": {
+            "serial_number": "33a7442baa11bba04ad9ffb3a422df59",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "e17fdaa00c2bbcf70f56f05c59901272c3547614": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK67.bin",
+        "Certificate": {
+            "serial_number": "cfd8de36f54e4bc4a241c43eb23386a",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1afc8f49fb75821ee4a2c47110bb135894eb0bed": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK68.bin",
+        "Certificate": {
+            "serial_number": "16ebccb457b7a1b44c632603eefe6b98",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "991f526b566adfca85b07a87f2d6b0ebd5b2c687": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK69.bin",
+        "Certificate": {
+            "serial_number": "768bfd82f52c95814d5cd68af8ccff1c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "59376f27aa8e99c4790a66b55eb79779f588ec99": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK7.bin",
+        "Certificate": {
+            "serial_number": "64b806506ca43fb348fad6680fa1a602",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "f2e851a4d6c74f0671dc0dcf392c96f94ae30816": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK70.bin",
+        "Certificate": {
+            "serial_number": "2e07eabc7a2ba69c47e136f9761ce124",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "3bdf26cb22ba0fc2d522b8575f1165e03a962067": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK72.bin",
+        "Certificate": {
+            "serial_number": "14e848223ec61bab44311ad09433eb6b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "75ed571b4f7044d6eb75a930db667909168e85c3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK73.bin",
+        "Certificate": {
+            "serial_number": "88449e70fe6a689e4cbeb5cf5612dbc2",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8451c3540a55d15f9dacbd39f0d3dac289c72994": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK74.bin",
+        "Certificate": {
+            "serial_number": "7c1d76eba21ed5b6490a776d96d2164a",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "dd1a17b5222d470c1dfd0c86dceb559b14e5996e": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK75.bin",
+        "Certificate": {
+            "serial_number": "b670822a31343bb448c441c02979b019",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "5b67517bd1d4df7e3a633cc8a6eccff5b783a951": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK76.bin",
+        "Certificate": {
+            "serial_number": "b42063d4db2622a04e31f33c76770148",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "30172f708cd2ccfdf4674bbd7a5d5091cfb2b2b3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK77.bin",
+        "Certificate": {
+            "serial_number": "82f731f99a8f84bd4b2eb1c0419c4138",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "8cd2799930784741f0e8591f9d3b84b66a2c9237": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK78.bin",
+        "Certificate": {
+            "serial_number": "aa0884dd46ec769243a9628753aae0f5",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "115ea830167d3fa04ccafd6269c75f209881e13a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK79.bin",
+        "Certificate": {
+            "serial_number": "5d0921e627dd13ba42c6bd2440d946bd",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9d69fa827af466e44aea60d47a11ad40c88c5ef3": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK8.bin",
+        "Certificate": {
+            "serial_number": "3062921d37cb2a844c26e89f06dbc9d0",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "e7b1f925797828ccc5b407000164037d07243e40": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK80.bin",
+        "Certificate": {
+            "serial_number": "186220837dbb54894f00f758f76a8816",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "86bc7b91b048a7b42a70f45e13abb7d74a0d315a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK81.bin",
+        "Certificate": {
+            "serial_number": "6bf74060f46bcc99497f917eaea385be",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "49fd049376ad549d9ebe3665dca5639ac463c3e8": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK83.bin",
+        "Certificate": {
+            "serial_number": "1c6b8c308b2732be4a1d5abeda46a177",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "47101516814f6d558e4bcbb4c946a6d3db36d7fd": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK84.bin",
+        "Certificate": {
+            "serial_number": "c8200c3b389537ac4b86586d8e70c314",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "29b12154ef8e50674e53ccd446f5de02f20f2126": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK85.bin",
+        "Certificate": {
+            "serial_number": "e1db78f0d9409844cead7aa5bbf6132",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a897ef2390abdf47508ec0ee698e226fa8081bcc": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK86.bin",
+        "Certificate": {
+            "serial_number": "383fed8155f51ca24aadda8a4f6a4558",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "dc88b3f2a22e4047f07797c1c61a0baf19eba91b": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK87.bin",
+        "Certificate": {
+            "serial_number": "26449a28c9dfc2b9425dddcd27924a48",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ec46c96de2f2ccaec07e8536035e2d715690f579": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK88.bin",
+        "Certificate": {
+            "serial_number": "604a6c1b28c6caba46a2197547d24ab3",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "970eeaff5e3943884a58ec599a5ab4544da1f651": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK89.bin",
+        "Certificate": {
+            "serial_number": "8c45fcb91b23daa843b166686675c05c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "cbdf1d171ffc494e329f0cbe629bf6d4de0486b4": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK9.bin",
+        "Certificate": {
+            "serial_number": "126166fd737039a44959552ca84b390b",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "06f2f8d82b4e42fe4c4c509dc26c86addf456167": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK90.bin",
+        "Certificate": {
+            "serial_number": "76e5927a5b9482ab4106143c5936a393",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "13439cf8fc47c4055b6b04d25d11949cb10948be": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK91.bin",
+        "Certificate": {
+            "serial_number": "bdf0ecb2966f8a924625e171cb867cb4",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "92868174320b6e31ac725557235e8a6f496ab20a": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK92.bin",
+        "Certificate": {
+            "serial_number": "c4db67c173f3bea74ab1bb8d1ee67f06",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "0f3cb0b6b00d2a025d0e2563d9dcc5f6b86c1a8d": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK93.bin",
+        "Certificate": {
+            "serial_number": "b0ddd71576e050be4f830d6338f74f01",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "2c763c1389924ec2ef9357825f4964d4085de59c": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK94.bin",
+        "Certificate": {
+            "serial_number": "6b9b002d0eb7d88b45edbc2ca26067cb",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "1caa1691637d1ae1c8915e205e2b71d661299800": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK95.bin",
+        "Certificate": {
+            "serial_number": "e7ed068c864fe9a342e05d3b22ec750c",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "9f5ff0a640fa7f13b8526f0d78c0a9c52b9da212": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK96.bin",
+        "Certificate": {
+            "serial_number": "6184b3a49f46f0944f0099c8ee80f8ce",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "d4c6e6de3d8fb99fdd3b41eb4a94ed72faddcf9f": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK97.bin",
+        "Certificate": {
+            "serial_number": "6c23ca970ad18ca2488a9d59dc561e04",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "a04bd153dc84e12a34caff6450c000e0d4c24aa9": {
+        "KEKUpdate": "Lenovo/KEKUpdate_Lenovo_PK98.bin",
+        "Certificate": {
+            "serial_number": "a1aec5a02ff2ef93405e5dabd9d04d96",
+            "issued_to": "CN=LENOVO",
+            "issued_by": "CN=LENOVO"
+        }
+    },
+    "ebb51e6221c7b626ba6c39402d7450a1018d12eb": {
+        "KEKUpdate": "MSI/KEKUpdate_MSI_PK3.bin",
+        "Certificate": {
+            "serial_number": "ec684b5376e1e3a9415848710b13a2a6",
+            "issued_to": "CN=MSI SHIP PK",
+            "issued_by": "CN=MSI SHIP PK"
+        }
+    },
+    "33c0eeea5e92a06e26b3f3b8cc3b013d26ca314f": {
+        "KEKUpdate": "MCJ Co, Ltd/KEKUpdate_MCJ_Co,_Ltd_PK2.bin",
+        "Certificate": {
+            "serial_number": "db5fb6f674b994bc48085d791780f5fe",
+            "issued_to": "CN=MSI SHIP PK",
+            "issued_by": "CN=Root Agency"
+        }
+    },
+    "5fb475a6dbbd6eeb7145dee46c55feea1f1ad444": {
+        "KEKUpdate": "MEDION/KEKUpdate_PK2.bin",
+        "Certificate": {
+            "serial_number": "76603bec04d218b14b2b3d9ac7aee985",
+            "issued_to": "CN=MEDION Certificate",
+            "issued_by": "CN=MEDION Certificate"
+        }
+    },
+    "961021660f68e24430288803ed9c848354bb177e": {
+        "KEKUpdate": "MEDION/KEKupdate_PK3.bin",
+        "Certificate": {
+            "serial_number": "3518b5116a93db914e4643823ce5e9ea",
+            "issued_to": "CN=MEDION_AG",
+            "issued_by": "CN=MEDION_AG"
+        }
+    },
+    "2ca96734e4a5c4056f527f0016c8c65e1224ad26": {
+        "KEKUpdate": "MSI/KEKUpdate_MSI_PK1.bin",
+        "Certificate": {
+            "serial_number": "8cb17834fb1237a04c72ab6631f4143e",
+            "issued_to": "CN=MSI NB - 2013 PK",
+            "issued_by": "CN=MSI NB - 2013 PK"
+        }
+    },
+    "c82b1878468f40413fa308557b10ed78c683345a": {
+        "KEKUpdate": "MSI/KEKUpdate_MSI_PK2.bin",
+        "Certificate": {
+            "serial_number": "1dcdb29760a12aa0433d0430993c8d84",
+            "issued_to": "CN=MSI NB PK 2022",
+            "issued_by": "CN=MSI NB PK 2022"
+        }
+    },
+    "5cff8a49a6516fa15b1f02eeb1b90608cecdecfa": {
+        "KEKUpdate": "MiTAC/KEKUpdate_MiTAC_PK1.bin",
+        "Certificate": {
+            "serial_number": "45b3fbc3fa9f298b4b0dd11e683c1aad",
+            "issued_to": "CN=MiTAC Certificate",
+            "issued_by": "CN=MiTAC Certificate"
+        }
+    },
+    "10d8609df90643180acb0d4b041332a25717465b": {
+        "KEKUpdate": "MiTAC/KEKUpdate_MiTAC_PK2.bin",
+        "Certificate": {
+            "serial_number": "18bb51d31283e7a248297891ac5feccd",
+            "issued_to": "CN=MiTAC Certificate",
+            "issued_by": "CN=MiTAC Certificate"
+        }
+    },
+    "8058e8cc51749652804bbd6f39aed713d119c64b": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK1.bin",
+        "Certificate": {
+            "serial_number": "3300000020f15e25249fab75d0000000000020",
+            "issued_to": "CN=Microsoft Hyper-V Firmware PK,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Corporation Third Party Marketplace PCA,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "5677e0c5d061f1f9b22103dfe513f2a2a6413259": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK10.bin",
+        "Certificate": {
+            "serial_number": "33000000074b5ca54a5f122a3d000000000007",
+            "issued_to": "CN=Microsoft Surface LFF UEFI PK CA 2021,O=Microsoft Corporation,C=US",
+            "issued_by": "CN=Microsoft RSA Devices Root CA 2021,O=Microsoft Corporation,C=US"
+        }
+    },
+    "671e7745ce4c40b2890f67687555bd58fbb79aa9": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK11.bin",
+        "Certificate": {
+            "serial_number": "3300000004f69e567ed321c094000000000004",
+            "issued_to": "CN=Microsoft Surface NFF UEFI 2021 PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface NFF UEFI PK CA 2021,O=Microsoft Corporation,C=US"
+        }
+    },
+    "99e238668877651c7b3defcefbb44217f12351fe": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK12.bin",
+        "Certificate": {
+            "serial_number": "330000001d3fd706a8820a7c9e00000000001d",
+            "issued_to": "CN=Microsoft Surface LFF 3 UEFI PK CA 2016,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Corporation Third Party Marketplace Root,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "af75064ac6ed01c5eaf7b95eb545b47dce09887c": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK13.bin",
+        "Certificate": {
+            "serial_number": "33000000030daaa7a6a5f5ef72000000000003",
+            "issued_to": "CN=Microsoft Surface XLFF UEFI 2021 PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface XLFF UEFI PK CA 2021,O=Microsoft Corporation,C=US"
+        }
+    },
+    "b97acac0a8c1dfa6dbc85c9b776fdae5f8d58d77": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK14.bin",
+        "Certificate": {
+            "serial_number": "330000001ab955d27398f6a37500000000001a",
+            "issued_to": "CN=Microsoft Surface XLFF 2 UEFI PK CA 2016,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Corporation Third Party Marketplace Root,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "bb50ad1e16bc3ed055e25ea094f8126e8eb50369": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK15.bin",
+        "Certificate": {
+            "serial_number": "3300000003ed18f73dc11f610e000000000003",
+            "issued_to": "CN=Microsoft Surface LFF UEFI 2021 PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface LFF UEFI PK CA 2021,O=Microsoft Corporation,C=US"
+        }
+    },
+    "c0d8a5d0e7f59c513e6a51722bc42afddb796200": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK16.bin",
+        "Certificate": {
+            "serial_number": "33000000054b56d18f071bb69a000000000005",
+            "issued_to": "CN=Microsoft Surface LFF 3 UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface LFF 3 UEFI PK CA 2016,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "cca21d8378b62868de5fa6c3c02cc714e9d4c739": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK17.bin",
+        "Certificate": {
+            "serial_number": "3300000003d6ecf68b13e18f46000000000003",
+            "issued_to": "CN=Microsoft Surface AFF UEFI 2021 PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface AFF UEFI PK CA 2021,O=Microsoft Corporation,C=US"
+        }
+    },
+    "ed8e409f2358718db54c62c55ac4bee7d4511d02": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK18.bin",
+        "Certificate": {
+            "serial_number": "330000001350615e2400cec67c000000000013",
+            "issued_to": "CN=Microsoft Surface NFF UEFI PK CA 2015,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Corporation Third Party Marketplace Root,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "1b6f494b7881ff564f7f9ec7e80c064d9f948454": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK2.bin",
+        "Certificate": {
+            "serial_number": "3300000005b0d79d6a25b4bcfd000000000005",
+            "issued_to": "CN=Microsoft Surface XLFF 2 UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface XLFF 2 UEFI PK CA 2016,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "3f169742cbe8830e6f6a1c0b7008932598dd912d": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK3.bin",
+        "Certificate": {
+            "serial_number": "3300000009302d294244c1aa88000000000009",
+            "issued_to": "CN=Microsoft Surface NFF UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface NFF UEFI PK CA 2015,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "3d8660c0cb2d57b189c3d7995572a552f75e48b5": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK3d8660c0.bin",
+        "Certificate": {
+            "serial_number": "3300000014e8c838dede044ea7000000000014",
+            "issued_to": "CN=Windows OEM Devices PK,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft RSA Third Party PCA 2023,O=Microsoft Corporation,C=US"
+        }
+    },
+    "5b08e17664ccf0f114b7d9208dbb140bac4b4ec4": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK4.bin",
+        "Certificate": {
+            "serial_number": "3300000007e30d5ffb913e29fe000000000007",
+            "issued_to": "CN=Microsoft Surface NFF UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface NFF UEFI PK CA 2015,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "85ebb11e5f0e62d5e73fad3af1403d0f05f51897": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK5.bin",
+        "Certificate": {
+            "serial_number": "33000000073409b59c9726b274000000000007",
+            "issued_to": "CN=Microsoft Surface LFF 3 UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface LFF 3 UEFI PK CA 2016,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "a044d280ba35ed5c8e0756087a2a71946a0a52f0": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK6.bin",
+        "Certificate": {
+            "serial_number": "330000000621a2cf186e0ee0c0000000000006",
+            "issued_to": "CN=Microsoft Surface XLFF 2 UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface XLFF 2 UEFI PK CA 2016,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "ce2f9c35cdf1de1ddd0620a474ef374eb289821e": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK7.bin",
+        "Certificate": {
+            "serial_number": "33000000032f74d6eb1a5bea4a000000000003",
+            "issued_to": "CN=Microsoft Surface NFF UEFI 2021 PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface NFF UEFI PK CA 2021,O=Microsoft Corporation,C=US"
+        }
+    },
+    "2718162f2611b5b871123a9ebadb860a3740bac5": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK8.bin",
+        "Certificate": {
+            "serial_number": "330000000b156edb0c1862c93b00000000000b",
+            "issued_to": "CN=Microsoft Surface NFF UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface NFF UEFI PK CA 2015,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "3454ee1ae80d98bb5c2f731dd513c6c6628afb1f": {
+        "KEKUpdate": "Microsoft/KEKUpdate_Microsoft_PK9.bin",
+        "Certificate": {
+            "serial_number": "330000000ac2eb91922061dc5100000000000a",
+            "issued_to": "CN=Microsoft Surface NFF UEFI PK Signer,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US",
+            "issued_by": "CN=Microsoft Surface NFF UEFI PK CA 2015,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US"
+        }
+    },
+    "017439b429ac01514cc62311f5d5779341d57c82": {
+        "KEKUpdate": "Mouse Computer Co Ltd/KEKUpdate_Mouse_Computer_Co_Ltd_PK1.bin",
+        "Certificate": {
+            "serial_number": "2533b2fb861f1284418a149de0d93621",
+            "issued_to": "CN=BYD Certificate 2019",
+            "issued_by": "CN=BYD Certificate 2019"
+        }
+    },
+    "710131e366592696d44cf776fc35ea7112925484": {
+        "KEKUpdate": "NEC/KEKUpdate_NEC_PK1.bin",
+        "Certificate": {
+            "serial_number": "7be7a8bb8711f38c4e11f99a33d24636",
+            "issued_to": "CN=NEC Personal Computers Ltd.",
+            "issued_by": "CN=NEC Personal Computers Ltd."
+        }
+    },
+    "85606ab99633a1c0b85201af82ae1e86037b162a": {
+        "KEKUpdate": "NEC/KEKUpdate_NEC_PK2.bin",
+        "Certificate": {
+            "serial_number": "7a379136a627c5a446562e54346d8ea2",
+            "issued_to": "CN=NEC Personal Computers Ltd. PK CA 2023",
+            "issued_by": "CN=NEC Personal Computers Ltd. PK CA 2023"
+        }
+    },
+    "0e948a71b16772b478abb70ff905d917dac94309": {
+        "KEKUpdate": "NEC/KEKUpdate_NEC_PK3.bin",
+        "Certificate": {
+            "serial_number": "6f25c2afe6052fa34a2e00b92a9e2c8b",
+            "issued_to": "CN=NEC Corporation Secure Boot PK Key,OU=Infrastructure Technology Services Division,O=NEC Corporation,ST=TOKYO,C=JP",
+            "issued_by": "CN=NEC Root CA,OU=Infrastructure Technology Services Division,O=NEC Corporation,ST=TOKYO,C=JP"
+        }
+    },
+    "b09c3df05a1a75886afb9730a8f73116eecdf1bf": {
+        "KEKUpdate": "NEC/KEKUpdate_NEC_PK4.bin",
+        "Certificate": {
+            "serial_number": "61f3bb05b754d2af4974bc5cc3a1f599",
+            "issued_to": "CN=NEC Corporation Secure Boot PK Key,OU=IT Platform Division,O=NEC Corporation,ST=TOKYO,C=JP",
+            "issued_by": "CN=NEC Corporation,OU=IT Platform Division,O=NEC Corporation,ST=TOKYO,C=JP"
+        }
+    },
+    "185c53d833b03ed63a82ffdb6722a3ba3d37b211": {
+        "KEKUpdate": "NEC/KEKUpdate_NEC_PK5.bin",
+        "Certificate": {
+            "serial_number": "81a1d8852da8c982474a1da99a811fe1",
+            "issued_to": "CN=NEC Corporation.",
+            "issued_by": "CN=NEC Corporation."
+        }
+    },
+    "9ea97d56eaa9e94d913662bf6985cb11a992c271": {
+        "KEKUpdate": "NEC/KEKUpdate_NEC_PK6.bin",
+        "Certificate": {
+            "serial_number": "7f7e4f72007541a54e3d9e19c213ad7d",
+            "issued_to": "CN=PK v1 Key,C=JP,ST=TOKYO,O=NEC Corporation,OU=System Devices Division",
+            "issued_by": "CN=PK v1 Key,C=JP,ST=TOKYO,O=NEC Corporation,OU=System Devices Division"
+        }
+    },
+    "f567b2ef4988b7918f23f069d94a7a63a8682473": {
+        "KEKUpdate": "NEC/KEKUpdate_NEC_PK7.bin",
+        "Certificate": {
+            "serial_number": "1ba85539482dec8545c14e0602078e88",
+            "issued_to": "CN=PK v3 Key,C=JP,ST=TOKYO,O=NEC Corporation,OU=Infrastructure Technology Services Division",
+            "issued_by": "CN=PK v3 Key,C=JP,ST=TOKYO,O=NEC Corporation,OU=Infrastructure Technology Services Division"
+        }
+    },
+    "48e19c28f822effd9cb84a2b446455971df2f6d5": {
+        "KEKUpdate": "Panasonic/KEKUpdate_Panasonic_PK1.bin",
+        "Certificate": {
+            "serial_number": "c4a8f6dadeffbe1f",
+            "issued_to": "CN=Panasonic Corporation,OU=IT Products Business Unit\\, Business Solutions Business Group,O=Panasonic Corporation,L=Moriguchi,ST=Osaka,C=JP",
+            "issued_by": "CN=Panasonic Corporation,OU=IT Products Business Unit\\, Business Solutions Business Group,O=Panasonic Corporation,L=Moriguchi,ST=Osaka,C=JP"
+        }
+    },
+    "c2f2b9c576f99e0c6531c1ae5864bf5f38ef1183": {
+        "KEKUpdate": "Panasonic/KEKUpdate_Panasonic_PK2.bin",
+        "Certificate": {
+            "serial_number": "6deb4c68a35612b14aafcf8f4a1acf6d",
+            "issued_to": "CN=Panasonic Connect UEFI Platform Key Certificate,O=Panasonic Connect Co.\\, Ltd.,L=Chuo-ku,ST=Tokyo,C=JP",
+            "issued_by": "CN=Panasonic Connect Root Certification Authority,O=Panasonic Connect Co.\\, Ltd.,L=Chuo-ku,ST=Tokyo,C=JP"
+        }
+    },
+    "8c568945e5998124f38bc66ababdc074a0a59d10": {
+        "KEKUpdate": "Pegatron/KEKUpdate_Pegatron_PK1.bin",
+        "Certificate": {
+            "serial_number": "9ffd1e16170ed0a1",
+            "issued_to": "CN=JOPLIN",
+            "issued_by": "CN=JOPLIN"
+        }
+    },
+    "862b8fc1fba4b72f1136e0b576a2df7b6c64bbd3": {
+        "KEKUpdate": "Pegatron/KEKUpdate_Pegatron_PK2.bin",
+        "Certificate": {
+            "serial_number": "81c9ddf76f6067a5",
+            "issued_to": "CN=ZZTOP",
+            "issued_by": "CN=ZZTOP"
+        }
+    },
+    "90706ed4fb0d3aacb848175e986c5ca037d8b104": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK9.bin",
+        "Certificate": {
+            "serial_number": "88c0652a84d8b9a5434c68ef43b8decd",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK AK",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK AK"
+        }
+    },
+    "f460be12ace22a94d7107b274fcc906fbe44c8e3": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK2.bin",
+        "Certificate": {
+            "serial_number": "6d1d985f3e2d88bf4ab39e2a89b92fa0",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK BN",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK BN"
+        }
+    },
+    "c85e2a429122e4b519be5885fbbf8ab2aaf1e458": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK3.bin",
+        "Certificate": {
+            "serial_number": "46880633c4eba186460971f351f51ec0",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK ES",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK ES"
+        }
+    },
+    "5dcadc14798f304119120771884fafbf33147e26": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK4.bin",
+        "Certificate": {
+            "serial_number": "f328c2c2fb4a1bb04c9993857ba73ee6",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK ER",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK ER"
+        }
+    },
+    "c0594870426c12cef176fc95445c7a39527134d5": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK5.bin",
+        "Certificate": {
+            "serial_number": "b35bcd2640d521b14b03514215899ea9",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK HA",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK HA"
+        }
+    },
+    "4722480c21a3bd4e258caa71d382e15a88d7c0de": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK6.bin",
+        "Certificate": {
+            "serial_number": "6d82d69383ce15914b056bc3c180d90f",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK I3",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK I3"
+        }
+    },
+    "4cdb0aaf52e5a3b7b1ba0f0ede29f5de0feba5c4": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK7.bin",
+        "Certificate": {
+            "serial_number": "3037d74540645fa94efe454fe37c455c",
+            "issued_to": "CN=Positivo Informatica Secure Boot Root CA",
+            "issued_by": "CN=Positivo Informatica Secure Boot Root CA"
+        }
+    },
+    "c59350805533f6f3086cee880ee5827d88665b09": {
+        "KEKUpdate": "Positivo Tecnologia SA/KEKUpdate_Positivo_Tecnologia_SA_PK8.bin",
+        "Certificate": {
+            "serial_number": "1fb3c8cb65b4118d4f331415d4712f77",
+            "issued_to": "CN=Positivo Tecnologia SA Secure Boot PK VG",
+            "issued_by": "CN=Positivo Tecnologia SA Secure Boot PK VG"
+        }
+    },
+    "2e0dcdc4396d993318295ebd27608e5aafc2117d": {
+        "KEKUpdate": "Razer/KEKUpdate_Razer_PK1.bin",
+        "Certificate": {
+            "serial_number": "d8356ab88082a88e4817f6e3318ed886",
+            "issued_to": "CN=RAZER Certificate",
+            "issued_by": "CN=RAZER Certificate"
+        }
+    },
+    "fdfc7f3c7ef3e05776add79878216c9be0e19597": {
+        "KEKUpdate": "RedHat/KEKUpdate_RedHat_PK1.bin",
+        "Certificate": {
+            "serial_number": "fef588e8f396c0f1",
+            "issued_to": "1.2.840.113549.1.9.1=secalert@redhat.com,CN=Red Hat Secure Boot (PK/KEK key 1)",
+            "issued_by": "1.2.840.113549.1.9.1=secalert@redhat.com,CN=Red Hat Secure Boot (PK/KEK key 1)"
+        }
+    },
+    "a1bfcf363fb87908679239b2bd9cb632277eecd9": {
+        "KEKUpdate": "Samsung Mobile/KEKUpdate_Samsung_Mobile_PK7.bin",
+        "Certificate": {
+            "serial_number": "19737a3edc2c56a74c628d4842009967",
+            "issued_to": "CN=Samsung Mobile Experience WOA PK ROOT",
+            "issued_by": "CN=Samsung Mobile Experience WOA PK ROOT"
+        }
+    },
+    "a67fd2950f340d85b29644ef60dcfead8ac6967a": {
+        "KEKUpdate": "Samsung Mobile/KEKUpdate_Samsung_Mobile_PK2.bin",
+        "Certificate": {
+            "serial_number": "409b1dd51656029745ad9789765a0ac5",
+            "issued_to": "CN=SAMSUNG ELECTRONICS_PK",
+            "issued_by": "CN=SAMSUNG ELECTRONICS_Root"
+        }
+    },
+    "93577dcba3a6ddd54bfe9546683d321e8740c1a0": {
+        "KEKUpdate": "Samsung Mobile/KEKUpdate_Samsung_Mobile_PK9.bin",
+        "Certificate": {
+            "serial_number": "bacebbd2cf818ea54850188f5cd6b40a",
+            "issued_to": "CN=Samsung Mobile Production PK",
+            "issued_by": "CN=Samsung Mobile Production PK"
+        }
+    },
+    "e54305c4d2ab7123808c653220ead4316850803e": {
+        "KEKUpdate": "Samsung/KEKUpdate_Samsung_PK18.bin",
+        "Certificate": {
+            "serial_number": "237040e36a9ce4a740a98d4de4e9fe08",
+            "issued_to": "CN=Samsung Mobile Experience NC PK ROOT",
+            "issued_by": "CN=Samsung Mobile Experience NC PK ROOT"
+        }
+    },
+    "00206cd6f1df2e2e9eaf9d28d81a2aa671cb95ab": {
+        "KEKUpdate": "Supermicro/KEKUpdate_Supermicro_PK1.bin",
+        "Certificate": {
+            "serial_number": "3b98c74f9010d1a94c4383363dced485",
+            "issued_to": "CN=SUPERMICRO PK CA 2018,O=Super Micro Computer Inc.,L=San Jose,ST=CA,C=USA",
+            "issued_by": "CN=SUPERMICRO PK CA 2018,O=Super Micro Computer Inc.,L=San Jose,ST=CA,C=USA"
+        }
+    },
+    "892e6333fe1f30edeb1c93a16c9e20cc7bfacb3c": {
+        "KEKUpdate": "TONGFANG/KEKUpdate_TONGFANG_PK1.bin",
+        "Certificate": {
+            "serial_number": "912c75dd757f91be4911e412dc0dc3c0",
+            "issued_to": "CN=UNIWILL Tech UEFI Secure Boot 2019 PK",
+            "issued_by": "CN=UNIWILL Tech BIOS 2019 Root CA"
+        }
+    },
+    "d35360be5a518096786fc19df9d18b1aa59fa9da": {
+        "KEKUpdate": "TONGFANG/KEKUpdate_TONGFANG_PK2.bin",
+        "Certificate": {
+            "serial_number": "ac15cc78505dfe8e4100aae9696ef35c",
+            "issued_to": "CN=DO NOT TRUST - Test PK",
+            "issued_by": "CN=DO NOT TRUST - Test PK"
+        }
+    },
+    "81d940254998a36c8c1d1312d3b41ffdf88165d9": {
+        "KEKUpdate": "TONGFANG/KEKUpdate_TONGFANG_PK3.bin",
+        "Certificate": {
+            "serial_number": "af88bcd96170c7a84f639e6eb3ca276a",
+            "issued_to": "CN=OEM1 Test Certificate",
+            "issued_by": "CN=OEM1 Test Certificate"
+        }
+    },
+    "31c22f2a60bc83a1e361ee6959b5cdd7f4940a5e": {
+        "KEKUpdate": "TONGFANG/KEKUpdate_TONGFANG_PK31C22F2A.bin",
+        "Certificate": {
+            "serial_number": "24663bc83929aaac28419a3edca63bed893ff3d5",
+            "issued_to": "CN=AIStoneGlobal Platform Key 2024",
+            "issued_by": "CN=AIStoneGlobal Platform Key 2024"
+        }
+    },
+    "7bc94987ac5636c9249492b6600dd55ab9e7be47": {
+        "KEKUpdate": "TOSHIBA/KEKUpdate_TOSHIBA_PK7bc94987.bin",
+        "Certificate": {
+            "serial_number": "34cdb4902d5001cefea0580cfb7056b4836c6827",
+            "issued_to": "CN=Toshiba Industrial Computer,O=TOSHIBA,ST=Tokyo,C=JP",
+            "issued_by": "CN=Toshiba Industrial Computer,O=TOSHIBA,ST=Tokyo,C=JP"
+        }
+    },
+    "029d01cb5887c2e799b15ee9a360af0ec6e72622": {
+        "KEKUpdate": "Techvision/KEKUpdate_Techvision_PK1.bin",
+        "Certificate": {
+            "serial_number": "12a58a7682ed84974304e14f56889975",
+            "issued_to": "CN=Techvision Intelligent Technology Limited",
+            "issued_by": "CN=Techvision Intelligent Technology Limited"
+        }
+    },
+    "60d059444e045a0795b636aeffac566a2f294ebe": {
+        "KEKUpdate": "Twinhead/KEKUpdate_Twinhead_PK1.bin",
+        "Certificate": {
+            "serial_number": "c4e95ac9d36c132b2cb7922d2aa3053d2c60329",
+            "issued_to": "CN=Twinhead PK",
+            "issued_by": "CN=Twinhead PK"
+        }
+    },
+    "31874602b40e0bf0a3ec56f448117f464ebd325f": {
+        "KEKUpdate": "Unicompute/KEKUpdate_Unicompute_PK3.bin",
+        "Certificate": {
+            "serial_number": "bed8545820513dca",
+            "issued_to": "2.5.4.5=U90000A01,CN=UnisCompute Technology Ltd,O=UnisCompute.,L=ZhengZhou,ST=HeNan,C=CN",
+            "issued_by": "2.5.4.5=U90000A01,CN=UnisCompute Technology Ltd,O=UnisCompute.,L=ZhengZhou,ST=HeNan,C=CN"
+        }
+    },
+    "b2a64260344d3edbaa33e675b864a88b6be0444c": {
+        "KEKUpdate": "Wortmann AG/KEKUpdate_Wortmann_AG_PK1.bin",
+        "Certificate": {
+            "serial_number": "5e11f21ed7ed0c9840ab206195ab7747",
+            "issued_to": "CN=Oem Secure Boot PK 20231007",
+            "issued_by": "CN=Oem Secure Boot PK 20231007"
+        }
+    },
+    "4d902a7a7817493c92e5fbc0aaad36e049835993": {
+        "KEKUpdate": "Unicompute/KEKUpdate_Unicompute_PK4.bin",
+        "Certificate": {
+            "serial_number": "143f48d4da75e86c0080cfee3271f7cfe99851b8",
+            "issued_to": "CN=PK,OU=PG,O=VS,ST=CA,C=CN",
+            "issued_by": "CN=PK,OU=PG,O=VS,ST=CA,C=CN"
+        }
+    },
+    "1e57c71364bed37b1a4ad2020387e1376b26f1c3": {
+        "KEKUpdate": "VAIO/KEKUpdate_VAIO_PK1.bin",
+        "Certificate": {
+            "serial_number": "505ec5133b4192a5446bf6a8b0c3cfdb",
+            "issued_to": "CN=VAIO Platform Key,O=VAIO Corporation,L=Azumino-shi,ST=Nagano,C=JP",
+            "issued_by": "CN=VAIO Platform Key,O=VAIO Corporation,L=Azumino-shi,ST=Nagano,C=JP"
+        }
+    },
+    "5439db10dc3638787b4029dca206b140b06df1cd": {
+        "KEKUpdate": "Wingtech/KEKUpdate_Wingtech_PK1.bin",
+        "Certificate": {
+            "serial_number": "c54c15433ae707a444ab3aab3218adba",
+            "issued_to": "CN=WTSFlashKey",
+            "issued_by": "CN=WTSFlashKey"
+        }
+    },
+    "f3448b7388a778d7f304e9043ee86fc641307d3e": {
+        "KEKUpdate": "Wingtech/KEKUpdate_Wingtech_PK2.bin",
+        "Certificate": {
+            "serial_number": "f2de55a17fbff1b24684cf2eced6ae67",
+            "issued_to": "CN=Wingtech_G2",
+            "issued_by": "CN=Wingtech_G2"
+        }
+    },
+    "858ddd089dbb6d9ad970891c284db582f9efff42": {
+        "KEKUpdate": "XiaoMi/KEKUpdate_XiaoMi_PK1.bin",
+        "Certificate": {
+            "serial_number": "9ea9e017c834a39949118a369cccd5ec",
+            "issued_to": "CN=TimiTitanCert",
+            "issued_by": "CN=TimiTitanCert"
+        }
+    },
+    "627f9b15302866b991293bcfe87ffa77d7f94b91": {
+        "KEKUpdate": "XiaoMi/KEKUpdate_XiaoMi_PK2.bin",
+        "Certificate": {
+            "serial_number": "3327736486c271a34b1161723448c545",
+            "issued_to": "CN=TimiA7SCert",
+            "issued_by": "CN=TimiA7SCert"
+        }
+    },
+    "962b762c14271826218f4f8ccebb87aefa7b47c0": {
+        "KEKUpdate": "XiaoMi/KEKUpdate_XiaoMi_PK3.bin",
+        "Certificate": {
+            "serial_number": "e6bca469aed19c83426d0e94f3dca590",
+            "issued_to": "CN=TimiDiabloCert",
+            "issued_by": "CN=TimiDiabloCert"
+        }
+    },
+    "904c32882d630b36db44145078a4069dd4e5fd9b": {
+        "KEKUpdate": "XiaoMi/KEKUpdate_XiaoMi_PK4.bin",
+        "Certificate": {
+            "serial_number": "7803ecc79659488a43fae80048061066",
+            "issued_to": "CN=TimiRubyCert",
+            "issued_by": "CN=TimiRubyCert"
+        }
+    },
+    "853517a1e36c77f6b95ab58f0e71a397f6d13078": {
+        "KEKUpdate": "XiaoMi/KEKUpdate_XiaoMi_PK5.bin",
+        "Certificate": {
+            "serial_number": "fc9dd5972b277b14e8fbacbb1d5c313",
+            "issued_to": "CN=TimiA8Cert",
+            "issued_by": "CN=TimiA8Cert"
+        }
+    },
+    "910b2a69e9d04f8700d7a1f2e16230be4cd0bb52": {
+        "KEKUpdate": "Zebra/KEKUpdate_Zebra_PK5.bin",
+        "Certificate": {
+            "serial_number": "a44e3278bce99498",
+            "issued_to": "CN=ZEBRA Technologies",
+            "issued_by": "CN=ZEBRA Technologies"
+        }
+    }
+}

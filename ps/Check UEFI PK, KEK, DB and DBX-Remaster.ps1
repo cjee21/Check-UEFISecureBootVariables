@@ -2,6 +2,8 @@
 # License: MIT
 # Repository: https://github.com/cjee21/Check-UEFISecureBootVariables
 
+$sw = [System.Diagnostics.Stopwatch]::StartNew()
+
 # Tracking vulnerable certificate presence
 $script:vulnerableCertPresentDB = $null
 $script:vulnerableCertPresentDBDefault = $null
@@ -9,6 +11,7 @@ $script:vulnerableCertPresentDBDefault = $null
 # ANSI colors
 $reset = "$([char]0x1b)[00m"
 $white = "$([char]0x1b)[97m"
+$cyan = "$([char]0x1b)[96m"
 $yellow = "$([char]0x1b)[93m"
 $green = "$([char]0x1b)[92m"
 $red   = "$([char]0x1b)[91m"
@@ -22,16 +25,24 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 function Get-SignatureCN {
     param([string]$s)
-
     if (-not $s) { return $null }
-    ($s -split ',')[0].Trim() -replace '^CN\s*=\s*', ''
+
+    if ($s -match 'CN\s*=\s*([^,]+)') {
+        return $matches[1].Trim()
+    }
+
+    return "N/A"
 }
 
 function Get-SignatureOrg {
     param([string]$s)
-
     if (-not $s) { return $null }
-    ($s -split ',')[1].Trim() -replace '^O\s*=\s*', ''
+
+    if ($s -match 'O\s*=\s*([^,]+)') {
+        return $matches[1].Trim()
+    }
+
+    return "N/A"
 }
 
 function Get-LatestJsonBySVN {
@@ -113,7 +124,7 @@ function Get-TimeUntilExpiration {
     )
 
     # Skip for Default PK, KEK, DB. Only Current
-    if ($Key -like "*Default*") { return "" }
+    if ($Key -like "*Default") { return "" }
         
     $now = Get-Date
     $time = [math]::Floor(($validTo - $now).TotalDays)
@@ -143,18 +154,18 @@ function Show-UEFICerts {
     )
 
     # Title
-    if ($UEFI_Values[$Key]) { 
-        Write-Host "$white$Title"
-    } else {
-        Write-Host "$yellow$Title not available"
+    if ($UEFI_Report[$Key].Error) {
+        Write-Host "$yellow$Title : $($UEFI_Report[$Key].Error)" 
+        Write-Host
         return 
-    }
+    } 
+    Write-Host "$white$Title"
 
     # Lookup DBX / DBXDefault 
-    if ($Key -like "*Default*") { $reference = "DBXDefault" } else { $reference = "DBX" }
+    if ($Key -like "*Default") { $reference = "DBXDefault" } else { $reference = "DBX" }
 
     # UEFI values
-    $Values = $UEFI_Values[$Key]
+    $Values = $UEFI_Report[$Key].Values
 
     # Check against Microsoft baseline
     foreach ($entry in $Baseline) {
@@ -171,11 +182,11 @@ function Show-UEFICerts {
 
         # Verify SignatureOwner to be Microsoft
         if ($present -and (-not ($Values.SignatureOwner -eq $SignatureOwnerMicrosoft))) {
-            Write-Host $red"SignatureOwner not Microsoft, the certificate might impersonate one."
+            Write-Host $red"SignatureOwner not Microsoft, following certificate might be compromised:"
         }
 
         # Check if revoked in reference: DBX or DBXDefault
-        $revoked = $UEFI_Values[$reference] | Where-Object {
+        $revoked = $UEFI_Report[$reference].Values | Where-Object {
             $_.SignatureOwner -eq $match.SignatureOwner -and
             $_.Subject -eq $match.Subject
         }
@@ -193,23 +204,30 @@ function Show-UEFICerts {
         }
 
         # Add asterix if cert is marked vulnerable in Microsoft JSON.
-        $vulnerable = $json.certificates | Where-Object { (Get-SignatureCN $_.subjectName) -eq $name }
+        $vulnerable = [bool]($json.certificates | Where-Object {(Get-SignatureCN $_.subjectName) -eq $name})
         if ($vulnerable) {
             $name = switch ($state) {
                 "ABSENT"  { "$name$gray*$reset" } # Recommended state for vulnerable cert
                 "REVOKED" { "$name$gray*$reset" } # Recommended state for vulnerable cert
-                "PRESENT" { "$name$red*$reset"; # CAUTION state for vulnerable cert
+                "PRESENT" { "$name$red*$reset";   # CAUTION state for vulnerable cert
                     if ($reference -eq "DBX") { 
-                        $script:vulnerableCertPresentDB = $True 
+                        $script:vulnerableCertPresentDB = $True
                     } else { 
-                        $script:vulnerableCertPresentDBDefault = $True 
+                        $script:vulnerableCertPresentDBDefault = $True
                     }
-                }
-            } 
+                } 
+            }
         } else { $name = "$name$reset$reset" } # Reserve same space without revocation asterix
 
         "{0,-17} {1,-48} {2} {3}" -f 
             "$color$state$reset", $name, "[$tag]", (Get-TimeUntilExpiration $entry.ValidTo $Key)
+
+        # Only for current variables: Certificate revocation disclaimer 
+        if ($Key -notlike "*Default" -and $vulnerable -and $script:vulnerableCertPresentDB) {
+            Write-Host "$red*CAUTION: Vulnerable certificate recommended state to be ABSENT or REVOKED."
+        } elseif ($Key -notlike "*Default" -and $vulnerable) {
+            Write-Host "$gray*Vulnerable certificate in recommended state."
+        }
     }
 
     # Remaining certs, outside of Microsoft Baseline
@@ -220,7 +238,7 @@ function Show-UEFICerts {
         $tag = "$gray$(Get-SignatureOrg $entry.Subject)$reset" # Cert O
 
         # Check if revoked in reference: DBX or DBXDefault
-        $revoked = $UEFI_Values[$reference] | Where-Object {
+        $revoked = $UEFI_Report[$reference].Values | Where-Object {
             $_.SignatureOwner -eq $match.SignatureOwner -and
             $_.Subject -eq $match.Subject
         }
@@ -237,6 +255,7 @@ function Show-UEFICerts {
         "{0,-17} {1,-48} {2} {3}" -f 
             "$color$state$reset", "$name$reset$reset", "[$tag]", (Get-TimeUntilExpiration $entry.ValidTo $Key)
     }
+    Write-Host
 }
 
 function Show-UEFIDBX {
@@ -249,20 +268,20 @@ function Show-UEFIDBX {
     )
 
     # Title
-    if ($UEFI_Values[$Key]) { 
-        Write-Host "$white$Title"
-    } else {
-        Write-Host "$yellow$Title not available"
+    if ($UEFI_Report[$Key].Error) {
+        Write-Host "$yellow$Title : $($UEFI_Report[$Key].Error)" 
+        Write-Host
         return 
-    }
+    } 
+    Write-Host "$white$Title"
 
     # EFI images (All Hashes excluding SVN hashes)
-    $UEFI_DBX_EFI_SET = @{}; $UEFI_Values[$Key].Where({ $_.SignatureOwner -ne "9d132b6c-59d5-4388-ab1c-185cfcb2eb92" }) | 
+    $UEFI_DBX_EFI_SET = @{}; $UEFI_Report[$Key].Values.Where({ $_.SignatureOwner -ne "9d132b6c-59d5-4388-ab1c-185cfcb2eb92" }) | 
         ForEach-Object { if ($_.Hash) { $UEFI_DBX_EFI_SET[$_.Hash] = $True }}
     # Certificates
-    $UEFI_DBX_CERT_SET = @{}; $UEFI_Values[$Key] | ForEach-Object { if ($_.Subject) { $UEFI_DBX_CERT_SET[$_.Subject] = $True }}
+    $UEFI_DBX_CERT_SET = @{}; $UEFI_Report[$Key].Values | ForEach-Object { if ($_.Subject) { $UEFI_DBX_CERT_SET[$_.Subject] = $True }}
     # SVN hashes
-    $UEFI_DBX_SVN_SET = @{}; $UEFI_Values[$Key].Where({ $_.SignatureOwner -eq "9d132b6c-59d5-4388-ab1c-185cfcb2eb92" }) | 
+    $UEFI_DBX_SVN_SET = @{}; $UEFI_Report[$Key].Values.Where({ $_.SignatureOwner -eq "9d132b6c-59d5-4388-ab1c-185cfcb2eb92" }) | 
         ForEach-Object { if ($_.Hash) { $UEFI_DBX_SVN_SET[$_.Hash] = $True }}
     # Apps derived SVN hashes
     $UEFI_DBX_SVN_APPS = @{}; foreach ($entry in $UEFI_DBX_SVN_SET.GetEnumerator()) {
@@ -313,7 +332,7 @@ function Show-UEFIDBX {
         }
 
     } else {
-        $label = "Only applicable if vulnerable certificate present."
+        $label = "Only applicable with vulnerable certificate present."
         Write-Host "$gray$label$reset"
     }
     
@@ -354,26 +373,42 @@ function Show-UEFIDBX {
         $UEFI_DBX_CERT_SET.Count,
         $UEFI_DBX_SVN_SET.Count, 
         $UEFI_DBX_SVN_APPS.Count
+    
+    Write-Host
 }
 
-# Read Secure Boot UEFI once; 'dbt' and 'dbtDefault' not used.
-$UEFI_Keys = @("SecureBoot","SetupMode","PK","PKDefault","KEK","KEKDefault","db","dbDefault","dbx","dbxDefault")
-$UEFI_Values = @{}
+# Read Secure Boot UEFI once
+$UEFI_Keys = @("SecureBoot","SetupMode","PK","PKdefault","KEK","KEKdefault","DB","DBdefault","DBX","DBXdefault", "DBT", "DBTdefault")
+$UEFI_Report = @{}
 foreach ($Key in $UEFI_Keys) {
     try {
-        $UEFI_Values[$Key] = Get-SecureBootUEFI -Name $Key -Decoded -ErrorAction Stop
+        $decoded = Get-SecureBootUEFI -Name $Key -Decoded -ErrorAction SilentlyContinue
+        $raw = Get-SecureBootUEFI -Name $Key -ErrorAction SilentlyContinue
+        $UEFI_Report[$Key] = [pscustomobject]@{
+            Key     = $Key
+            Values  = $decoded
+            Bytes   = if ($decoded) { [int64]$raw.Bytes.Length } else { 0 }
+            Error   = $null
+        }
     }
     catch {
-        $UEFI_Values[$Key] = $null
+        $UEFI_Report[$Key] = [pscustomobject]@{
+            Key     = $Key
+            Values  = $decoded
+            Bytes   = 0
+            Error   = $_.Exception.Message
+        }
     }
 }
+
+
 
 # Print computer info
 Import-Module $PSScriptRoot\Get-SystemOverview.psm1 -Force
 Show-DeviceOverview
 Spacer
 
-# Microsoft JSON baseline from GitHub https://raw.githubusercontent.com/microsoft/secureboot_objects/refs/heads/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
+# Microsoft JSON baseline from https://raw.githubusercontent.com/microsoft/secureboot_objects/refs/heads/main/PreSignedObjects/DBX/dbx_info_msft_latest.json
 $baselineJson = Get-Content "$PSScriptRoot\..\dbx_info\dbx_info_msft_latest.json" -Raw | ConvertFrom-Json
 
 # Microsoft JSON baseline from local Windows Update rollout
@@ -391,25 +426,25 @@ $MicrosoftPK = @(
     @{ Name = "Windows OEM Devices PK"; Tag = "MS-PK"; ValidTo = "2038-09-18 22:28:26Z" }
 )
 $MicrosoftKEK = @(
-    @{ Name = "Microsoft Corporation KEK CA 2011"; Tag = "MS-KEK-2011"; ValidTo = "2026-06-24 22:51:29Z" } 
-    @{ Name = "Microsoft Corporation KEK 2K CA 2023"; Tag = "MS-KEK-2023"; ValidTo = "2038-03-02 21:31:35Z" } 
+    @{ Name = "Microsoft Corporation KEK CA 2011"; Tag = "MS-KEK-2011"; ValidTo = "2026-06-24 22:51:29Z" }
+    @{ Name = "Microsoft Corporation KEK 2K CA 2023"; Tag = "MS-KEK-2023"; ValidTo = "2038-03-02 21:31:35Z" }
 )
 $MicrosoftDB = @(
-    @{ Name = "Microsoft Windows Production PCA 2011"; Tag = "MS-Windows-2011"; ValidTo = "2026-10-19 20:51:42Z" } 
-    @{ Name = "Windows UEFI CA 2023"; Tag = "MS-Windows-2023"; ValidTo = "2035-06-13 21:08:29Z" } 
-    @{ Name = "Microsoft Option ROM UEFI CA 2023"; Tag = "MS-OptionROM-2023"; ValidTo = "2038-10-26 21:12:20Z" } 
-    @{ Name = "Microsoft Corporation UEFI CA 2011"; Tag = "MS-ThirdParty-2011"; ValidTo = "2026-06-27 23:32:45Z" } 
-    @{ Name = "Microsoft UEFI CA 2023"; Tag = "MS-ThirdParty-2023"; ValidTo = "2038-06-13 21:31:47Z" } 
+    @{ Name = "Microsoft Windows Production PCA 2011"; Tag = "MS-Windows-2011"; ValidTo = "2026-10-19 20:51:42Z" }
+    @{ Name = "Windows UEFI CA 2023"; Tag = "MS-Windows-2023"; ValidTo = "2035-06-13 21:08:29Z" }
+    @{ Name = "Microsoft Option ROM UEFI CA 2023"; Tag = "MS-OptionROM-2023"; ValidTo = "2038-10-26 21:12:20Z" }
+    @{ Name = "Microsoft Corporation UEFI CA 2011"; Tag = "MS-ThirdParty-2011"; ValidTo = "2026-06-27 23:32:45Z" }
+    @{ Name = "Microsoft UEFI CA 2023"; Tag = "MS-ThirdParty-2023"; ValidTo = "2038-06-13 21:31:47Z" }
 )
 
 # --- Secure Boot Summary ---
 # SB-SetupMode
 Write-Host "SB :" -NoNewLine
 try {
-    if ($UEFI_Values["SetupMode"].Value) { 
+    if ($UEFI_Report["SetupMode"].Values.Value) { 
         Write-Host "$yellow Setup Mode" 
     } else { 
-        Write-Host "$white User Mode" 
+        Write-Host "$reset User Mode" 
     }
 } catch {
     Write-Host "$red Unknown SetupMode status"
@@ -418,7 +453,7 @@ try {
 # SB-Enabled/Disabled
 Write-Host "SB :" -NoNewLine
 try {
-    if ($UEFI_Values["SecureBoot"].Value) { 
+    if ($UEFI_Report["SecureBoot"].Values.Value) { 
         Write-Host "$green Enabled"
     } else { 
         Write-Host "$red Disabled" 
@@ -456,26 +491,37 @@ $JSON_DBX_OPTIONAL_HASHSET = @{}; $json.images.$archJson |
     ForEach-Object { $JSON_DBX_OPTIONAL_HASHSET[$_.authenticodeHash] = $True }
 
 # Display PK, KEK, DB, DBX
-Show-UEFICerts -Title "Current PK"   -Baseline $MicrosoftPK   -Key "PK"
-Write-Host
-Show-UEFICerts -Title "Default PK"   -Baseline $MicrosoftPK   -Key "PKDefault"
-Write-Host
-Show-UEFICerts -Title "Current KEK"  -Baseline $MicrosoftKEK  -Key "KEK"
-Write-Host
-Show-UEFICerts -Title "Default KEK"  -Baseline $MicrosoftKEK  -Key "KEKDefault"
-Write-Host
-Show-UEFICerts -Title "Current DB"   -Baseline $MicrosoftDB   -Key "DB"
+Show-UEFICerts -Title "Current PK"  -Key "PK"         -Baseline $MicrosoftPK
+Show-UEFICerts -Title "Default PK"  -Key "PKDefault"  -Baseline $MicrosoftPK
+Show-UEFICerts -Title "Current KEK" -Key "KEK"        -Baseline $MicrosoftKEK
+Show-UEFICerts -Title "Default KEK" -Key "KEKDefault" -Baseline $MicrosoftKEK
+Show-UEFICerts -Title "Current DB"  -Key "DB"         -Baseline $MicrosoftDB
+Show-UEFICerts -Title "Default DB"  -Key "DBDefault"  -Baseline $MicrosoftDB
+Show-UEFIDBX   -Title "Current DBX" -Key "dbx"
+Show-UEFIDBX   -Title "Default DBX" -Key "dbxDefault"
 
-# Certificate revocation disclaimer
-if ($script:vulnerableCertPresentDB) {
-    Write-Host ("{0}*CAUTION: Vulnerable certificate recommended to be ABSENT or REVOKED." -f $red, $gray)
-} else {
-    Write-Host ("{0}*Vulnerable certificate in recommended state." -f $gray)
+# Total Bytes sizes
+Write-Host (
+    "UEFI Secure Boot variables: Total = {0} Bytes, DBX = {1} Bytes" -f `
+    ($UEFI_Report.Values | Measure-Object -Property Bytes -Sum).Sum,
+    $UEFI_Report["DBX"].Bytes
+)
+
+# Lookup 'Microsoft Corporation KEK 2K CA 2023' update package, if not yet PRESENT.
+$kek2023present = $UEFI_Report["KEK"].Values | Where-Object { (Get-SignatureCN $_.Subject) -eq "Microsoft Corporation KEK 2K CA 2023" -and $_.SignatureOwner -eq $SignatureOwnerMicrosoft }
+if (-not $kek2023present) {
+    # Microsoft KEK Update JSON from https://raw.githubusercontent.com/microsoft/secureboot_objects/refs/heads/main/PostSignedObjects/KEK/kek_update_map.json
+    $kekUpdateJson = Get-Content "$PSScriptRoot\..\dbx_info\kek_update_map.json" -Raw | ConvertFrom-Json
+    $match = $kekUpdateJson.PSObject.Properties.Value | Where-Object { $_.Certificate.serial_number -eq $UEFI_Report["PK"].Values.SerialNumber }
+    if ($match) {
+        $url = [uri]::EscapeUriString("https://github.com/microsoft/secureboot_objects/blob/main/PostSignedObjects/KEK/$($match.KEKUpdate)")
+        $label = "`nMicrosoft Corporation KEK 2K CA 2023 update file for your PK available at:"
+        Write-Host "$cyan$label`n$reset$url"
+    }
 }
 
-Write-Host
-Show-UEFICerts -Title "Default DB"   -Baseline $MicrosoftDB   -Key "DBDefault"
-Write-Host
-Show-UEFIDBX -Title "Current DBX"  -Key "dbx"
-Write-Host
-Show-UEFIDBX -Title "Default DBX"  -Key "dbxDefault"
+$sw.Stop()
+"$gray`nExecution time: {0} ms$reset" -f $sw.ElapsedMilliseconds
+
+#DEBUG Total Bytes sizes per Key. 
+#$UEFI_Report.Values | Where-Object Key -in $UEFI_Keys | Sort-Object Key | Format-Table Key, Error, Bytes -AutoSize
