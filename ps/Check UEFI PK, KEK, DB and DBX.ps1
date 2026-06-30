@@ -75,13 +75,20 @@ catch {
 }
 
 $bold = "$([char]0x1b)[1m"
+$underline = "$([char]0x1b)[4m"
+$fgGreen = "$([char]0x1b)[32m"
+$fgYellow = "$([char]0x1b)[33m"
+$fgBrRed = "$([char]0x1b)[91m"
+$fgCyan = "$([char]0x1b)[96m"
+$bgBlue = "$([char]0x1b)[44m"
+$bgWhite = "$([char]0x1b)[47m"
 $reset = "$([char]0x1b)[0m"
 $check = "$([char]0x1b)[92m$([char]8730)$reset"
 $cross =  "$([char]0x1b)[91mX$reset"
 
 Import-Module -Force "$PSScriptRoot\Get-UEFIDatabaseSignatures.psm1"
 
-Write-Host $bold'Current UEFI PK'$reset
+Write-Host $fgGreen$bgWhite======$reset $fgGreen$bold'Current UEFI PK'$reset $fgGreen$bgWhite======$reset
 try {
     $pk = Get-SecureBootUEFI -Name pk | Get-UEFIDatabaseSignatures
     $pk.SignatureList.SignatureData.Subject | ForEach-Object {
@@ -93,7 +100,7 @@ try {
 }
 
 Write-Host ""
-Write-Host $bold'Default UEFI PK'$reset
+Write-Host $fgYellow$bgWhite======$reset $fgYellow$bold'Default UEFI PK'$reset $fgYellow$bgWhite======$reset
 if ($IsArm) {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
@@ -114,21 +121,37 @@ function Is-CertThumbprintRevoked {
         [Parameter()]
         [PSCustomObject]$DBX
     )
-    $revoked = 'false'
+    $revoked = 'False'
     if ($DBX) {
         foreach ($SignatureList in $DBX) {
             if ($SignatureList.SignatureType -eq 'EFI_CERT_X509_GUID') {
                 foreach ($Signature in $SignatureList.SignatureList) {
                     if ($Signature.SignatureData.Thumbprint -eq $CertThumbprint) {
-                        $revoked = 'true'
+                        $revoked = 'True'
                     }
                 }
             }
         }
     } else {
-        $revoked = 'unknown'
+        $revoked = 'Unknown'
     }
-    $revoked
+
+    # Define inline ANSI colors and words for PowerShell 5.1 & 7.6+
+    $esc = [char]0x1b
+    switch ($revoked) {
+        'True' { 
+            # Green color (92m)
+            return "${esc}[92mTrue${esc}[0m" 
+        }
+        'False' { 
+            # Cyan color (96m)
+            return "${esc}[96mFalse${esc}[0m" 
+        }
+        'Unknown' { 
+            # Yellow color (93m)
+            return "${esc}[93mUnknown${esc}[0m" 
+        }
+    }
 }
 
 function Show-UEFICertIsPresent {
@@ -154,9 +177,9 @@ function Show-UEFICertIsPresent {
     }
     $revoked = Is-CertThumbprintRevoked -CertThumbprint $CertThumbprint -DBX $DBX
     if ($found) {
-        Write-Host "$check $CertName (revoked: $revoked)"
+        Write-Host "$check $CertName (Revoked: $revoked)"
     } else {
-        Write-Host "$cross $CertName (revoked: $revoked)"
+        Write-Host "$cross $CertName (Revoked: $revoked)"
     }
 }
 
@@ -178,7 +201,7 @@ function Show-UEFICertOthers {
                 if ([string]::IsNullOrWhiteSpace($common_name)) {
                     $common_name = $Signature.SignatureData.Thumbprint # Show Thumbprint if cert has no CN
                 }
-                $cert_names[$Signature.SignatureData.Thumbprint] = $common_name + " (revoked: $revoked)"
+                $cert_names[$Signature.SignatureData.Thumbprint] = $common_name + " (Revoked: $revoked)"
             }
         }
         elseif ($SignatureList.SignatureType -eq 'EFI_CERT_SHA256_GUID') {
@@ -207,7 +230,7 @@ $KEKCerts = [ordered]@{
 }
 
 Write-Host ""
-Write-Host $bold'Current UEFI KEK'$reset
+Write-Host $fgGreen$bgWhite======$reset $fgGreen$bold'Current UEFI KEK'$reset $fgGreen$bgWhite======$reset
 try {
     $kek = Get-SecureBootUEFI kek -ErrorAction Stop | Get-UEFIDatabaseSignatures -ErrorAction Stop
     foreach ($Cert in $KEKCerts.GetEnumerator()) {
@@ -219,7 +242,7 @@ try {
 }
 
 Write-Host ""
-Write-Host $bold'Default UEFI KEK'$reset
+Write-Host $fgYellow$bgWhite======$reset $fgYellow$bold'Default UEFI KEK'$reset $fgYellow$bgWhite======$reset
 if ($IsArm) {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
@@ -242,7 +265,7 @@ $DBCerts = [ordered]@{
 }
 
 Write-Host ""
-Write-Host $bold'Current UEFI DB'$reset
+Write-Host $fgGreen$bgWhite======$reset $fgGreen$bold'Current UEFI DB'$reset $fgGreen$bgWhite======$reset
 try {
     $db = Get-SecureBootUEFI db -ErrorAction Stop | Get-UEFIDatabaseSignatures -ErrorAction Stop
     foreach ($Cert in $DBCerts.GetEnumerator()) {
@@ -254,7 +277,7 @@ try {
 }
 
 Write-Host ""
-Write-Host $bold'Default UEFI DB'$reset
+Write-Host $fgYellow$bgWhite======$reset $fgYellow$bold'Default UEFI DB'$reset $fgYellow$bgWhite======$reset
 if ($IsArm) {
     Write-Warning "Some ARM-based Windows devices can't retrieve default UEFI variables."
 }
@@ -269,7 +292,7 @@ try {
 }
 
 Write-Host ""
-Write-Host $bold'Current UEFI DBX'$reset
+Write-Host $fgBrRed$bgBlue======$reset $fgBrRed$bold'Current UEFI DBX'$reset $fgBrRed$bgBlue======$reset
 
 try {
     $dbx_raw = Get-SecureBootUEFI dbx -ErrorAction Stop
