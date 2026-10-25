@@ -497,6 +497,7 @@
                 "flatHash": "3D23947C39680B9FCF22B092B97C9D38EDCC02F7AD13D3A925D1EE0B62797E73",
                 "filename": "grubx64.efi",
                 "description": "CVE-2020-10713; CVE-2020-14308; CVE-2020-14309; CVE-2020-14310; CVE-2020-14311; CVE-2020-15705; CVE-2020-15706; CVE-2020-15707",
+                "isOptional": "true",
                 "companyName": "Canonical",
                 "dateOfAddition": "2020-07-01",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
@@ -507,6 +508,7 @@
                 "flatHash": "0AC2943ABF5EF953B939247B74331FB2C437E405A81DD5569D9CFF1D6183D53A",
                 "filename": "gcdx64.efi",
                 "description": "CVE-2020-10713; CVE-2020-14308; CVE-2020-14309; CVE-2020-14310; CVE-2020-14311; CVE-2020-15705; CVE-2020-15706; CVE-2020-15707",
+                "isOptional": "true",
                 "companyName": "Canonical",
                 "dateOfAddition": "2020-07-01",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
@@ -517,6 +519,7 @@
                 "flatHash": "8E8ADDB29426D845A0101C2C1F26C2E7FE8C78128AB04F16CFCB4E06461B0101",
                 "filename": "grubnetx64.efi",
                 "description": "CVE-2020-10713; CVE-2020-14308; CVE-2020-14309; CVE-2020-14310; CVE-2020-14311; CVE-2020-15705; CVE-2020-15706; CVE-2020-15707",
+                "isOptional": "true",
                 "companyName": "Canonical",
                 "dateOfAddition": "2020-07-01",
                 "signingAuthority": "CN = Microsoft Corporation UEFI CA 2011"
@@ -7074,12 +7077,12 @@
     ],
 	"svns": [
         {
-            "value": "01612B139DD5598843AB1C185C3CB2EB92000009000000000000000000000000",
-            "version": "9.0",
+            "value": "01612B139DD5598843AB1C185C3CB2EB9200000C000000000000000000000000",
+            "version": "12.0",
             "filename": "bootmgfw.efi",
             "guid": "{9d132b61-59d5-4388-ab1c-185c3cb2eb92} == EFI_BOOTMGR_DBXSVN_GUID",
             "description": "Windows Bootmgr SVN CVE-2026-45654",
-            "dateOfLastChange": "2026-05-21"
+            "dateOfLastChange": "2026-09-10"
         },
         {
             "value": "019D2EF8E827E15841A4884C18ABE2F284000003000000000000000000000000",
